@@ -1,0 +1,7 @@
+com\epitech\pictsmanager\PictsmanagerApplication.class
+com\epitech\pictsmanager\repositories\AuthRepository.class
+com\epitech\pictsmanager\controllers\AuthController.class
+com\epitech\pictsmanager\form\AuthForm.class
+com\epitech\pictsmanager\dtos\AuthDto.class
+com\epitech\pictsmanager\service\AuthService.class
+com\epitech\pictsmanager\entity\AuthEntity.class

@@ -1,9 +1,4 @@
-FROM openjdk:11-jre-slim
-
-WORKDIR /app
-
-COPY target/votre-application.jar /app/app.jar
-
-EXPOSE 8080
-
-CMD ["java", "-jar", "/app/app.jar"]
+FROM openjdk:17-oracle
+COPY target/*.jar pictsmanagerapp.jar
+EXPOSE 8089
+ENTRYPOINT [ "java","-jar","pictsmanagerapp.jar" ]
