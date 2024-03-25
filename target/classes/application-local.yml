@@ -1,0 +1,11 @@
+datasource:
+  postgres:
+    schema: public
+    database: postgres
+    host: localhost
+    port: 5432
+    username: postgres
+    password: jeandb2002
+
+frontend:
+  url: http://localhost:4200/

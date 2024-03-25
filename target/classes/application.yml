@@ -1,0 +1,54 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.epitech.pictsmanager: INFO
+    org.hibernate: INFO
+    org.springframework.security: INFO
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    tryItOutEnabled: true
+  default-support-form-data: true # login formlogin endpoint
+  show-oauth2-endpoints: true
+
+spring:
+  # definir local comme profile par default pour les devs
+  profiles:
+    default: local
+  # Decommenter pour initialiser la base
+  #sql.init.mode: always
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jpa:
+    open-in-view: 'false'
+    properties:
+      hibernate:
+        default_schema: ${datasource.postgres.schema}
+        hbm2ddl:
+          auto: validate
+
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: 'true'
+  # Postgre datasource
+  datasource:
+    url: jdbc:postgresql://${datasource.postgres.host}:${datasource.postgres.port}/${datasource.postgres.database}?currentSchema=${datasource.postgres.schema}
+    username: ${datasource.postgres.username}
+    password: ${datasource.postgres.password}
+    hikari:
+      connectionTimeout: '1000'
+    driverClassName: org.postgresql.Driver
+  # Database versioning
+
+
+  cloud:
+    azure:
+      active-directory:
+        enabled: true
+        credential:
+          client-id: ${azuread.client.id}
+        app-id-uri: ${azuread.app.id.uri}

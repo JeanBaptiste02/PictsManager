@@ -1,0 +1,19 @@
+pour dockeriser la base de données :
+
+docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=jeandb2002 -d postgre
+
+docker run -p 5050:80 -e "PGADMIN_DEFAULT_EMAIL=jean-baptiste.damodarane@epitech.eu" -e "PGADMIN_DEFAULT_PASSWORD=jeandb2002" -d dpage/pgadmin4
+
+aller sur http://localhost:5050/
+
+sur PGadmin 4 :
+général : Host name/adress : local
+Connection : host.docker.internal
+	     username : postgres
+ 	     password : jeandb2002
+
+pour dockeriser le backend :
+
+docker build -t pictsmanagerapp .
+
+docker run -p 8080:8080 pictsmanagerapp:latest

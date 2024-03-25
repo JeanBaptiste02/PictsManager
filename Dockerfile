@@ -1,5 +1,9 @@
-FROM openjdk:17-oracle
+FROM openjdk:17
 COPY target/*.jar pictsmanagerapp.jar
-COPY src/main/resources/db/changelog/sql/001_create_model_pictsmanager.sql /scripts/001_create_model_pictsmanager.sql
-EXPOSE 8089
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=10s --timeout=3s \
+    CMD curl -v --fail http://localhost:8080/version || exit 1
+
 ENTRYPOINT [ "java","-jar","pictsmanagerapp.jar" ]
