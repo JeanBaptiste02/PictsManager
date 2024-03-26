@@ -1,6 +1,6 @@
 pour dockeriser la base de données :
 
-docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=jeandb2002 -d postgre
+docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=jeandb2002 -d postgres
 
 docker run -p 5050:80 -e "PGADMIN_DEFAULT_EMAIL=jean-baptiste.damodarane@epitech.eu" -e "PGADMIN_DEFAULT_PASSWORD=jeandb2002" -d dpage/pgadmin4
 

@@ -10,11 +10,10 @@ import org.springframework.context.annotation.PropertySource;
 @EnableCaching
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @ConfigurationProperties
-@PropertySource("Classpath:maven.properties")
+@PropertySource("classpath:application.properties")
 public class PictsmanagerApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Hello world");
 		SpringApplication.run(PictsmanagerApplication.class, args);
 	}
 
