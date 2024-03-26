@@ -1,9 +1,10 @@
-CREATE TABLE IF NOT EXISTS public."Users" (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    nom VARCHAR(255)[] NOT NULL,
-    email VARCHAR(255)[] NOT NULL,
-    password VARCHAR(255)[] NOT NULL
+    nom VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
+
 
 CREATE TABLE IF NOT EXISTS public."Albums" (
     id SERIAL PRIMARY KEY,
