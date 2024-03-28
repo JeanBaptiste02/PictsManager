@@ -15,6 +15,9 @@ CREATE TABLE IF NOT EXISTS albums (
 CREATE TABLE IF NOT EXISTS photos (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    path VARCHAR(255) NOT NULL,
+    description TEXT,
+    date TIMESTAMP NOT NULL,
     album_id INTEGER NOT NULL,
     owner_id INTEGER NOT NULL,
     CONSTRAINT fk_album_id_photos FOREIGN KEY (album_id) REFERENCES albums (id),
