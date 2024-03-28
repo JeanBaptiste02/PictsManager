@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/sql/001_create_model_pictsmanager.sql
+  - include:
+      file: db/changelog/sql/001_insert_datas_pictsmanager.sql
