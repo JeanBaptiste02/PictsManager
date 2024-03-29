@@ -1,4 +1,31 @@
 package com.epitech.pictsmanager.dtos;
 
+import com.epitech.pictsmanager.entity.Photo;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PhotoDTO {
+
+    private String name;
+    private String path;
+    private String description;
+    private LocalDateTime date;
+    private Long album_id;
+    private Long owner_id;
+
+    public PhotoDTO(final Photo photo){
+        name = photo.getName();
+        path = photo.getPath();
+        description = photo.getDescription();
+        date = photo.getDate();
+        album_id = getAlbum_id();
+        owner_id = getOwner_id();
+    }
+
 }
