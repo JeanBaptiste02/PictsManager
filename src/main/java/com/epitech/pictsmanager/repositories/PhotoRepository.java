@@ -11,6 +11,8 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     void deletePhotoById(Long id);
 
-    Boolean existsPhotoBy(Long id);
+    Boolean existsPhotoById(Long id);
+
+    Boolean findPhotoByPath(String path);
 
 }
