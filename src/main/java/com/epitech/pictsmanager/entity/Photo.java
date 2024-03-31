@@ -27,6 +27,10 @@ public class Photo implements Serializable {
     @Column(name = "owner_id")
     private Long owner_id;
 
+    public Photo() {
+
+    }
+
     public Photo(String name, String path, String description, LocalDateTime date, Long album_id, Long owner_id){
         this.name = name;
         this.path = path;
