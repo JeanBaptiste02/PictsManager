@@ -20,9 +20,7 @@ public class PhotoService {
 
     public Boolean savePhoto(PhotoDTO photoDTO, String path){
         try{
-            if(photoRepository.findPhotoByPath(path) == null){
-                throw new RuntimeException("La photo n'existe pas");
-            }else if(photoRepository.findPhotoByPath(path) != null){
+            if(photoRepository.findPhotoByPath(path) != null){
                 throw new RuntimeException("La photo existe deja");
             }
             if(photoDTO.getName() == null || photoDTO.getName().isEmpty()){
@@ -32,5 +30,6 @@ public class PhotoService {
         }catch(Exception e){
             throw new RuntimeException("Erreur lors du sauvegarde de la photo");
         }
+        return null;
     }
 }
