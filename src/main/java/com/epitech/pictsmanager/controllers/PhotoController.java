@@ -1,11 +1,11 @@
 package com.epitech.pictsmanager.controllers;
 
+import com.epitech.pictsmanager.dtos.PhotoDTO;
 import com.epitech.pictsmanager.entity.Photo;
+import com.epitech.pictsmanager.form.PhotoForm;
 import com.epitech.pictsmanager.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +19,16 @@ public class PhotoController {
     @GetMapping("getPhotos")
     public List<Photo> getPhotos(){
         return photoService.getPhotos();
+    }
+
+    @PostMapping("addPhoto")
+    public Photo savePhoto(@RequestBody PhotoForm photoForm){
+        PhotoDTO photoDTO = new PhotoDTO();
+        photoDTO.setName(photoForm.getName());
+        photoDTO.setPath(photoForm.getPath());
+        photoDTO.setDescription(photoForm.getDescription());
+        photoDTO.setDate(photoForm.getDate());
+
+        return photoService.save(photoDTO, photoForm.getPath());
     }
 }

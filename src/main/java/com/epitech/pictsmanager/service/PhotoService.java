@@ -18,7 +18,7 @@ public class PhotoService {
         return photoRepository.findAll();
     }
 
-    public Boolean savePhoto(PhotoDTO photoDTO, String path){
+    public Photo save(PhotoDTO photoDTO, String path){
         try{
             if(photoRepository.findPhotoByPath(path) != null){
                 throw new RuntimeException("La photo existe deja");
@@ -28,9 +28,8 @@ public class PhotoService {
             }
 
             Photo photo = mapToPhotoEntity(photoDTO);
-            photoRepository.save(photo);
-            return true;
-            
+            return photoRepository.save(photo);
+
         }catch(Exception e){
             throw new RuntimeException("Erreur lors du sauvegarde de la photo");
         }
