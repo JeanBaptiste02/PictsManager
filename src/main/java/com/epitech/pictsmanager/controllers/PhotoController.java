@@ -28,6 +28,8 @@ public class PhotoController {
         photoDTO.setPath(photoForm.getPath());
         photoDTO.setDescription(photoForm.getDescription());
         photoDTO.setDate(photoForm.getDate());
+        photoDTO.setAlbum_id(photoForm.getAlbum_id());
+        photoDTO.setOwner_id(photoForm.getOwner_id());
 
         return photoService.save(photoDTO, photoForm.getPath());
     }

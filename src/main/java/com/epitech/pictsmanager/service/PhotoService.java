@@ -38,10 +38,13 @@ public class PhotoService {
 
     private Photo mapToPhotoEntity(PhotoDTO photoDTO){
         Photo photoEntity = new Photo();
+        photoEntity.setId(photoDTO.getId());
         photoEntity.setName(photoDTO.getName());
         photoEntity.setPath(photoDTO.getPath());
         photoEntity.setDescription(photoDTO.getDescription());
         photoEntity.setDate(photoDTO.getDate());
+        photoEntity.setAlbum_id(photoDTO.getAlbum_id());
+        photoEntity.setOwner_id(photoDTO.getOwner_id());
 
         return photoEntity;
     }

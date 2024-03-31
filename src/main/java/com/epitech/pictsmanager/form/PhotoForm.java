@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PhotoForm {
+    @JsonProperty("id")
+    private String id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("path")

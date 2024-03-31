@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PhotoDTO {
 
+    private Long id;
     private String name;
     private String path;
     private String description;
@@ -20,6 +21,7 @@ public class PhotoDTO {
     private Long owner_id;
 
     public PhotoDTO(final Photo photo){
+        id = photo.getId();
         name = photo.getName();
         path = photo.getPath();
         description = photo.getDescription();
