@@ -27,9 +27,23 @@ public class PhotoService {
                 throw new RuntimeException("Le nom de l'image est vide");
             }
 
+            Photo photo = mapToPhotoEntity(photoDTO);
+            photoRepository.save(photo);
+            return true;
+            
         }catch(Exception e){
             throw new RuntimeException("Erreur lors du sauvegarde de la photo");
         }
-        return null;
+
+    }
+
+    private Photo mapToPhotoEntity(PhotoDTO photoDTO){
+        Photo photoEntity = new Photo();
+        photoEntity.setName(photoDTO.getName());
+        photoEntity.setPath(photoDTO.getPath());
+        photoEntity.setDescription(photoDTO.getDescription());
+        photoEntity.setDate(photoDTO.getDate());
+
+        return photoEntity;
     }
 }
