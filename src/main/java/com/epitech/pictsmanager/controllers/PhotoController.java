@@ -6,7 +6,9 @@ import com.epitech.pictsmanager.form.PhotoForm;
 import com.epitech.pictsmanager.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,15 +24,9 @@ public class PhotoController {
     }
 
     @PostMapping("addPhoto")
-    public Photo savePhoto(@RequestBody PhotoForm photoForm){
-        PhotoDTO photoDTO = new PhotoDTO();
-        photoDTO.setName(photoForm.getName());
-        photoDTO.setPath(photoForm.getPath());
-        photoDTO.setDescription(photoForm.getDescription());
-        photoDTO.setDate(photoForm.getDate());
-        photoDTO.setAlbum_id(photoForm.getAlbum_id());
-        photoDTO.setOwner_id(photoForm.getOwner_id());
-
-        return photoService.save(photoDTO, photoForm.getPath());
+    public Object savePhoto(@RequestParam("id") String id,
+                       @RequestParam("image") MultipartFile image,
+                       @RequestParam("description") String description) throws IOException, IOException {
+        return photoService.upload(id, image, description);
     }
 }

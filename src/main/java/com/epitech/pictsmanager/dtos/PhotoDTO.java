@@ -1,10 +1,13 @@
 package com.epitech.pictsmanager.dtos;
 
 import com.epitech.pictsmanager.entity.Photo;
+import com.epitech.pictsmanager.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,7 +21,8 @@ public class PhotoDTO {
     private String description;
     private LocalDateTime date;
     private Long album_id;
-    private Long owner_id;
+    private User owner_id;
+    private Blob image;
 
     public PhotoDTO(final Photo photo){
         id = photo.getId();
@@ -28,6 +32,7 @@ public class PhotoDTO {
         date = photo.getDate();
         album_id = getAlbum_id();
         owner_id = getOwner_id();
+        image =getImage();
     }
 
 }

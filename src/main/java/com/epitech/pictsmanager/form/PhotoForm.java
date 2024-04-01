@@ -1,11 +1,14 @@
 package com.epitech.pictsmanager.form;
 
+import com.epitech.pictsmanager.entity.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Builder
@@ -14,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PhotoForm {
     @JsonProperty("id")
-    private String id;
+    private Long id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("path")
@@ -26,5 +29,7 @@ public class PhotoForm {
     @JsonProperty("album_id")
     private Long album_id;
     @JsonProperty("owner_id")
-    private Long owner_id;
+    private User owner_id;
+    @JsonProperty("data")
+    private Blob image;
 }
