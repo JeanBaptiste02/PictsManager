@@ -30,25 +30,23 @@ public class Photo implements Serializable {
     @Column(name = "album_id")
     private Long album_id;
 
-    @Column(name = "owner_id")
-    private User owner_id;
 
-    @Lob
-    @Column(name = "image")
-    private Blob image;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
     public Photo() {
 
     }
 
-    public Photo(String name, String path, String description, LocalDateTime date, Long album_id, User owner_id, Blob image){
+    public Photo(String name, String path, String description, LocalDateTime date, Long album_id, User owner){
         this.name = name;
         this.path = path;
         this.description = description;
         this.date = date;
         this.album_id = album_id;
-        this.owner_id = owner_id;
-        this.image = image;
+        this.owner = owner;
     }
 
     // getters and setters
@@ -101,21 +99,11 @@ public class Photo implements Serializable {
         this.album_id = album_id;
     }
 
-    public User getOwner_id() {
-        return owner_id;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setOwner_id(User owner_id) {
-        this.owner_id = owner_id;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
-
-    public Blob getImage() {
-        return image;
-    }
-
-    public void setImage(Blob image) {
-        this.image = image;
-    }
-
-
 }

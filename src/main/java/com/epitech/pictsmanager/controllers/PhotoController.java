@@ -22,11 +22,4 @@ public class PhotoController {
     public List<Photo> getPhotos(){
         return photoService.getPhotos();
     }
-
-    @PostMapping("addPhoto")
-    public Object savePhoto(@RequestParam("id") String id,
-                       @RequestParam("image") MultipartFile image,
-                       @RequestParam("description") String description) throws IOException, IOException {
-        return photoService.upload(id, image, description);
-    }
 }
