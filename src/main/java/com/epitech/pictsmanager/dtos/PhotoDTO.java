@@ -22,6 +22,7 @@ public class PhotoDTO {
     private LocalDateTime date;
     private Long album_id;
     private User owner_id;
+    private byte[] image;
 
     public PhotoDTO(final Photo photo){
         id = photo.getId();
@@ -31,6 +32,7 @@ public class PhotoDTO {
         date = photo.getDate();
         album_id = getAlbum_id();
         owner_id = getOwner_id();
+        image = getImage();
     }
 
 }

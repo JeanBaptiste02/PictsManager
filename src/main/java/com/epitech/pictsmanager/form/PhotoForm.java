@@ -30,4 +30,6 @@ public class PhotoForm {
     private Long album_id;
     @JsonProperty("owner_id")
     private User owner_id;
+    @JsonProperty("image")
+    private byte[] image;
 }
