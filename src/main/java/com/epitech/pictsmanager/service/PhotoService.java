@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,21 +44,27 @@ public class PhotoService {
         return userRepository.findById(userId).orElse(null);
     }
 
-    /////////////
+   
 
-    @Transactional
-    public void savePhoto(MultipartFile file, String name, String path, String description, LocalDateTime date, Long album_id, User owner) throws IOException {
-        byte[] imageData = file.getBytes();
-        Photo photo = new Photo(name, path, description, date, album_id, owner, imageData);
+    public void savePhoto(Photo photo) {
         photoRepository.save(photo);
     }
 
-    public byte[] getPhotoImage(Long photoId) {
-        Photo photo = photoRepository.findById(photoId).orElse(null);
-        if (photo != null) {
-            return photo.getImage();
-        }
-        return null;
+
+
+    public List<String> getPhotoPathsByUserId(long userId) {
+        return photoRepository.findPhotoPathsByOwner_id(userId);
     }
+
+
+    public byte[] combineImages(List<String> photoPaths) throws IOException {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    for (String path : photoPaths) {
+        byte[] imageBytes = Files.readAllBytes(Paths.get(path));
+        baos.write(imageBytes);
+    }
+    return baos.toByteArray();
+}
+   
 
 }

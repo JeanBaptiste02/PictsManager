@@ -1,3 +1,4 @@
+
 INSERT INTO users (nom, email, password) VALUES
                                                       ('Ganesh', 'john@example.com', 'password123'),
                                                       ('Ramesh', 'alice@example.com', 'securepass'),
