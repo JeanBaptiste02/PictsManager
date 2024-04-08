@@ -12,11 +12,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
+import javax.imageio.stream.ImageOutputStream;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -61,5 +67,27 @@ public class PhotoService {
         return baos.toByteArray();
     }
 
+    public String compressAndSaveImage(MultipartFile file, String albumIdDirPath, String fileName) throws IOException {
+        File compressedFile = new File(albumIdDirPath, "compressed_" + fileName); //nouveau nom du fichier compressé
+        BufferedImage image = ImageIO.read(file.getInputStream()); //lit l'image
+
+        ImageWriteParam param = new JPEGImageWriteParam(null); // img qualité
+        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        param.setCompressionQuality(0.2f); // qualité de 0.0 à 1.0
+
+        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next(); // ImageWriter au format jpg
+
+        // flux de sorti img compressé
+        try (OutputStream os = new FileOutputStream(compressedFile)) {
+            ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+            writer.setOutput(ios);
+            // making the image
+            writer.write(null, new IIOImage(image, null, null), param);
+            //flux end
+            ios.close();
+            writer.dispose();
+        }
+        return compressedFile.getName();
+    }
 
 }

@@ -59,7 +59,7 @@ public class PhotoController {
             }
 
             String fileName = file.getOriginalFilename();
-            String compressedFileName = compressAndSaveImage(file, albumIdDirPath, fileName);
+            String compressedFileName = photoService.compressAndSaveImage(file, albumIdDirPath, fileName);
 
             String filePath = Paths.get(albumIdDirPath, compressedFileName).toString();
 
@@ -73,28 +73,7 @@ public class PhotoController {
         }
     }
 
-    private String compressAndSaveImage(MultipartFile file, String albumIdDirPath, String fileName) throws IOException {
-        File compressedFile = new File(albumIdDirPath, "compressed_" + fileName); //nouveau nom du fichier compressé
-        BufferedImage image = ImageIO.read(file.getInputStream()); //lit l'image
 
-        ImageWriteParam param = new JPEGImageWriteParam(null); // img qualité
-        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        param.setCompressionQuality(0.2f); // qualité de 0.0 à 1.0
-
-        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next(); // ImageWriter au format jpg
-
-        // flux de sorti img compressé
-        try (OutputStream os = new FileOutputStream(compressedFile)) {
-            ImageOutputStream ios = ImageIO.createImageOutputStream(os);
-            writer.setOutput(ios);
-            // making the image
-            writer.write(null, new IIOImage(image, null, null), param);
-            //flux end
-            ios.close();
-            writer.dispose();
-        }
-        return compressedFile.getName();
-    }
 
     private static String getString(Long albumId, User ownerId, String currentDirectory) {
         String photoDirPath = currentDirectory + File.separator + "photosData";
