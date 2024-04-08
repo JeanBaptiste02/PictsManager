@@ -34,23 +34,19 @@ public class Photo implements Serializable {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "image", columnDefinition = "bytea")
-    private byte[] image;
 
     public Photo() {
 
     }
 
-    public Photo(String name, String path, String description, LocalDateTime date, Long album_id, User owner, byte[] image){
+    public Photo(String name, String path, String description, LocalDateTime date, Long album_id, User owner){
         this.name = name;
         this.path = path;
         this.description = description;
         this.date = date;
         this.album_id = album_id;
         this.owner = owner;
-        this.image = image;
+
     }
 
     // getters and setters
@@ -111,11 +107,4 @@ public class Photo implements Serializable {
         this.owner = owner;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 }
