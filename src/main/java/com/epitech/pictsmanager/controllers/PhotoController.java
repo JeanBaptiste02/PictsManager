@@ -9,7 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.io.File;
@@ -50,11 +59,11 @@ public class PhotoController {
             }
 
             String fileName = file.getOriginalFilename();
-            Path filePath = Paths.get(albumIdDirPath, fileName);
-            file.transferTo(filePath.toFile());
+            String compressedFileName = compressAndSaveImage(file, albumIdDirPath, fileName);
 
+            String filePath = Paths.get(albumIdDirPath, compressedFileName).toString();
 
-            Photo photo = new Photo(fileName, filePath.toString(), description, date, albumId, ownerId);
+            Photo photo = new Photo(compressedFileName, filePath, description, date, albumId, ownerId);
             photoService.savePhoto(photo);
 
             return ResponseEntity.ok().body("Photo uploaded successfully");
@@ -62,6 +71,29 @@ public class PhotoController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload photo");
         }
+    }
+
+    private String compressAndSaveImage(MultipartFile file, String albumIdDirPath, String fileName) throws IOException {
+        File compressedFile = new File(albumIdDirPath, "compressed_" + fileName); //nouveau nom du fichier compressé
+        BufferedImage image = ImageIO.read(file.getInputStream()); //lit l'image
+
+        ImageWriteParam param = new JPEGImageWriteParam(null); // img qualité
+        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        param.setCompressionQuality(0.2f); // qualité de 0.0 à 1.0
+
+        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next(); // ImageWriter au format jpg
+
+        // flux de sorti img compressé
+        try (OutputStream os = new FileOutputStream(compressedFile)) {
+            ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+            writer.setOutput(ios);
+            // making the image
+            writer.write(null, new IIOImage(image, null, null), param);
+            //flux end
+            ios.close();
+            writer.dispose();
+        }
+        return compressedFile.getName();
     }
 
     private static String getString(Long albumId, User ownerId, String currentDirectory) {
@@ -80,6 +112,5 @@ public class PhotoController {
         String albumIdDirPath = ownerIdDirPath + File.separator + albumId;
         return albumIdDirPath;
     }
-
 
 }
