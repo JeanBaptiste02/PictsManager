@@ -43,20 +43,7 @@ public class PhotoController {
         try {
             LocalDateTime date = LocalDateTime.now();
             String currentDirectory = System.getProperty("user.dir");
-
-            String photoDirPath = currentDirectory + File.separator + "photosData";
-            File photoDir = new File(photoDirPath);
-            if (!photoDir.exists()) {
-                photoDir.mkdirs();
-            }
-
-            String ownerIdDirPath = photoDirPath + File.separator + ownerId.getNom();
-            File ownerIdDir = new File(ownerIdDirPath);
-            if (!ownerIdDir.exists()) {
-                ownerIdDir.mkdirs();
-            }
-
-            String albumIdDirPath = ownerIdDirPath + File.separator + albumId;
+            String albumIdDirPath = getString(albumId, ownerId, currentDirectory);
             File albumIdDir = new File(albumIdDirPath);
             if (!albumIdDir.exists()) {
                 albumIdDir.mkdirs();
@@ -75,6 +62,23 @@ public class PhotoController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload photo");
         }
+    }
+
+    private static String getString(Long albumId, User ownerId, String currentDirectory) {
+        String photoDirPath = currentDirectory + File.separator + "photosData";
+        File photoDir = new File(photoDirPath);
+        if (!photoDir.exists()) {
+            photoDir.mkdirs();
+        }
+
+        String ownerIdDirPath = photoDirPath + File.separator + ownerId.getNom();
+        File ownerIdDir = new File(ownerIdDirPath);
+        if (!ownerIdDir.exists()) {
+            ownerIdDir.mkdirs();
+        }
+
+        String albumIdDirPath = ownerIdDirPath + File.separator + albumId;
+        return albumIdDirPath;
     }
 
 
