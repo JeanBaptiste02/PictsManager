@@ -1,7 +1,14 @@
-C:\Users\vikne\eclipse-workspace3\pictsmanager\src\main\java\com\epitech\pictsmanager\form\AuthForm.java
-C:\Users\vikne\eclipse-workspace3\pictsmanager\src\main\java\com\epitech\pictsmanager\PictsmanagerApplication.java
-C:\Users\vikne\eclipse-workspace3\pictsmanager\src\main\java\com\epitech\pictsmanager\repositories\AuthRepository.java
-C:\Users\vikne\eclipse-workspace3\pictsmanager\src\main\java\com\epitech\pictsmanager\controllers\AuthController.java
-C:\Users\vikne\eclipse-workspace3\pictsmanager\src\main\java\com\epitech\pictsmanager\service\AuthService.java
-C:\Users\vikne\eclipse-workspace3\pictsmanager\src\main\java\com\epitech\pictsmanager\dtos\AuthDto.java
-C:\Users\vikne\eclipse-workspace3\pictsmanager\src\main\java\com\epitech\pictsmanager\entity\AuthEntity.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/repositories/UserRepository.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/form/PhotoForm.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/service/PhotoService.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/controllers/PhotoController.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/entity/Photo.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/dtos/PhotoDTO.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/PictsmanagerApplication.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/controllers/UserController.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/entity/User.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/Responses/GenericResponse.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/service/UserService.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/dtos/UserDTO.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/form/UserForm.java
+/home/kam/Bureau/Nouveau dossier 4/PictsManager/src/main/java/com/epitech/pictsmanager/repositories/PhotoRepository.java
