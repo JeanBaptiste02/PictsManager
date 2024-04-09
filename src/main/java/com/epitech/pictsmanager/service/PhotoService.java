@@ -45,26 +45,14 @@ public class PhotoService {
     }
 
    
-
     public void savePhoto(Photo photo) {
         photoRepository.save(photo);
     }
 
 
-
-    public List<String> getPhotoPathsByUserId(long userId) {
-        return photoRepository.findPhotoPathsByOwner_id(userId);
+    public List<Photo> getPhotosByUserId(Long userId) {
+        return photoRepository.findByOwner_Id(userId);
     }
-
-
-    public byte[] combineImages(List<String> photoPaths) throws IOException {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    for (String path : photoPaths) {
-        byte[] imageBytes = Files.readAllBytes(Paths.get(path));
-        baos.write(imageBytes);
-    }
-    return baos.toByteArray();
-}
    
 
 }

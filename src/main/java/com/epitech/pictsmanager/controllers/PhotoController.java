@@ -31,37 +31,13 @@ public class PhotoController {
     @Autowired
     PhotoService photoService;
 
-    @GetMapping("/getPhotos")
-    public List<Photo> getPhotos(){
-        return photoService.getPhotos();
+  
+
+
+    @GetMapping("/getphotos/{userId}")
+    public List<Photo> getPhotosByUserId(@PathVariable Long userId) {
+        return photoService.getPhotosByUserId(userId);
     }
-
-
-//     @GetMapping("/getPhotos/{userId}")
-// public ResponseEntity<byte[]> getPhotosByUserId(@PathVariable Long userId) {
-//     List<String> photoPaths = photoService.getPhotoPathsByUserId(userId);
-//     if (photoPaths.isEmpty()) {
-//         return ResponseEntity.noContent().build(); // Si l'utilisateur n'a aucune photo
-//     } else {
-//         // Charger les images à partir des chemins d'accès et les renvoyer dans la réponse HTTP
-//         try {
-//             byte[] combinedImageBytes = photoService.combineImages(photoPaths);
-//             HttpHeaders headers = new HttpHeaders();
-//             headers.setContentType(MediaType.IMAGE_JPEG);
-//             headers.setContentLength(combinedImageBytes.length);
-//             return new ResponseEntity<>(combinedImageBytes, headers, HttpStatus.OK);
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // En cas d'erreur lors du chargement des images
-//         }
-//     }
-// }
-
-
-@GetMapping("/photos/user/{userId}")
-public List<String> getPhotosByUserId(@PathVariable Long userId) {
-    return photoService.getPhotoPathsByUserId(userId);
-}
 
 
 
