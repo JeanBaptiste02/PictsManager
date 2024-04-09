@@ -37,7 +37,11 @@ public class PhotoController {
     @Autowired
     PhotoService photoService;
 
-  
+    @GetMapping("/user/{userId}/album/{albumId}")
+    public ResponseEntity<List<Photo>> getPhotosByAlbumId(@PathVariable Long userId, @PathVariable Long albumId){
+        List<Photo> photosList = photoService.getPhotosByUserIdAndAlbumId(userId, albumId);
+        return ResponseEntity.ok(photosList);
+    }
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file,
@@ -46,43 +50,33 @@ public class PhotoController {
                                               @RequestParam("albumId") Long albumId,
                                               @RequestParam("ownerId") User ownerId) {
         try {
-            
-            
-            
-
 
             LocalDateTime date = LocalDateTime.now();
-            // Récupérer le répertoire courant
             String currentDirectory = System.getProperty("user.dir");
 
-            // Créer le répertoire pour les photos dans le répertoire courant s'il n'existe pas
             String photoDirPath = currentDirectory + File.separator + "photosData";
             File photoDir = new File(photoDirPath);
             if (!photoDir.exists()) {
                 photoDir.mkdirs();
             }
 
-            // Créer le répertoire pour ownerId s'il n'existe pas
             String ownerIdDirPath = photoDirPath + File.separator + ownerId.getNom();
             File ownerIdDir = new File(ownerIdDirPath);
             if (!ownerIdDir.exists()) {
                 ownerIdDir.mkdirs();
             }
 
-            // Créer le répertoire pour albumId s'il n'existe pas
             String albumIdDirPath = ownerIdDirPath + File.separator + albumId;
             File albumIdDir = new File(albumIdDirPath);
             if (!albumIdDir.exists()) {
                 albumIdDir.mkdirs();
             }
 
-            // Enregistrer le fichier de photo dans le répertoire
             String fileName = file.getOriginalFilename();
             Path filePath = Paths.get(albumIdDirPath, fileName);
             file.transferTo(filePath.toFile());
 
 
-            // Insérer les détails de la photo dans la base de données
             Photo photo = new Photo(fileName, filePath.toString(), description, date, albumId, ownerId);
             photoService.savePhoto(photo);
 
@@ -92,8 +86,6 @@ public class PhotoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload photo");
         }
     }
-
-
 
     private static String getString(Long albumId, User ownerId, String currentDirectory) {
         String photoDirPath = currentDirectory + File.separator + "photosData";

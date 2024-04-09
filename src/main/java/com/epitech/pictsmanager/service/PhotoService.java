@@ -46,6 +46,11 @@ public class PhotoService {
         return photoRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public List<Photo> getPhotosByUserIdAndAlbumId(Long ownerId, Long albumId){
+        return photoRepository.findByOwner_IdAndAlbum_Id(ownerId, albumId);
+    }
+
     public User findUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }

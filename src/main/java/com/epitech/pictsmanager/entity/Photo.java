@@ -34,7 +34,6 @@ public class Photo implements Serializable {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-
     public Photo() {
 
     }
