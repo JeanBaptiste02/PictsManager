@@ -39,15 +39,6 @@ public class PhotoController {
 
   
 
-
-    @GetMapping("/getphotos/{userId}")
-    public List<Photo> getPhotosByUserId(@PathVariable Long userId) {
-        return photoService.getPhotosByUserId(userId);
-    }
-
-
-
-
     @PostMapping("/upload")
     public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file,
                                               @RequestParam("name") String name,
