@@ -1,6 +1,5 @@
 package com.epitech.pictsmanager.controllers;
 
-
 import com.epitech.pictsmanager.dtos.LoginRequest;
 import com.epitech.pictsmanager.dtos.LoginResponse;
 import com.epitech.pictsmanager.service.jwt.UserServiceImp;
