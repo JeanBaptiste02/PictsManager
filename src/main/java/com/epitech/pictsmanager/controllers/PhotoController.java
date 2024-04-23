@@ -4,6 +4,7 @@ import com.epitech.pictsmanager.entity.Photo;
 import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class PhotoController {
 
     @Autowired
     PhotoService photoService;
-
+    @Cacheable(cacheNames = "photos")
     @GetMapping("/user/{userId}/album/{albumId}")
     public ResponseEntity<List<Photo>> getPhotosByAlbumId(@PathVariable Long userId, @PathVariable Long albumId){
         List<Photo> photosList = photoService.getPhotosByUserIdAndAlbumId(userId, albumId);
