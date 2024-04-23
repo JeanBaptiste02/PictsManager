@@ -43,6 +43,12 @@ public class PhotoController {
         return ResponseEntity.ok(photosList);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Photo>> getPhotosByUserId(@PathVariable Long userId){
+        List<Photo> photoListByUser = photoService.getPhotosByUserId(userId);
+        return ResponseEntity.ok(photoListByUser);
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file,
                                               @RequestParam("name") String name,

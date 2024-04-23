@@ -51,6 +51,11 @@ public class PhotoService {
         return photoRepository.findByOwner_IdAndAlbum_Id(ownerId, albumId);
     }
 
+    @Transactional(readOnly = true)
+    public List<Photo> getPhotosByUserId(Long userId){
+        return photoRepository.findByOwnerId_Id(userId);
+    }
+
     public User findUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
@@ -73,14 +78,14 @@ public class PhotoService {
     }
 
     public String compressAndSaveImage(MultipartFile file, String albumIdDirPath, String fileName) throws IOException {
-        File compressedFile = new File(albumIdDirPath, "compressed_" + fileName); //nouveau nom du fichier compressé
-        BufferedImage image = ImageIO.read(file.getInputStream()); //lit l'image
+        File compressedFile = new File(albumIdDirPath, "compressed_" + fileName); // new compressed file name
+        BufferedImage image = ImageIO.read(file.getInputStream()); // reading the image
 
-        ImageWriteParam param = new JPEGImageWriteParam(null); // img qualité
+        ImageWriteParam param = new JPEGImageWriteParam(null); // img quality
         param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        param.setCompressionQuality(0.2f); // qualité de 0.0 à 1.0
+        param.setCompressionQuality(0.2f); // quality from 0.0 to 1.0
 
-        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next(); // ImageWriter au format jpg
+        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next(); // ImageWriter in jpg format
 
         // flux de sorti img compressé
         try (OutputStream os = new FileOutputStream(compressedFile)) {
