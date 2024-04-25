@@ -7,16 +7,12 @@ import com.epitech.pictsmanager.repositories.PhotoRepository;
 import com.epitech.pictsmanager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -25,9 +21,6 @@ import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageOutputStream;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import java.sql.Blob;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service

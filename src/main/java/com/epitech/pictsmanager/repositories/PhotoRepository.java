@@ -3,7 +3,6 @@ package com.epitech.pictsmanager.repositories;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.epitech.pictsmanager.entity.Photo;
-import com.epitech.pictsmanager.entity.User;
 
 import java.util.List;
 
