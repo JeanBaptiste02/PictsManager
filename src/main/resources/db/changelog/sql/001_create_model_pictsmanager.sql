@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS photos (
     date TIMESTAMP NOT NULL,
     album_id INTEGER NOT NULL,
     owner_id INTEGER NOT NULL,
-    visibility VARCHAR(10) NOT NULL DEFAULT 'private',
+    visibility BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT fk_album_id_photos FOREIGN KEY (album_id) REFERENCES albums (id),
     CONSTRAINT fk_owner_id_photos FOREIGN KEY (owner_id) REFERENCES users (id)
 );
