@@ -93,4 +93,8 @@ public class PhotoService {
         return compressedFile.getName();
     }
 
+    public List<Photo> getPhotosByUserIdAndVisibility(Long userId, boolean visibility) {
+        return photoRepository.findByOwnerIdAndVisibility(userId, visibility);
+    }
+
 }

@@ -28,4 +28,6 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
     @Query("SELECT p FROM Photo p WHERE p.owner.id = :ownerId AND p.album_id = :albumId")
     List<Photo> findByOwner_IdAndAlbum_Id(Long ownerId, Long albumId);
 
+    List<Photo> findByOwnerIdAndVisibility(Long userId, boolean visibility);
+
 }

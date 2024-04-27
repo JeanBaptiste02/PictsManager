@@ -34,8 +34,8 @@ public class Photo implements Serializable {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @Column
-    private
+    @Column(name = "visibility")
+    private Boolean visibility;
 
     public Photo() {
 
@@ -107,6 +107,14 @@ public class Photo implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Boolean getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Boolean visibility) {
+        this.visibility = visibility;
     }
 
 }

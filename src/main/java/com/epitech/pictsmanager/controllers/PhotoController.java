@@ -24,6 +24,7 @@ public class PhotoController {
 
     @Autowired
     PhotoService photoService;
+
     @Cacheable(cacheNames = "photos")
     @GetMapping("/user/{userId}/album/{albumId}")
     public ResponseEntity<List<Photo>> getPhotosByAlbumId(@PathVariable Long userId, @PathVariable Long albumId){
@@ -35,6 +36,12 @@ public class PhotoController {
     public ResponseEntity<List<Photo>> getPhotosByUserId(@PathVariable Long userId){
         List<Photo> photoListByUser = photoService.getPhotosByUserId(userId);
         return ResponseEntity.ok(photoListByUser);
+    }
+
+    @GetMapping("/user/{userId}/visibility/{visibility}")
+    public ResponseEntity<List<Photo>> getPhotosByUserIdAndVisibility(@PathVariable Long userId, @PathVariable boolean visibility) {
+        List<Photo> photos = photoService.getPhotosByUserIdAndVisibility(userId, visibility);
+        return ResponseEntity.ok(photos);
     }
 
     @PostMapping("/upload")

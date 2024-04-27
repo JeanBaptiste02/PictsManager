@@ -14,7 +14,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
-         @Autowired
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("getusers")
