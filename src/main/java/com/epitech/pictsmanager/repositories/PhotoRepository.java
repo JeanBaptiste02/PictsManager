@@ -30,4 +30,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     List<Photo> findByOwnerIdAndVisibility(Long userId, boolean visibility);
 
+    @Query("SELECT p FROM Photo p WHERE p.visibility = true")
+    List<Photo> findAllPublicPhotos();
+
 }

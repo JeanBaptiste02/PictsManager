@@ -97,4 +97,8 @@ public class PhotoService {
         return photoRepository.findByOwnerIdAndVisibility(userId, visibility);
     }
 
+    public List<Photo> getAllPublicPhotos() {
+        return photoRepository.findAllPublicPhotos();
+    }
+
 }

@@ -44,6 +44,12 @@ public class PhotoController {
         return ResponseEntity.ok(photos);
     }
 
+    @GetMapping("/public/photos")
+    public ResponseEntity<List<Photo>> getAllPublicPhotos() {
+        List<Photo> publicPhotos = photoService.getAllPublicPhotos();
+        return ResponseEntity.ok(publicPhotos);
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file,
                                               @RequestParam("name") String name,
