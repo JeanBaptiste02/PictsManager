@@ -1,5 +1,6 @@
-# Ignore HTML files
+# Ignore HTML, CSS files
 *.html linguist-vendored
+*.css linguist-vendored
 
 # Recognize Java files
 *.java linguist-language=Java
