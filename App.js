@@ -15,11 +15,11 @@ export default function App() {
     <ImageProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
+          {/*<Stack.Screen
             name="HomeTabs"
             component={AppNavigator}
             options={{ headerShown: false }}
-          />
+  />*/}
           <Stack.Screen
             name="Login"
             component={Login}

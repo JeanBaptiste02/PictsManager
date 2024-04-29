@@ -1,112 +1,117 @@
 import React, { useState } from "react";
+import axios from "axios";
 import {
+  Alert,
   StyleSheet,
   SafeAreaView,
+  ScrollView,
   View,
-  Image,
   Text,
+  Image,
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
+
+const baseUrl = "http://10.0.2.2:8080";
 
 export default function Signup({ navigation }) {
   const [form, setForm] = useState({
+    nom: "",
     email: "",
     password: "",
   });
 
-  const handleSignUp = () => {
-    // Check if email and password are provided
-    if (!form.email || !form.password) {
-      Alert.alert("Error", "Please provide both email and password");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignUp = async () => {
+    if (!form.nom.trim() || !form.email.trim() || !form.password.trim()) {
+      Alert.alert("Error", "Please provide name, email, and password");
       return;
     }
 
-    // Make API call
-    fetch("YOUR_API_ENDPOINT_HERE", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Handle successful response
-        console.log("Response:", data);
-        // Navigate to the next screen or perform any other actions
-      })
-      .catch((error) => {
-        // Handle error
-        console.error("Error:", error);
-        Alert.alert("Error", "Failed to sign up. Please try again.");
+    console.log("Form Data:", form);
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(`${baseUrl}/api/users/adduser`, {
+        nom: form.nom,
+        email: form.email,
+        password: form.password,
       });
+
+      if (response.status === 201) {
+        Alert.alert(
+          "Success",
+          `You have created: ${JSON.stringify(response.data)}`
+        );
+        setIsLoading(false);
+        setForm({ nom: "", email: "", password: "" });
+        //navigation.navigate("Home");
+      } else {
+        throw new Error("An error has occurred");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Alert.alert("Error", "An error has occurred. Please try again.");
+      setIsLoading(false);
+    }
   };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
-      <View style={styles.container}>
-        <KeyboardAwareScrollView>
-          <View style={styles.header}>
-            <Image
-              alt="App Logo"
-              resizeMode="contain"
-              style={styles.headerImg}
-              source={require("../image/Google-Photos-300x300-removebg-preview.png")}
-            />
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.header}>
+          <Image
+            alt="App Logo"
+            resizeMode="contain"
+            style={styles.headerImg}
+            source={require("../image/Google-Photos-300x300-removebg-preview.png")}
+          />
+          <Text style={styles.title}>
+            Sign up to <Text style={{ color: "orange" }}>Gallery</Text>
+          </Text>
+        </View>
 
-            <Text style={styles.title}>
-              Sign up to <Text style={{ color: "orange" }}>Gallery</Text>
-            </Text>
-          </View>
+        <View style={styles.input}>
+          <TextInput
+            placeholder="Your Name"
+            placeholderTextColor="#ffffff"
+            style={styles.inputControl}
+            value={form.nom}
+            onChangeText={(nom) => setForm({ ...form, nom })}
+          />
+        </View>
 
-          <View style={styles.form}>
-            <View style={styles.input}>
-              <Text style={styles.inputLabel}>Email address</Text>
+        <View style={styles.input}>
+          <TextInput
+            placeholder="Email address"
+            placeholderTextColor="#ffffff"
+            style={styles.inputControl}
+            keyboardType="email-address"
+            value={form.email}
+            onChangeText={(email) => setForm({ ...form, email })}
+          />
+        </View>
 
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-                onChangeText={(email) => setForm({ ...form, email })}
-                placeholderTextColor="#6b7280"
-                style={styles.inputControl}
-                value={form.email}
-              />
+        <View style={styles.input}>
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor="#ffffff"
+            style={styles.inputControl}
+            secureTextEntry={true}
+            value={form.password}
+            onChangeText={(password) => setForm({ ...form, password })}
+          />
+        </View>
+
+        <View style={styles.formAction}>
+          <TouchableOpacity onPress={handleSignUp}>
+            <View style={styles.btn}>
+              <Text style={styles.btnText}>Sign up</Text>
             </View>
-
-            <View style={styles.input}>
-              <Text style={styles.inputLabel}>Password</Text>
-
-              <TextInput
-                autoCorrect={false}
-                onChangeText={(password) => setForm({ ...form, password })}
-                placeholderTextColor="#6b7280"
-                style={styles.inputControl}
-                secureTextEntry={true}
-                value={form.password}
-              />
-            </View>
-
-            <View style={styles.formAction}>
-              <TouchableOpacity
-                onPress={() => {
-                  // handle onPress
-                }}
-              >
-                <View style={styles.btn}>
-                  <Text style={styles.btnText}>Sign up</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </KeyboardAwareScrollView>
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity
           onPress={() => {
@@ -121,7 +126,7 @@ export default function Signup({ navigation }) {
             </Text>
           </Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
