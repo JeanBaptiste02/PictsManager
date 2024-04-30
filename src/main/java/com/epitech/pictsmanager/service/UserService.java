@@ -28,4 +28,8 @@ public class UserService {
     public User saveUser(User user){
         return userRepository.save(user);
     }
+
+    public Boolean isEmailAlreadyExists(String email){
+        return userRepository.findByEmail(email).isPresent();
+    }
 }

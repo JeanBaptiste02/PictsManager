@@ -25,7 +25,7 @@ public class UserController {
         return userService.getUsers();
     }
 
-        @GetMapping("{id}")
+    @GetMapping("{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){
         User user = userService.getUserById(id);
         if(user == null){
@@ -50,8 +50,13 @@ public class UserController {
     }
 
     @PostMapping("adduser")
-    public User saveUser(@RequestBody User user){
+    public ResponseEntity<?> saveUser(@RequestBody User user){
+        if(userService.isEmailAlreadyExists(user.getEmail())){
+            return ResponseEntity.badRequest().body("This email already exists");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.saveUser(user);
+        userService.saveUser(user);
+
+        return ResponseEntity.ok("User has been added");
     }
 }

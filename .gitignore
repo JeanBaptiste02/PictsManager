@@ -38,3 +38,5 @@ out/
 .vscode/
 node_modules
 android
+
+application.properties
