@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from "axios";
 import {
+  Alert,
   StyleSheet,
   SafeAreaView,
   View,
@@ -7,16 +9,54 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-} from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 
-export default function Login({ navigation}) {
+const baseUrl = "http://10.0.2.2:8080";
+
+export default function Login({ navigation }) {
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async () => {
+    if (!form.email.trim() || !form.password.trim()) {
+      Alert.alert("Error", "Please provide email and password");
+      return;
+    }
+    console.log(form.email);
+    console.log(form.password);
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(`${baseUrl}/api/login`, {
+        email: form.email,
+        password: form.password,
+      });
+
+      if (response.status === 200) {
+        Alert.alert("Success", "You have successfully logged in");
+        setIsLoading(false);
+        setForm({ email: "", password: "" });
+        // navigation.navigate("Home");
+      } else {
+        throw new Error("Unexpected response status: " + response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      if (error.response && error.response.status === 401) {
+        Alert.alert("Error", "Invalid email or password");
+      } else {
+        Alert.alert("Error", "An error has occurred. Please try again.");
+      }
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
       <View style={styles.container}>
         <KeyboardAwareScrollView>
           <View style={styles.header}>
@@ -24,66 +64,66 @@ export default function Login({ navigation}) {
               alt="App Logo"
               resizeMode="contain"
               style={styles.headerImg}
-              source={require('../image/Google-Photos-300x300-removebg-preview.png')} 
-              />
+              source={require("../image/Google-Photos-300x300-removebg-preview.png")}
+            />
 
             <Text style={styles.title}>
-              Sign in to <Text style={{ color: 'orange' }}>Gallery</Text>
+              Sign in to <Text style={{ color: "orange" }}>Gallery</Text>
             </Text>
           </View>
 
           <View style={styles.form}>
             <View style={styles.input}>
-              <Text style={styles.inputLabel}>Email address</Text>
-
               <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-                onChangeText={email => setForm({ ...form, email })}
-                placeholderTextColor="white"
+                placeholder="Email address"
+                placeholderTextColor="#ffffff"
                 style={styles.inputControl}
-                value={form.email} />
+                keyboardType="email-address"
+                value={form.email}
+                onChangeText={(email) => setForm({ ...form, email })}
+              />
             </View>
 
             <View style={styles.input}>
-              <Text style={styles.inputLabel}>Password</Text>
-
               <TextInput
-                autoCorrect={false}
-                onChangeText={password => setForm({ ...form, password })}
-                placeholderTextColor="#6b7280"
+                placeholder="Password"
+                placeholderTextColor="#ffffff"
                 style={styles.inputControl}
                 secureTextEntry={true}
-                value={form.password} />
+                value={form.password}
+                onChangeText={(password) => setForm({ ...form, password })}
+              />
             </View>
-
             <View style={styles.formAction}>
-              <TouchableOpacity
-                onPress={() => {
-                  // handle onPress
-                }}>
+              <TouchableOpacity onPress={handleLogin}>
                 <View style={styles.btn}>
-                  <Text style={styles.btnText}>Sign in</Text>
+                  <Text style={styles.btnText}>Sign up</Text>
                 </View>
               </TouchableOpacity>
             </View>
-           <TouchableOpacity onPress={() => { navigation.navigate('ForgotPassword'); }}>
-            <Text style={styles.formLink}>Forgot password?</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("ForgotPassword");
+              }}
+            >
+              <Text style={styles.formLink}>Forgot password?</Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
 
-         <TouchableOpacity
+        <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Signup');
+            navigation.navigate("Signup");
           }}
-          style={{ marginTop: 'auto' }}>
+          style={{ marginTop: "auto" }}
+        >
           <Text style={styles.formFooter}>
-            Don't have an account?{' '}
-            <Text style={{ textDecorationLine: 'underline' ,color :'orange'}}>Sign up</Text>
+            Don't have an account?{" "}
+            <Text style={{ textDecorationLine: "underline", color: "orange" }}>
+              Sign up
+            </Text>
           </Text>
-        </TouchableOpacity> 
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -99,25 +139,25 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 31,
-    fontWeight: '700',
-    color: 'white',
+    fontWeight: "700",
+    color: "white",
     marginBottom: 6,
   },
   subtitle: {
     fontSize: 15,
-    fontWeight: '500',
-    color: '#929292',
+    fontWeight: "500",
+    color: "#929292",
   },
   /** Header */
   header: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 36,
   },
   headerImg: {
     width: 100,
     height: 100,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 36,
   },
   /** Form */
@@ -134,16 +174,16 @@ const styles = StyleSheet.create({
   },
   formLink: {
     fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
-    textAlign: 'center',
+    fontWeight: "600",
+    color: "white",
+    textAlign: "center",
   },
   formFooter: {
     marginBottom: 70,
     fontSize: 15,
-    fontWeight: '600',
-    color: 'white',
-    textAlign: 'center',
+    fontWeight: "600",
+    color: "white",
+    textAlign: "center",
     letterSpacing: 0.15,
   },
   /** Input */
@@ -152,38 +192,38 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 17,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: "600",
+    color: "white",
     marginBottom: 8,
   },
   inputControl: {
     height: 50,
-    backgroundColor: 'black',
+    backgroundColor: "black",
     paddingHorizontal: 16,
     borderRadius: 12,
     fontSize: 15,
-    fontWeight: '500',
-    color: 'white',
+    fontWeight: "500",
+    color: "white",
     borderWidth: 1,
-    borderColor: '#C9D3DB',
-    borderStyle: 'solid',
+    borderColor: "#C9D3DB",
+    borderStyle: "solid",
   },
   /** Button */
   btn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 30,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderWidth: 1,
-    backgroundColor: 'orange',
-    borderColor: 'orange',
+    backgroundColor: "orange",
+    borderColor: "orange",
   },
   btnText: {
     fontSize: 18,
     lineHeight: 26,
-    fontWeight: '600',
-    color: 'black',
+    fontWeight: "600",
+    color: "black",
   },
 });

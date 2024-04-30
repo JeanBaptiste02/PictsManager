@@ -40,7 +40,7 @@ export default function Signup({ navigation }) {
         password: form.password,
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         Alert.alert(
           "Success",
           `You have created: ${JSON.stringify(response.data)}`
