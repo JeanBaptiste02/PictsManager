@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/login","/api/users/adduser","/api/photo/user/{userId}").permitAll() // Permit access to /login endpoint
+                .antMatchers("/api/login","/api/users/adduser","/api/photo/user/{userId}", "/api/users/getusers", "/api/users/{id}", "/api/users/update/user/{id}").permitAll() // Permit access to /login endpoint
                 .anyRequest().authenticated() // Require authentication for any other request
                 .and()
                 .sessionManagement()
