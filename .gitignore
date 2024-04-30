@@ -39,4 +39,4 @@ out/
 node_modules
 android
 
-application.properties
+**/src/main/resources/application.properties
