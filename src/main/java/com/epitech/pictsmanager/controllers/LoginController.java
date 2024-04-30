@@ -2,6 +2,7 @@ package com.epitech.pictsmanager.controllers;
 
 import com.epitech.pictsmanager.dtos.LoginRequest;
 import com.epitech.pictsmanager.dtos.LoginResponse;
+import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.jwt.UserServiceImp;
 import com.epitech.pictsmanager.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,10 @@ public class LoginController {
         }catch (UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+
+
+        User user ;
+
 
         String jwt = jwtUtil.generateToken(userDetails.getUsername());
         LoginResponse loginResponse = new LoginResponse(jwt);
