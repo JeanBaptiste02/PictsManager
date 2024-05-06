@@ -63,7 +63,6 @@ public class UserController {
         }
     }
 
-
     @PostMapping("adduser")
     public ResponseEntity<?> saveUser(@RequestBody User user){
         if(userService.isEmailAlreadyExists(user.getEmail())){
@@ -74,10 +73,6 @@ public class UserController {
 
         return ResponseEntity.ok("User has been added");
     }
-
-
-
-
 
     private String extractTokenFromRequest(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
