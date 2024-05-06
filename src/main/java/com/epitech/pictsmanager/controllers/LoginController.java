@@ -3,6 +3,7 @@ package com.epitech.pictsmanager.controllers;
 import com.epitech.pictsmanager.dtos.LoginRequest;
 import com.epitech.pictsmanager.dtos.LoginResponse;
 import com.epitech.pictsmanager.entity.User;
+import com.epitech.pictsmanager.service.UserService;
 import com.epitech.pictsmanager.service.jwt.UserServiceImp;
 import com.epitech.pictsmanager.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,14 @@ public class LoginController {
     private final AuthenticationManager authenticationManager;
     private final UserServiceImp userServiceImp;
     private final JwtUtil jwtUtil;
+    private final UserService userService;
 
 @Autowired
-    public LoginController(AuthenticationManager authenticationManager, UserServiceImp userServiceImp, JwtUtil jwtUtil) {
+    public LoginController(AuthenticationManager authenticationManager, UserServiceImp userServiceImp, JwtUtil jwtUtil, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userServiceImp = userServiceImp;
         this.jwtUtil = jwtUtil;
+        this.userService = userService;
 }
 @PostMapping("/login")
     public ResponseEntity<LoginResponse>  login(@RequestBody LoginRequest loginRequest) {
@@ -49,10 +52,10 @@ public class LoginController {
         }
 
 
-        User user ;
+        User user = userService.getUserByEmail(loginRequest.getEmail()) ;
 
 
-        String jwt = jwtUtil.generateToken(userDetails.getUsername());
+        String jwt = jwtUtil.generateToken(user);
         LoginResponse loginResponse = new LoginResponse(jwt);
         return ResponseEntity.ok(loginResponse);
     }

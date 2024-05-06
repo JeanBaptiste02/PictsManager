@@ -5,6 +5,7 @@ import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.UserService;
 import com.epitech.pictsmanager.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +35,8 @@ public class UserController {
     public ResponseEntity<User> getUserById(HttpServletRequest request) {
         String token = extractTokenFromRequest(request);
         if (token != null) {
-            String userId = jwtUtil.extractUsername(token);
-            User user = userService.getUserByEmail(userId);
+            //String username = jwtUtil.extractUsername(token);
+            User user = userService.getUserById(jwtUtil.extractUser(token).getId());
             if (user != null) {
                 return ResponseEntity.ok(user);
             }
@@ -43,19 +44,25 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("update/user/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
-        User existing_user = userService.getUserById(id);
-        if(existing_user == null){
-            return ResponseEntity.noContent().build();
-        }else{
-            existing_user.setNom(userDTO.getNom());
-            existing_user.setEmail(userDTO.getEmail());
-            existing_user.setPassword(userDTO.getPassword());
-            saveUser(existing_user);
-            return ResponseEntity.ok(existing_user);
+    @PutMapping("update/user")
+    public ResponseEntity<?> updateUser(@RequestBody User user, HttpServletRequest request) {
+        String token = extractTokenFromRequest(request);
+        if (token != null) {
+            User existingUser = userService.getUserById(jwtUtil.extractUser(token).getId());
+            if (existingUser != null) {
+                existingUser.setNom(user.getNom());
+                existingUser.setEmail(user.getEmail());
+                existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+                userService.updateUser(existingUser);
+                return ResponseEntity.ok(existingUser);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         }
     }
+
 
     @PostMapping("adduser")
     public ResponseEntity<?> saveUser(@RequestBody User user){
@@ -67,6 +74,9 @@ public class UserController {
 
         return ResponseEntity.ok("User has been added");
     }
+
+
+
 
 
     private String extractTokenFromRequest(HttpServletRequest request) {

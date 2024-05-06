@@ -29,6 +29,16 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(long id ,String nom, String email) {
+        this.id = id;
+        this.nom = nom;
+        this.email = email;
+
+    }
+
+
+
+
     // getters and setters
 
     public Long getId() {

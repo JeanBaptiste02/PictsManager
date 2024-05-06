@@ -19,4 +19,16 @@ public class UserDTO {
         email = user.getEmail();
         password = user.getPassword();
     }
+
+    public String getNom(){
+        return this.nom;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
 }
