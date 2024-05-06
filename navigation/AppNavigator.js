@@ -54,6 +54,16 @@ const TabNavigator = () => (
         tabBarButton: (props) => <CustomTabButton {...props} isCamera={false} />
       }}
     />
+    <Tab.Screen
+      name="Logout"
+      component={Logout} // Render the Logout component
+      options={{
+        tabBarButton: (props) => <CustomTabButton {...props} isCamera={true} />,
+        tabBarIcon: ({ color, size }) => (
+          <Icons name="sign-out" color={color} size={26} /> // Example icon for logout
+        ),
+      }}
+    />
   </Tab.Navigator>
 );
 

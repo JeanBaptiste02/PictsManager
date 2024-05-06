@@ -11,6 +11,8 @@ import {
   TextInput,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
+import Home from '../screens/Home';
+import AppNavigator from "../navigation/AppNavigator.js";
 
 const baseUrl = "http://10.0.2.2:8080";
 
@@ -40,7 +42,10 @@ export default function Login({ navigation }) {
         Alert.alert("Success", "You have successfully logged in");
         setIsLoading(false);
         setForm({ email: "", password: "" });
-        // navigation.navigate("Home");
+        console.log(navigation);
+        navigation.navigate("ForgotPassword");
+
+        console.log(navigation);
       } else {
         throw new Error("Unexpected response status: " + response.status);
       }
