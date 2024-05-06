@@ -2,6 +2,7 @@ package com.epitech.pictsmanager.controllers;
 
 import com.epitech.pictsmanager.entity.Photo;
 import com.epitech.pictsmanager.entity.User;
+import com.epitech.pictsmanager.service.AlbumService;
 import com.epitech.pictsmanager.service.PhotoService;
 import com.epitech.pictsmanager.service.UserService;
 import com.epitech.pictsmanager.utils.JwtUtil;
@@ -27,6 +28,9 @@ public class PhotoController {
 
     @Autowired
     PhotoService photoService;
+
+    @Autowired
+    private AlbumService albumService;
 
     @Autowired
     UserService userService;
@@ -112,6 +116,25 @@ public class PhotoController {
             }
 
 
+    }
+
+    @GetMapping("/album/{id}")
+    public ResponseEntity<List<Photo>> getPhotosByAlbumId(@PathVariable Long id) {
+        List<Photo> photos = photoService.findPhotosByAlbumId(id);
+        return ResponseEntity.ok(photos);
+    }
+
+    @DeleteMapping("/album/{id}")
+    public ResponseEntity<String> deleteAlbum(@PathVariable Long id, HttpServletRequest request) {
+        String token = extractTokenFromRequest(request);
+
+        if (token != null) {
+            Long userId = jwtUtil.extractUser(token).getId();
+            albumService.deleteAlbum(id, userId);
+            return ResponseEntity.ok().body("Album and photos deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+        }
     }
 
     private static String getString(Long albumId, User ownerId, String currentDirectory) {
