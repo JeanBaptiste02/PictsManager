@@ -1,5 +1,6 @@
 package com.epitech.pictsmanager.filters;
 
+import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.jwt.UserServiceImp;
 import com.epitech.pictsmanager.utils.JwtUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,31 +30,32 @@ public class JwtRequestFilter extends OncePerRequestFilter   {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
         String authHeader = request.getHeader("Authorization");
-        String token = null;
-        String username = null;
 
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
 
+            try {
+                User user = jwtUtil.extractUser(token);
+                if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails userDetails = userServiceImp.loadUserByUsername(user.getEmail());
 
-        if(authHeader !=null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            username = jwtUtil.extractUsername(token);
-
-        }
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication()==null) {
-            UserDetails userDetails = userServiceImp.loadUserByUsername(username);
-
-
-            if(jwtUtil.validateToken(token,userDetails)){
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,userDetails.getAuthorities());
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    if (jwtUtil.validateToken(token, userDetails)) {
+                        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    }
+                }
+            } catch (Exception e) {
+                // Gérer les exceptions lors de la validation du token (par exemple, erreur de signature, token expiré)
+                logger.error("Erreur lors de la validation du token JWT", e);
+                // Renvoyer une réponse d'erreur appropriée (par exemple, 401 Non autorisé)
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token JWT invalide");
+                return;
             }
         }
 
-      filterChain.doFilter(request,response);
-
+        filterChain.doFilter(request, response);
     }
+
 }
