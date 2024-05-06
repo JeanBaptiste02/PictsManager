@@ -48,6 +48,7 @@ public class Photo implements Serializable {
         this.date = date;
         this.album_id = album_id;
         this.owner = owner;
+        this.visibility = false;
 
     }
 

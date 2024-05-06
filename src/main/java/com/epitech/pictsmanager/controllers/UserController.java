@@ -35,7 +35,6 @@ public class UserController {
     public ResponseEntity<User> getUserById(HttpServletRequest request) {
         String token = extractTokenFromRequest(request);
         if (token != null) {
-            //String username = jwtUtil.extractUsername(token);
             User user = userService.getUserById(jwtUtil.extractUser(token).getId());
             if (user != null) {
                 return ResponseEntity.ok(user);
