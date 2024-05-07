@@ -27,7 +27,7 @@ public class PhotoDTO {
         path = photo.getPath();
         description = photo.getDescription();
         date = photo.getDate();
-        album_id = getAlbum_id();
+        album_id = photo.getAlbum_id();
         owner_id = getOwner_id();
         visibility = getVisibility();
     }

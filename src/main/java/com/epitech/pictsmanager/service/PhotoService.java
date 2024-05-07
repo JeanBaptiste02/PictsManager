@@ -108,14 +108,15 @@ public class PhotoService {
 
     public void deletePhotosById(Long photoId) {
         Photo photo = photoRepository.findPhotoById(photoId);
+        // insert photo in local
        if(photo != null){
            File file = new File(photo.getPath());
            if (file.exists()) {
                file.delete();
            }
-           photoRepository.delete(photo);
+           photoRepository.delete(photo); // insert photo in database
        }else{
-           throw new RuntimeException("Photo not found");
+           throw new RuntimeException("Photo not found" + photoId);
        }
     }
 }
