@@ -101,22 +101,4 @@ public class PhotoService {
         return photoRepository.findAllPublicPhotos();
     }
 
-    public List<Photo> findPhotosByAlbumId(Long albumId) {
-        return photoRepository.findByAlbumId(albumId);
-    }
-
-    public void deletePhotosByAlbumId(Long albumId) {
-        List<Photo> photos = photoRepository.findByAlbumId(albumId);
-
-        for (Photo photo : photos) {
-            // Supprimer la photo du système de fichiers local
-            File file = new File(photo.getPath());
-            if (file.exists()) {
-                file.delete();
-            }
-        }
-
-        photoRepository.deleteByAlbumId(albumId);
-    }
-
 }

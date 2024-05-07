@@ -18,7 +18,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
     Boolean existsPhotoById(Long id);
 
     Boolean findPhotoByPath(String path);
-    
+
     List<Photo> findByOwner_Id(Long userId);
 
     List<Photo> findByOwnerId_Id(Long userId);
@@ -32,7 +32,5 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     @Query("SELECT p FROM Photo p WHERE p.visibility = true")
     List<Photo> findAllPublicPhotos();
-
-    List<Photo> findByAlbumId(Long albumId);
 
 }
