@@ -108,17 +108,14 @@ public class PhotoService {
 
     public void deletePhotosById(Long photoId) {
         Photo photo = photoRepository.findPhotoById(photoId);
-
-
-            // Supprimer la photo du système de fichiers local
-            File file = new File(photo.getPath());
-            if (file.exists()) {
-                file.delete();
-            }
-
+       if(photo != null){
+           File file = new File(photo.getPath());
+           if (file.exists()) {
+               file.delete();
+           }
+           photoRepository.delete(photo);
+       }else{
+           throw new RuntimeException("Photo not found");
+       }
     }
-
-
-
-
 }
