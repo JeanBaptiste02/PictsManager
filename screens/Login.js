@@ -11,8 +11,7 @@ import {
   TextInput,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import Home from '../screens/Home';
-import AppNavigator from "../navigation/AppNavigator.js";
+import Home from "./Home";
 
 const baseUrl = "http://10.0.2.2:8080";
 
@@ -42,10 +41,7 @@ export default function Login({ navigation }) {
         Alert.alert("Success", "You have successfully logged in");
         setIsLoading(false);
         setForm({ email: "", password: "" });
-        console.log(navigation);
-        navigation.navigate("ForgotPassword");
-
-        console.log(navigation);
+        return true;
       } else {
         throw new Error("Unexpected response status: " + response.status);
       }
@@ -57,6 +53,7 @@ export default function Login({ navigation }) {
         Alert.alert("Error", "An error has occurred. Please try again.");
       }
       setIsLoading(false);
+      return false;
     }
   };
 
@@ -100,7 +97,17 @@ export default function Login({ navigation }) {
               />
             </View>
             <View style={styles.formAction}>
-              <TouchableOpacity onPress={handleLogin}>
+              <TouchableOpacity
+                onPress={() => {
+                  handleLogin().then((success) => {
+                    console.log(success);
+                    if (success) {
+                      console.log(success);
+                      navigation.navigate("HomeTabs");
+                    }
+                  });
+                }}
+              >
                 <View style={styles.btn}>
                   <Text style={styles.btnText}>Sign up</Text>
                 </View>
