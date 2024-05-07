@@ -53,6 +53,10 @@ public class PhotoService {
         return userRepository.findById(userId).orElse(null);
     }
 
+    public Photo getPhotoById(Long id){
+        return photoRepository.findPhotoById(id);
+    }
+
     public void savePhoto(Photo photo) {
         photoRepository.save(photo);
     }
@@ -100,5 +104,21 @@ public class PhotoService {
     public List<Photo> getAllPublicPhotos() {
         return photoRepository.findAllPublicPhotos();
     }
+
+
+    public void deletePhotosById(Long photoId) {
+        Photo photo = photoRepository.findPhotoById(photoId);
+
+
+            // Supprimer la photo du système de fichiers local
+            File file = new File(photo.getPath());
+            if (file.exists()) {
+                file.delete();
+            }
+
+    }
+
+
+
 
 }

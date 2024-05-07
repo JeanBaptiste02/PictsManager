@@ -59,6 +59,24 @@ public class PhotoController {
         return ResponseEntity.ok(publicPhotos);
     }
 
+    @DeleteMapping("delete")
+    public  ResponseEntity<String> delete(@RequestParam("photoId") Long photoId,
+                                          HttpServletRequest request){
+        String token = extractTokenFromRequest(request);
+        if (token != null) {
+            User existingUser = userService.getUserById(jwtUtil.extractUser(token).getId());
+            Photo photo = photoService.getPhotoById(photoId);
+            if(photo.getOwner().getId() == existingUser.getId()){
+                photoService.deletePhotosById(photoId);
+                return  ResponseEntity.ok().body("Photo deleted successfully");
+            }else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You are note Owner of this photo");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+    }
+
+
     @PostMapping("/upload")
     public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file,
                                               @RequestParam("name") String name,
@@ -68,11 +86,13 @@ public class PhotoController {
                                               HttpServletRequest request) {
 
 
-        String token = extractTokenFromRequest(request);
+            String token = extractTokenFromRequest(request);
 
-        if (token != null) {
-            User existingUser = userService.getUserById(jwtUtil.extractUser(token).getId());
-            try {                LocalDateTime date = LocalDateTime.now();
+            if (token != null) {
+                User existingUser = userService.getUserById(jwtUtil.extractUser(token).getId());
+                try {
+
+                    LocalDateTime date = LocalDateTime.now();
                 String currentDirectory = System.getProperty("user.dir");
 
                 String photoDirPath = currentDirectory + File.separator + "photosData";
@@ -88,14 +108,10 @@ public class PhotoController {
                     ownerIdDir.mkdirs();
                 }
 
-                String albumIdDirPath = ownerIdDirPath + File.separator + albumId;
-                File albumIdDir = new File(albumIdDirPath);
-                if (!albumIdDir.exists()) {
-                    albumIdDir.mkdirs();
-                }
+
 
                 String fileName = file.getOriginalFilename();
-                Path filePath = Paths.get(albumIdDirPath, fileName);
+                Path filePath = Paths.get(ownerIdDirPath, fileName);
                 file.transferTo(filePath.toFile());
 
 
@@ -107,9 +123,9 @@ public class PhotoController {
                 e.printStackTrace();
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload photo");
             }
-        }else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
-        }
+            }else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+            }
 
 
     }
