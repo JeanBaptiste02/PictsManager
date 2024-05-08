@@ -36,15 +36,15 @@ public class PhotoController {
     private JwtUtil jwtUtil;
 
     @Cacheable(cacheNames = "photos")
-    @GetMapping("/user/{userId}/album/{albumId}")
-    public ResponseEntity<List<Photo>> getPhotosByAlbumId(@PathVariable Long userId, @PathVariable Long albumId){
-        List<Photo> photosList = photoService.getPhotosByUserIdAndAlbumId(userId, albumId);
+    @GetMapping("/user/{ownerId}/album/{albumId}")
+    public ResponseEntity<List<Photo>> getPhotosByAlbumId(@PathVariable Long ownerId, @PathVariable Album albumId){
+        List<Photo> photosList = photoService.getPhotosByOwnerIdAndAlbumId(ownerId, albumId);
         return ResponseEntity.ok(photosList);
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Photo>> getPhotosByUserId(@PathVariable Long userId){
-        List<Photo> photoListByUser = photoService.getPhotosByUserId(userId);
+        List<Photo> photoListByUser = photoService.getPhotosByOwnerId(userId);
         return ResponseEntity.ok(photoListByUser);
     }
 

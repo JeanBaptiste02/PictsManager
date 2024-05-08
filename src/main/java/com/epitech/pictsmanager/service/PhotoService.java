@@ -41,13 +41,13 @@ public class PhotoService {
     }
 
     @Transactional(readOnly = true)
-    public List<Photo> getPhotosByUserIdAndAlbumId(Long ownerId, Long albumId){
+    public List<Photo> getPhotosByOwnerIdAndAlbumId(Long ownerId, Album albumId) {
         return photoRepository.findByOwnerIdAndAlbumId(ownerId, albumId);
     }
 
     @Transactional(readOnly = true)
-    public List<Photo> getPhotosByUserId(Long userId){
-        return photoRepository.findByOwnerId_Id(userId);
+    public List<Photo> getPhotosByOwnerId(Long ownerId){
+        return photoRepository.findByOwnerId_Id(ownerId);
     }
 
     public User findUserById(Long userId) {

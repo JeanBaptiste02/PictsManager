@@ -28,7 +28,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     List<String> findPhotoPathsByOwner_id(long userId);
 
-    List<Photo> findByOwnerIdAndAlbumId(Long ownerId, Long albumId);
+    List<Photo> findByOwnerIdAndAlbumId(Long ownerId, Album albumId);
 
     List<Photo> findByOwnerIdAndVisibility(Long userId, boolean visibility);
 
