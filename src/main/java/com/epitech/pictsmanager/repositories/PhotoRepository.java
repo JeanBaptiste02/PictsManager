@@ -1,5 +1,6 @@
 package com.epitech.pictsmanager.repositories;
 
+import com.epitech.pictsmanager.entity.Album;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.epitech.pictsmanager.entity.Photo;
@@ -13,6 +14,8 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     Photo findPhotoById(Long id);
 
+    List<Photo> findByAlbumId(Album albumId);
+
     void deletePhotoById(Long id);
 
     Boolean existsPhotoById(Long id);
@@ -25,8 +28,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     List<String> findPhotoPathsByOwner_id(long userId);
 
-    @Query("SELECT p FROM Photo p WHERE p.owner.id = :ownerId AND p.album_id = :albumId")
-    List<Photo> findByOwner_IdAndAlbum_Id(Long ownerId, Long albumId);
+    List<Photo> findByOwnerIdAndAlbumId(Long ownerId, Long albumId);
 
     List<Photo> findByOwnerIdAndVisibility(Long userId, boolean visibility);
 

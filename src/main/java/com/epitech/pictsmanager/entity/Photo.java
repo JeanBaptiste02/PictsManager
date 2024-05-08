@@ -27,8 +27,9 @@ public class Photo implements Serializable {
     @Column(name = "date")
     private LocalDateTime date;
 
-    @Column(name = "album_id")
-    private Long album_id;
+    @ManyToOne
+    @JoinColumn(name = "album_id", nullable = false)
+    private Album albumId;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
@@ -41,12 +42,12 @@ public class Photo implements Serializable {
 
     }
 
-    public Photo(String name, String path, String description, LocalDateTime date, Long album_id, User owner){
+    public Photo(String name, String path, String description, LocalDateTime date, Album albumId, User owner){
         this.name = name;
         this.path = path;
         this.description = description;
         this.date = date;
-        this.album_id = album_id;
+        this.albumId = albumId;
         this.owner = owner;
         this.visibility = false;
 
@@ -94,12 +95,12 @@ public class Photo implements Serializable {
         this.date = date;
     }
 
-    public Long getAlbum_id() {
-        return album_id;
+    public Album getAlbum_id() {
+        return albumId;
     }
 
-    public void setAlbum_id(Long album_id) {
-        this.album_id = album_id;
+    public void setAlbum_id(Album albumId) {
+        this.albumId = albumId;
     }
 
     public User getOwner() {

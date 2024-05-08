@@ -1,5 +1,6 @@
 package com.epitech.pictsmanager.dtos;
 
+import com.epitech.pictsmanager.entity.Album;
 import com.epitech.pictsmanager.entity.Photo;
 import com.epitech.pictsmanager.entity.User;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ public class PhotoDTO {
     private String path;
     private String description;
     private LocalDateTime date;
-    private Long album_id;
+    private Album album_id;
     private User owner_id;
     private Boolean visibility;
 

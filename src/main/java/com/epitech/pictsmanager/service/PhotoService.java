@@ -1,6 +1,7 @@
 package com.epitech.pictsmanager.service;
 
 
+import com.epitech.pictsmanager.entity.Album;
 import com.epitech.pictsmanager.entity.Photo;
 import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.repositories.PhotoRepository;
@@ -41,7 +42,7 @@ public class PhotoService {
 
     @Transactional(readOnly = true)
     public List<Photo> getPhotosByUserIdAndAlbumId(Long ownerId, Long albumId){
-        return photoRepository.findByOwner_IdAndAlbum_Id(ownerId, albumId);
+        return photoRepository.findByOwnerIdAndAlbumId(ownerId, albumId);
     }
 
     @Transactional(readOnly = true)
@@ -55,6 +56,10 @@ public class PhotoService {
 
     public Photo getPhotoById(Long id){
         return photoRepository.findPhotoById(id);
+    }
+
+    public List<Photo> getPhotosByAlbumId(Album albumId) {
+        return photoRepository.findByAlbumId(albumId);
     }
 
     public void savePhoto(Photo photo) {

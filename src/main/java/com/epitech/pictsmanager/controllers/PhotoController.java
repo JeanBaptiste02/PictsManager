@@ -1,5 +1,6 @@
 package com.epitech.pictsmanager.controllers;
 
+import com.epitech.pictsmanager.entity.Album;
 import com.epitech.pictsmanager.entity.Photo;
 import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.PhotoService;
@@ -59,9 +60,15 @@ public class PhotoController {
         return ResponseEntity.ok(publicPhotos);
     }
 
-    @DeleteMapping("delete")
-    public  ResponseEntity<String> delete(@RequestParam("photoId") Long photoId,
-                                          HttpServletRequest request){
+    @GetMapping("/album/{albumId}")
+    public ResponseEntity<List<Photo>> getPhotosByAlbumId(@PathVariable Album albumId) {
+        List<Photo> photos = photoService.getPhotosByAlbumId(albumId);
+        return ResponseEntity.ok(photos);
+    }
+
+    @DeleteMapping("delete/{photoId}")
+    public ResponseEntity<String> delete(@PathVariable Long photoId, HttpServletRequest request) {
+
         String token = extractTokenFromRequest(request);
         if (token != null) {
             User existingUser = userService.getUserById(jwtUtil.extractUser(token).getId());
@@ -81,7 +88,7 @@ public class PhotoController {
     public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file,
                                               @RequestParam("name") String name,
                                               @RequestParam("description") String description,
-                                              @RequestParam("albumId") Long albumId,
+                                              @RequestParam("albumId") Album albumId,
 
                                               HttpServletRequest request) {
 
