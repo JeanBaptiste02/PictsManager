@@ -37,21 +37,15 @@ public class UserService {
     }
 
     public void updateUser(User user) {
-        // Vérifiez si l'utilisateur existe dans la base de données
         if (userRepository.existsById(user.getId())) {
-            // Mettez à jour les informations de l'utilisateur
-            // Assurez-vous de gérer correctement les différents cas de mise à jour (nom, email, mot de passe, etc.)
-            // Par exemple :
             User existingUser = userRepository.findById(user.getId()).orElse(null);
             if (existingUser != null) {
                 existingUser.setNom(user.getNom());
                 existingUser.setEmail(user.getEmail());
                 existingUser.setPassword(user.getPassword());
-                // Enregistrez les modifications dans la base de données
                 userRepository.save(existingUser);
             }
         } else {
-            // L'utilisateur n'existe pas dans la base de données, vous pouvez choisir de lever une exception ou de ne rien faire
             throw new EntityNotFoundException("User with ID " + user.getId() + " not found");
         }
     }

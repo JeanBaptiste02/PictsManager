@@ -8,13 +8,35 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Repository interface for managing album entities
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 
+    /**
+     * Retrieves all albums
+     * @return A list of all albums
+     */
     List<Album> findAll();
 
+    /**
+     * Retrieves an album by its ID.
+     * @param id The ID of the album to retrieve
+     * @return The album with the specified ID
+     */
     Album findAlbumById(Long id);
 
+    /**
+     * Retrieves an album by its ID
+     * @param albumId The ID of the album to retrieve
+     * @return The album with the specified ID
+     */
     Album getAlbumById(Long albumId);
 
+    /**
+     * Deletes an album by its ID
+     * @param albumId The ID of the album to delete
+     */
     void deleteAlbumById(Long albumId);
 }
