@@ -1,0 +1,12 @@
+com.epitech.pictsmanager
+com.epitech.pictsmanager.config
+com.epitech.pictsmanager.controllers
+com.epitech.pictsmanager.dtos
+com.epitech.pictsmanager.entity
+com.epitech.pictsmanager.filters
+com.epitech.pictsmanager.form
+com.epitech.pictsmanager.repositories
+com.epitech.pictsmanager.Responses
+com.epitech.pictsmanager.service
+com.epitech.pictsmanager.service.jwt
+com.epitech.pictsmanager.utils

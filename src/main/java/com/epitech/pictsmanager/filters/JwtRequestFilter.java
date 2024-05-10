@@ -16,18 +16,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * Filter for processing JWT requests : It validates the tokens and sets up Spring Security's authentication context if the token is valid
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter   {
 
     private final UserServiceImp userServiceImp;
     private final JwtUtil jwtUtil;
 
+    /**
+     * Constructs a new JwtRequestFilter with the provided UserServiceImp and JwtUtil
+     * @param userServiceImp The user service implementation
+     * @param jwtUtil The JWT utility
+     */
     public JwtRequestFilter(UserServiceImp userServiceImp, JwtUtil jwtUtil) {
         this.userServiceImp = userServiceImp;
         this.jwtUtil = jwtUtil;
     }
 
+    /**
+     * Filters incoming requests to process JWT tokens
+     * @param request The HTTP servlet request
+     * @param response The HTTP servlet response
+     * @param filterChain The filter chain
+     * @throws ServletException If an error occurs while processing the request
+     * @throws IOException If an I/O error occurs while processing the request
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");

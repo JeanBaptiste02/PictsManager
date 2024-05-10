@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for handling user login requests
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @RestController
 @RequestMapping("/api")
 public class LoginController {
@@ -27,14 +31,27 @@ public class LoginController {
     private final JwtUtil jwtUtil;
     private final UserService userService;
 
-@Autowired
+    /**
+     * Constructs a new instance of the LoginController
+     * @param authenticationManager The AuthenticationManager instance
+     * @param userServiceImp The UserServiceImp instance
+     * @param jwtUtil The JwtUtil instance
+     * @param userService The UserService instance
+     */
+    @Autowired
     public LoginController(AuthenticationManager authenticationManager, UserServiceImp userServiceImp, JwtUtil jwtUtil, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userServiceImp = userServiceImp;
         this.jwtUtil = jwtUtil;
         this.userService = userService;
-}
-@PostMapping("/login")
+    }
+
+    /**
+     * Handles user login requests and generates JWT tokens
+     * @param loginRequest The LoginRequest object containing user credentials
+     * @return ResponseEntity containing a LoginResponse object with a JWT token
+     */
+    @PostMapping("/login")
     public ResponseEntity<LoginResponse>  login(@RequestBody LoginRequest loginRequest) {
         try{
             authenticationManager.authenticate(
@@ -51,10 +68,7 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-
         User user = userService.getUserByEmail(loginRequest.getEmail()) ;
-
-
         String jwt = jwtUtil.generateToken(user);
         LoginResponse loginResponse = new LoginResponse(jwt);
         return ResponseEntity.ok(loginResponse);
