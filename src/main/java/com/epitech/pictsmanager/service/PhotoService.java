@@ -130,9 +130,9 @@ public class PhotoService {
 
     /**
      * Compresses and saves an image
-     * @param file          The image file to compress and save
+     * @param file The image file to compress and save
      * @param albumIdDirPath The directory path where the compressed image will be saved
-     * @param fileName      The name of the compressed image file
+     * @param fileName The name of the compressed image file
      * @return The name of the compressed image file
      * @throws IOException If an I/O error occurs
      */
@@ -161,7 +161,7 @@ public class PhotoService {
 
     /**
      * Retrieves photos owned by a specific user with a given visibility status
-     * @param userId     The ID of the owner user
+     * @param userId The ID of the owner user
      * @param visibility The visibility status
      * @return A list of photos owned by the specified user with the specified visibility status
      */

@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * Controller class for managing user-related operations
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -26,11 +30,20 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    /**
+     * Retrieves all users
+     * @return A list of all users
+     */
     @GetMapping("getusers")
     public List<User> getUsers(){
         return userService.getUsers();
     }
 
+    /**
+     * Retrieves a user by ID
+     * @param request The HTTP servlet request containing the JWT token
+     * @return The user entity if found, otherwise returns a no content response
+     */
     @GetMapping("/getuser")
     public ResponseEntity<User> getUserById(HttpServletRequest request) {
         String token = extractTokenFromRequest(request);
@@ -43,6 +56,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Updates a user's information
+     * @param user    The updated user entity
+     * @param request The HTTP servlet request containing the JWT token
+     * @return The updated user entity if successful, otherwise returns a not found or unauthorized response
+     */
     @PutMapping("update/user")
     public ResponseEntity<?> updateUser(@RequestBody User user, HttpServletRequest request) {
         String token = extractTokenFromRequest(request);
@@ -62,6 +81,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Saves a new user
+     * @param user The user entity to save
+     * @return A response entity indicating whether the user has been added successfully or not
+     */
     @PostMapping("adduser")
     public ResponseEntity<?> saveUser(@RequestBody User user){
         if(userService.isEmailAlreadyExists(user.getEmail())){
@@ -73,6 +97,11 @@ public class UserController {
         return ResponseEntity.ok("User has been added");
     }
 
+    /**
+     * Extracts the JWT token from the HTTP servlet request
+     * @param request The HTTP servlet request
+     * @return The extracted JWT token, or null if not found
+     */
     private String extractTokenFromRequest(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
