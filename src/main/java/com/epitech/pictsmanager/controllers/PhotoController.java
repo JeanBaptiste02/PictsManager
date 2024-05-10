@@ -96,6 +96,17 @@ public class PhotoController {
     }
 
     /**
+     * Retrieves public photos by user ID
+     * @param userId The ID of the user
+     * @return ResponseEntity containing the list of public photos and HTTP status 200 (OK)
+     */
+    @GetMapping("/user/{userId}/public")
+    public ResponseEntity<List<Photo>> getPublicPhotosByUserId(@PathVariable Long userId) {
+        List<Photo> publicPhotosByUser = photoService.getPublicPhotosByOwnerId(userId);
+        return ResponseEntity.ok(publicPhotosByUser);
+    }
+
+    /**
      * Deletes a photo by its ID
      * @param photoId The ID of the photo to delete
      * @param request The HTTP servlet request

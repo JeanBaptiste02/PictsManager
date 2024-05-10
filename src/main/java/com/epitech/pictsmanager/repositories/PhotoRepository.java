@@ -67,4 +67,11 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
     @Query("SELECT p FROM Photo p WHERE p.visibility = true")
     List<Photo> findAllPublicPhotos();
 
+    /**
+     * Récupère les photos publiques pour un utilisateur donné
+     * @param userId L'ID de l'utilisateur
+     * @return La liste des photos publiques de l'utilisateur
+     */
+    List<Photo> getPublicPhotosByOwnerId(Long userId);
+
 }

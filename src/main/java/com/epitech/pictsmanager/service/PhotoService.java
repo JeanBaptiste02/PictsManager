@@ -195,4 +195,8 @@ public class PhotoService {
            throw new RuntimeException("Photo not found" + photoId);
        }
     }
+
+    public List<Photo> getPublicPhotosByOwnerId(Long userId) {
+        return photoRepository.findByOwnerIdAndVisibility(userId, true);
+    }
 }
