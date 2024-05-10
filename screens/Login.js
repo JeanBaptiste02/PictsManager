@@ -11,7 +11,8 @@ import {
   TextInput,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import Home from "./Home";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Logout } from "./Logout.js";
 
 const baseUrl = "http://10.0.2.2:8080";
 
@@ -38,6 +39,18 @@ export default function Login({ navigation }) {
       });
 
       if (response.status === 200) {
+        const jwtToken = response.data.jwtToken; // Extract the token from the response
+        try {
+          await AsyncStorage.setItem("jwtToken", jwtToken); // Store the token in AsyncStorage
+        } catch (error) {
+          console.error("Error storing token:", error);
+          Alert.alert(
+            "Error",
+            "An error occurred while logging in. Please try again."
+          );
+          setIsLoading(false);
+          return false;
+        }
         Alert.alert("Success", "You have successfully logged in");
         setIsLoading(false);
         setForm({ email: "", password: "" });
@@ -135,6 +148,15 @@ export default function Login({ navigation }) {
               Sign up
             </Text>
           </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Logout");
+          }}
+          style={{ marginTop: "auto" }}
+        >
+          <Text style={styles.formFooter}>Disconnect</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

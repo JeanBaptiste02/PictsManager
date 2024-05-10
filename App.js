@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppNavigator from "./navigation/AppNavigator.js";
 import Login from "./screens/Login";
+import Logout from "./screens/Logout.js";
 import Signup from "./screens/Signup";
 import ForgotPassword from "./screens/ForgotPassword";
 import { ImageProvider } from "./context/ImageContext.js";
@@ -23,7 +24,7 @@ export default function App() {
 
   const checkAuthentication = async () => {
     // Check if the user is authenticated
-    const token = await AsyncStorage.getItem("JwtToken");
+    const token = await AsyncStorage.getItem("jwtToken");
     console.log("Token exists: ", token);
     if (token) {
       console.log("Token exists: ", token);
@@ -58,6 +59,17 @@ export default function App() {
           <Stack.Screen
             name="ForgotPassword"
             component={ForgotPassword}
+            options={{
+              headerTitle: "",
+              headerBackVisible: true,
+              headerStyle: { backgroundColor: "black" },
+              headerTintColor: "white",
+            }}
+          />
+
+          <Stack.Screen
+            name="Logout"
+            component={Logout}
             options={{
               headerTitle: "",
               headerBackVisible: true,
