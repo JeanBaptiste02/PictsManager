@@ -8,6 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
+/**
+ * Data Transfer Object (DTO) for representing photo information
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +26,10 @@ public class PhotoDTO {
     private User owner_id;
     private Boolean visibility;
 
+    /**
+     * Constructs a PhotoDTO object from a Photo entity
+     * @param photo The photo entity from which to construct the DTO
+     */
     public PhotoDTO(final Photo photo){
         id = photo.getId();
         name = photo.getName();

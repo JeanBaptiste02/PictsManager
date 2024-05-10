@@ -24,6 +24,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * Service class for managing photo-related operations
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @Service
 public class PhotoService {
 
@@ -36,40 +40,85 @@ public class PhotoService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Retrieves all photos
+     * @return A list of all photos
+     */
     public List<Photo> getPhotos(){
         return photoRepository.findAll();
     }
 
+    /**
+     * Retrieves photos by owner ID and album ID
+     * @param ownerId The ID of the owner
+     * @param albumId The ID of the album
+     * @return A list of photos belonging to the specified owner and album
+     */
     @Transactional(readOnly = true)
     public List<Photo> getPhotosByOwnerIdAndAlbumId(Long ownerId, Album albumId) {
         return photoRepository.findByOwnerIdAndAlbumId(ownerId, albumId);
     }
 
+    /**
+     * Retrieves photos by owner ID
+     * @param ownerId The ID of the owner
+     * @return A list of photos belonging to the specified owner
+     */
     @Transactional(readOnly = true)
     public List<Photo> getPhotosByOwnerId(Long ownerId){
         return photoRepository.findByOwnerId_Id(ownerId);
     }
 
+    /**
+     * Finds a user by ID
+     * @param userId The ID of the user to find
+     * @return The user entity if found, otherwise null
+     */
     public User findUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
 
+    /**
+     * Retrieves a photo by its ID
+     * @param id The ID of the photo to retrieve
+     * @return The photo entity if found, otherwise null
+     */
     public Photo getPhotoById(Long id){
         return photoRepository.findPhotoById(id);
     }
 
+    /**
+     * Retrieves photos by album ID
+     * @param albumId The ID of the album
+     * @return A list of photos belonging to the specified album
+     */
     public List<Photo> getPhotosByAlbumId(Album albumId) {
         return photoRepository.findByAlbumId(albumId);
     }
 
+    /**
+     * Saves a photo
+     * @param photo The photo entity to save
+     */
     public void savePhoto(Photo photo) {
         photoRepository.save(photo);
     }
 
+    /**
+     * Retrieves the paths of photos owned by a specific user
+     * @param userId The ID of the user
+     * @return A list of paths to photos owned by the specified user
+     */
     public List<String> getPhotoPathsByUserId(long userId) {
         return photoRepository.findPhotoPathsByOwner_id(userId);
     }
 
+    /**
+     * Combines multiple images into a single byte array
+     * @param photoPaths A list of paths to the images
+     * @return A byte array representing the combined images
+     * @throws IOException If an I/O error occurs
+     */
     public byte[] combineImages(List<String> photoPaths) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         for (String path : photoPaths) {
@@ -79,6 +128,14 @@ public class PhotoService {
         return baos.toByteArray();
     }
 
+    /**
+     * Compresses and saves an image
+     * @param file          The image file to compress and save
+     * @param albumIdDirPath The directory path where the compressed image will be saved
+     * @param fileName      The name of the compressed image file
+     * @return The name of the compressed image file
+     * @throws IOException If an I/O error occurs
+     */
     public String compressAndSaveImage(MultipartFile file, String albumIdDirPath, String fileName) throws IOException {
         File compressedFile = new File(albumIdDirPath, "compressed_" + fileName); // new compressed file name
         BufferedImage image = ImageIO.read(file.getInputStream()); // reading the image
@@ -102,15 +159,29 @@ public class PhotoService {
         return compressedFile.getName();
     }
 
+    /**
+     * Retrieves photos owned by a specific user with a given visibility status
+     * @param userId     The ID of the owner user
+     * @param visibility The visibility status
+     * @return A list of photos owned by the specified user with the specified visibility status
+     */
     public List<Photo> getPhotosByUserIdAndVisibility(Long userId, boolean visibility) {
         return photoRepository.findByOwnerIdAndVisibility(userId, visibility);
     }
 
+    /**
+     * Retrieves all public photos
+     * @return A list of all public photos
+     */
     public List<Photo> getAllPublicPhotos() {
         return photoRepository.findAllPublicPhotos();
     }
 
-
+    /**
+     * Deletes a photo by its ID
+     * @param photoId The ID of the photo to delete
+     * @throws RuntimeException If the photo with the specified ID is not found
+     */
     public void deletePhotosById(Long photoId) {
         Photo photo = photoRepository.findPhotoById(photoId);
         // insert photo in local
