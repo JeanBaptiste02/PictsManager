@@ -23,8 +23,8 @@ public class AlbumDTO {
      * Constructs an AlbumDTO object
      * @param album The Album entity from which to construct the DTO
      */
-    public AlbumDTO(String email, String title) {
-        this.title = title;
+    public AlbumDTO(String email, Long id) {
+        this.id = id;
         this.owner = new User();
         this.owner.setEmail(email);
     }

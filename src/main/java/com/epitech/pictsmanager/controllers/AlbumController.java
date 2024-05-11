@@ -35,9 +35,6 @@ public class AlbumController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAlbum);
     }
 
-
-
-
     /**
      * Retrieves all albums
      * @return

@@ -41,7 +41,7 @@ import static org.mockito.Mockito.*;
 public class UserControllerTest {
 
 	 @Autowired
-	    private MockMvc mockMvc;
+	 private MockMvc mockMvc;
 
 	 @Autowired
 	    private UserController userController;
@@ -67,7 +67,7 @@ public class UserControllerTest {
     @Test
     public void testGetUsers_PositiveScenario() {
         List<User> mockUsers = Arrays.asList(
-                new User("Ganesh", "ganesh@example.com", "password"),
+        		new User("Ganesh", "ganesh@example.com", "password"),
                 new User("Ramesh", "ramesh@example.com", "password")
         );
 
@@ -82,7 +82,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetUsers_NegativeScenario() {
-        when(userService.getUsers()).thenReturn(Collections.emptyList());
+    	when(userService.getUsers()).thenReturn(Collections.emptyList());
 
         List<User> users = userController.getUsers();
 
