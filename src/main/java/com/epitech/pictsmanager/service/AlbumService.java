@@ -32,7 +32,17 @@ public class AlbumService {
     }
     
     public Long getMinAlbumIdByUserId(Long userId) {
-        return albumRepository.getMinAlbumIdByOwnerId(userId);
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("User not found with ID: " + userId);
+        }
+
+        Long minAlbumId = albumRepository.getMinAlbumIdByOwnerId(userId);
+
+        if (minAlbumId == null) {
+            throw new RuntimeException("No albums found for user with ID: " + userId);
+        }
+
+        return minAlbumId;
     }
 
     /**

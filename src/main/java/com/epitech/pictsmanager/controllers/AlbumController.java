@@ -47,8 +47,12 @@ public class AlbumController {
 
     @GetMapping("/min-id/user/{userId}")
     public ResponseEntity<Long> getMinAlbumIdByUserId(@PathVariable Long userId) {
-        Long minAlbumId = albumService.getMinAlbumIdByUserId(userId);
-        return ResponseEntity.ok(minAlbumId);
+        try {
+            Long minAlbumId = albumService.getMinAlbumIdByUserId(userId);
+            return ResponseEntity.ok(minAlbumId);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
     
     /**
