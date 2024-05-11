@@ -7,6 +7,7 @@ import com.epitech.pictsmanager.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,8 +29,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -37,14 +40,36 @@ import static org.mockito.Mockito.*;
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
-    UserController userController;
-    UserService userService;
-    JwtUtil jwtUtil = mock(JwtUtil.class);
-    PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+	 @Autowired
+	    private MockMvc mockMvc;
+
+	 @Autowired
+	    private UserController userController;
+	    private UserService userService;
+	    @Mock
+	    private JwtUtil jwtUtil;
+	    private PasswordEncoder passwordEncoder;
+
+	    @BeforeEach
+	    public void initMocks() {
+	        MockitoAnnotations.openMocks(this);
+	    }
+	    
+	    @BeforeEach
+	    public void setup() {
+	    	userController = new UserController();
+	        userService = Mockito.mock(UserService.class);
+	        jwtUtil = Mockito.mock(JwtUtil.class);
+	        passwordEncoder = Mockito.mock(PasswordEncoder.class);
+	        MockitoAnnotations.openMocks(this);
+	    }
 
     @Test
     public void testGetUsers_PositiveScenario() {
-        List<User> mockUsers = Arrays.asList(new User(), new User());
+        List<User> mockUsers = Arrays.asList(
+                new User("Ganesh", "ganesh@example.com", "password"),
+                new User("Ramesh", "ramesh@example.com", "password")
+        );
 
         when(userService.getUsers()).thenReturn(mockUsers);
 
@@ -57,11 +82,11 @@ public class UserControllerTest {
 
     @Test
     public void testGetUsers_NegativeScenario() {
-        when(userService.getUsers()).thenReturn(null);
+        when(userService.getUsers()).thenReturn(Collections.emptyList());
 
         List<User> users = userController.getUsers();
 
-        assertEquals(null, users);
+        assertTrue(users.isEmpty());
     }
 
     @Test
@@ -69,8 +94,6 @@ public class UserControllerTest {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader("Authorization")).thenReturn("Bearer valid_token");
 
-        UserService userService = mock(UserService.class);
-        JwtUtil jwtUtil = mock(JwtUtil.class);
         when(jwtUtil.extractUser("valid_token")).thenReturn(new User());
 
         ResponseEntity<User> response = userController.getUserById(request);
@@ -86,8 +109,6 @@ public class UserControllerTest {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader("Authorization")).thenReturn("Bearer invalid_token");
 
-        UserService userService = mock(UserService.class);
-        JwtUtil jwtUtil = mock(JwtUtil.class);
         when(jwtUtil.extractUser("invalid_token")).thenReturn(null);
 
         ResponseEntity<User> response = userController.getUserById(request);

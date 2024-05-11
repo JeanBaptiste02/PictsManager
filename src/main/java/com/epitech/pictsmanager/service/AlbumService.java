@@ -2,6 +2,7 @@ package com.epitech.pictsmanager.service;
 
 import com.epitech.pictsmanager.dtos.AlbumDTO;
 import com.epitech.pictsmanager.entity.Album;
+import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.repositories.AlbumRepository;
 import com.epitech.pictsmanager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,16 @@ public class AlbumService {
      * @return The created album
      */
     public Album createAlbum(AlbumDTO albumDTO) {
+        User user = userRepository.findUserByEmail(albumDTO.getOwner().getEmail());
+        if (user == null) {
+            throw new RuntimeException("User not found with name: " + albumDTO.getOwner().getEmail());
+        }
         Album album = new Album();
         album.setTitle(albumDTO.getTitle());
+        album.setOwner(user);
         return albumRepository.save(album);
     }
+
 
     /**
      * Deletes an album by its ID
