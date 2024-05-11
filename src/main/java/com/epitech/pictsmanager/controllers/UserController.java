@@ -102,7 +102,7 @@ public class UserController {
      * @param request The HTTP servlet request
      * @return The extracted JWT token, or null if not found
      */
-    private String extractTokenFromRequest(HttpServletRequest request) {
+    protected String extractTokenFromRequest(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
