@@ -45,6 +45,12 @@ public class AlbumController {
         return ResponseEntity.ok(albums);
     }
 
+    @GetMapping("/min-id/user/{userId}")
+    public ResponseEntity<Long> getMinAlbumIdByUserId(@PathVariable Long userId) {
+        Long minAlbumId = albumService.getMinAlbumIdByUserId(userId);
+        return ResponseEntity.ok(minAlbumId);
+    }
+    
     /**
      * Retrieves an album by its ID
      * @param albumId The ID of the album to retrieve

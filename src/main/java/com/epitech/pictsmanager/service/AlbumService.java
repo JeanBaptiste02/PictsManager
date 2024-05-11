@@ -30,6 +30,10 @@ public class AlbumService {
     public List<Album> getAllAlbums() {
         return albumRepository.findAll();
     }
+    
+    public Long getMinAlbumIdByUserId(Long userId) {
+        return albumRepository.getMinAlbumIdByOwnerId(userId);
+    }
 
     /**
      * Retrieves an album by its ID
