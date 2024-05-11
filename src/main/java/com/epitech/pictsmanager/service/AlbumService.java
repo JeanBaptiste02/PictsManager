@@ -41,6 +41,10 @@ public class AlbumService {
         return albumRepository.findById(albumId)
                 .orElseThrow(() -> new RuntimeException("Album not found with ID: " + albumId));
     }
+    
+    public List<Album> getAlbumsByUserId(Long userId) {
+        return albumRepository.findAlbumsByOwnerId(userId);
+    }
 
     /**
      * Creates a new album

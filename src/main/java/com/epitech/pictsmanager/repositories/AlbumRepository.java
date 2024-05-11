@@ -39,4 +39,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
      * @param albumId The ID of the album to delete
      */
     void deleteAlbumById(Long albumId);
+    
+    List<Album> findAlbumsByOwnerId(Long userId);
 }

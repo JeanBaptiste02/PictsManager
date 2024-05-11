@@ -55,6 +55,12 @@ public class AlbumController {
         Album album = albumService.getAlbumById(albumId);
         return ResponseEntity.ok(album);
     }
+    
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Album>> getAlbumsByUserId(@PathVariable Long userId) {
+        List<Album> albums = albumService.getAlbumsByUserId(userId);
+        return ResponseEntity.ok(albums);
+    }
 
     /**
      * Deletes an album by its ID
