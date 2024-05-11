@@ -23,7 +23,7 @@ public class UserDTOTest {
         UserDTO userDTO = new UserDTO(user);
 
         assertEquals("Viky", userDTO.getNom());
-        assertEquals("ciky@example.com", userDTO.getEmail());
+        assertEquals("viky@example.com", userDTO.getEmail());
         assertEquals("password", userDTO.getPassword());
     }
 
@@ -38,7 +38,7 @@ public class UserDTOTest {
     @Test
     public void testGetEmail() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setEmail("Dhoni@example.com");
+        userDTO.setEmail("dhoni@example.com");
 
         assertEquals("dhoni@example.com", userDTO.getEmail());
     }

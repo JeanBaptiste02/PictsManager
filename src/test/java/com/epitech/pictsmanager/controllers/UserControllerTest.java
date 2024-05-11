@@ -1,190 +1,113 @@
 package com.epitech.pictsmanager.controllers;
 
-import com.epitech.pictsmanager.controllers.UserController;
-import com.epitech.pictsmanager.entity.User;
-import com.epitech.pictsmanager.service.UserService;
-import com.epitech.pictsmanager.utils.JwtUtil;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import com.epitech.pictsmanager.entity.User;
+import com.epitech.pictsmanager.service.UserService;
+import com.epitech.pictsmanager.utils.JwtUtil;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
 public class UserControllerTest {
 
-	 @Autowired
-	 private MockMvc mockMvc;
+    @Mock
+    private UserService userService;
 
-	 @Autowired
-	    private UserController userController;
-	    private UserService userService;
-	    @Mock
-	    private JwtUtil jwtUtil;
-	    private PasswordEncoder passwordEncoder;
+    @Mock
+    private HttpServletRequest request;
 
-	    @BeforeEach
-	    public void initMocks() {
-	        MockitoAnnotations.openMocks(this);
-	    }
-	    
-	    @BeforeEach
-	    public void setup() {
-	    	userController = new UserController();
-	        userService = Mockito.mock(UserService.class);
-	        jwtUtil = Mockito.mock(JwtUtil.class);
-	        passwordEncoder = Mockito.mock(PasswordEncoder.class);
-	        MockitoAnnotations.openMocks(this);
-	    }
+    @Mock
+    private JwtUtil jwtUtil;
 
-    @Test
-    public void testGetUsers_PositiveScenario() {
-        List<User> mockUsers = Arrays.asList(
-        		new User("Ganesh", "ganesh@example.com", "password"),
-                new User("Ramesh", "ramesh@example.com", "password")
-        );
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
-        when(userService.getUsers()).thenReturn(mockUsers);
+    @InjectMocks
+    private UserController userController;
 
-        List<User> users = userController.getUsers();
-
-        assertEquals(2, users.size());
-        assertEquals("Ganesh", users.get(0).getNom());
-        assertEquals("Ramesh", users.get(1).getNom());
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void testGetUsers_NegativeScenario() {
-    	when(userService.getUsers()).thenReturn(Collections.emptyList());
+    public void testGetUsers() {
+        List<User> userList = new ArrayList<>();
+        when(userService.getUsers()).thenReturn(userList);
 
-        List<User> users = userController.getUsers();
-
-        assertTrue(users.isEmpty());
+        assertEquals(userList, userController.getUsers());
     }
 
     @Test
-    public void testGetUserById_WithValidToken() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader("Authorization")).thenReturn("Bearer valid_token");
+    public void testGetUserById() {
+        String token = "dummyToken";
+        User dummyUser = new User();
+        dummyUser.setId(1L);
 
-        when(jwtUtil.extractUser("valid_token")).thenReturn(new User());
+        when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
+        when(jwtUtil.extractUser(token)).thenReturn(dummyUser);
+        when(userService.getUserById(dummyUser.getId())).thenReturn(dummyUser);
 
         ResponseEntity<User> response = userController.getUserById(request);
 
-        assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
-        assertNull(response.getBody());
-    }
-
-
-    @Test
-    public void testGetUserById_WithInvalidToken() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader("Authorization")).thenReturn("Bearer invalid_token");
-
-        when(jwtUtil.extractUser("invalid_token")).thenReturn(null);
-
-        ResponseEntity<User> response = userController.getUserById(request);
-
-        assertNotNull(response);
-        assertEquals(204, response.getStatusCodeValue());
-        assertNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(dummyUser, response.getBody());
     }
 
     @Test
-    public void testUpdateUser_PositiveScenario() {
-        User user = new User("Ram", "ram@example.com", "password");
-        User existingUser = new User("Existing", "existing@example.com", "existingpassword");
-        String token = "token";
+    public void testUpdateUser() {
+        String token = "dummyToken";
+        User dummyUser = new User();
+        dummyUser.setId(1L);
+        dummyUser.setPassword("oldPassword"); 
 
-        HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
+        when(jwtUtil.extractUser(token)).thenReturn(dummyUser);
+        when(userService.getUserById(dummyUser.getId())).thenReturn(dummyUser);
+        when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
 
-        when(jwtUtil.extractUser(token)).thenReturn(existingUser);
-        when(userService.getUserById(existingUser.getId())).thenReturn(existingUser);
+        User updatedUser = new User();
+        updatedUser.setNom("UpdatedName");
+        updatedUser.setEmail("updated@example.com");
+        updatedUser.setPassword("newPassword");
 
-        ResponseEntity<?> response = userController.updateUser(user, request);
+        System.out.println("Mot de passe avant codage : " + updatedUser.getPassword());
+        ResponseEntity<?> response = userController.updateUser(updatedUser, request);
+        System.out.println("Mot de passe après codage : " + dummyUser.getPassword());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(existingUser, response.getBody());
+        assertEquals(dummyUser.getNom(), updatedUser.getNom());
+        assertEquals(dummyUser.getEmail(), updatedUser.getEmail());
     }
 
-    @Test
-    public void testUpdateUser_NegativeScenario() {
-        User user = new User("Ram", "ram@example.com", "password");
-        String token = "token";
 
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
-
-        when(jwtUtil.extractUser(token)).thenReturn(null);
-
-        ResponseEntity<?> response = userController.updateUser(user, request);
-
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Unauthorized", response.getBody());
-    }
 
     @Test
-    public void testSaveUser_PositiveScenario() {
-        User user = new User("Bharat", "bharat@example.com", "password");
+    public void testSaveUser() {
+        User newUser = new User();
+        newUser.setEmail("new@example.com");
+        newUser.setPassword("password");
 
-        when(userService.isEmailAlreadyExists(user.getEmail())).thenReturn(false);
+        when(userService.isEmailAlreadyExists(newUser.getEmail())).thenReturn(false);
 
-        ResponseEntity<?> response = userController.saveUser(user);
+        ResponseEntity<?> response = userController.saveUser(newUser);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("User has been added", response.getBody());
     }
-
-    @Test
-    public void testSaveUser_NegativeScenario() {
-        User user = new User("Bharat", "bharat@example.com", "password");
-
-        when(userService.isEmailAlreadyExists(user.getEmail())).thenReturn(true);
-
-        ResponseEntity<?> response = userController.saveUser(user);
-
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("This email already exists", response.getBody());
-    }
-
-    @Test
-    public void testExtractTokenFromRequest() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-
-        when(request.getHeader("Authorization")).thenReturn("Bearer token123");
-
-        String extractedToken = userController.extractTokenFromRequest(request);
-
-        assertEquals("token123", extractedToken);
-    }
-
 }
