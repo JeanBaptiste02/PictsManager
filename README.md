@@ -1,5 +1,9 @@
 # PictsManager Backend
 
+<div style="text-align:center;">
+  <img src="./documentation/app_logo.png" alt="Project Logo" width="50" />
+</div>
+
 The PictsManager backend is built using Java Spring Boot framework. It provides RESTful APIs to handle user authentication, album management, picture uploading, and other related functionalities. This backend is designed to work in conjunction with the PictsManager mobile application.
 
 ## Setup
