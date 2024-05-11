@@ -1,79 +1,70 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# PictsManager Frontend
 
-# Getting Started
+<div style="text-align:center;">
+  <img src="./image/main_logo.png" alt="Project Logo" width="50" />
+</div>
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+This React Native application serves as the frontend interface for the Pictures Manager app. It provides users with a seamless experience for capturing, managing, and sharing their photos. With intuitive navigation and user-friendly controls, users can easily create albums, organize their pictures, and control access permissions. The app prioritizes performance and usability, ensuring a smooth and responsive experience for users across different devices.
 
-## Step 1: Start the Metro Server
+## Prerequisites
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Before getting started, ensure you have the following installed on your system:
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- Node.js
+- npm
+- Android Studio with Android development tools (for emulator or deploying to an Android device)
+- An Android device connected via USB or a configured Android emulator
 
-```bash
-# using npm
-npm start
+## Installation
 
-# OR using Yarn
-yarn start
-```
+1. Clone this repository to your local machine:
 
-## Step 2: Start your Application
+   ```bash
+   git clone git@github.com:JeanBaptiste02/PictsManager.git
+   ```
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+2. Change the branch to the Frontend:
 
-### For Android
+   ```bash
+   git checkout front
+   ```
 
-```bash
-# using npm
-npm run android
+3. Navigate to the project directory:
 
-# OR using Yarn
-yarn android
-```
+   ```bash
+   cd PictsManager
+   ```
 
-### For iOS
+4. Install the required dependencies by running the following command:
 
-```bash
-# using npm
-npm run ios
+   ```bash
+   npm install
+   ```
 
-# OR using Yarn
-yarn ios
-```
+## Usage
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+1. Ensure your Android device is connected via USB or your Android emulator is running.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+2. Run the following command to check if your device is detected:
 
-## Step 3: Modifying your App
+   ```bash
+   adb devices
+   ```
 
-Now that you have successfully run the app, let's modify it.
+3. Launch the application on your Android device by running the following command:
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+   ```bash
+   npx react-native run-android
+   ```
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Other Commands
 
-## Congratulations! :tada:
+- To start the Metro Bundler development server:
 
-You've successfully run and modified your React Native App. :partying_face:
+  ```bash
+  npx react-native start
+  ```
 
-### Now what?
+## Contributing
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Contributions are welcome! Before submitting a Pull Request, ensure you follow development and testing best practices.
