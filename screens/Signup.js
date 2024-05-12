@@ -83,10 +83,10 @@ export default function Signup({ navigation }) {
             alt="App Logo"
             resizeMode="contain"
             style={styles.headerImg}
-            source={require("../image/Google-Photos-300x300-removebg-preview.png")}
+            source={require("../image/main_logo.png")}
           />
           <Text style={styles.title}>
-            Sign up to <Text style={{ color: "orange" }}>Gallery</Text>
+            Sign up to <Text style={{ color: "orange" }}>PictsManager</Text>
           </Text>
         </View>
 
