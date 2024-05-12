@@ -1,5 +1,6 @@
 package com.epitech.pictsmanager.controllers;
 
+import com.epitech.pictsmanager.dtos.PhotoDTO;
 import com.epitech.pictsmanager.entity.Album;
 import com.epitech.pictsmanager.entity.Photo;
 import com.epitech.pictsmanager.entity.User;
@@ -18,7 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.awt.PageAttributes.MediaType;
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -50,32 +54,11 @@ public class PhotoController {
      */
     @Cacheable(cacheNames = "photos")
     @GetMapping("/user/{ownerId}/album/{albumId}")
-    public ResponseEntity<List<Photo>> getPhotosByAlbumId(@PathVariable Long ownerId, @PathVariable Album albumId){
+    public ResponseEntity<List<PhotoDTO>> getPhotosByAlbumId(@PathVariable Long ownerId, @PathVariable Album albumId){
         List<Photo> photosList = photoService.getPhotosByOwnerIdAndAlbumId(ownerId, albumId);
-        return ResponseEntity.ok(photosList);
+        List<PhotoDTO> photoDTOs = photosList.stream().map(PhotoDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(photoDTOs);
     }
-    
-    /**
-     * Retieves the last image of a specific album
-     * @param albumId the specific albumID
-     * @return the last photo
-     */
-    @GetMapping("/album/{albumId}/last")
-    public ResponseEntity<Photo> getLastPhotoByAlbumId(@PathVariable Long albumId) {
-        Album album = albumService.getAlbumById(albumId);
-        if (album != null) {
-            Photo lastPhoto = photoService.getLastPhotoByAlbumId(album);
-            if (lastPhoto != null) {
-                return ResponseEntity.ok(lastPhoto);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
 
     /**
      * Retrieves photos by user ID
@@ -86,6 +69,29 @@ public class PhotoController {
     public ResponseEntity<List<Photo>> getPhotosByUserId(@PathVariable Long userId){
         List<Photo> photoListByUser = photoService.getPhotosByOwnerId(userId);
         return ResponseEntity.ok(photoListByUser);
+    }
+    
+    /**
+     * Retrieve image by Filename
+     * @param filename The name of the file 
+     * @return The file
+     * @throws IOException
+     */
+    @GetMapping("/image/{filename}")
+    public ResponseEntity<byte[]> getImage(@PathVariable String filename) throws IOException {
+        String currentDirectory = System.getProperty("user.dir");
+        String filePath = currentDirectory + File.separator + "photosData" + File.separator + filename;
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        byte[] bytes = Files.readAllBytes(file.toPath());
+
+        return ResponseEntity
+                .ok()
+                .body(bytes);
     }
 
     /**
@@ -181,24 +187,13 @@ public class PhotoController {
                     LocalDateTime date = LocalDateTime.now();
                     String currentDirectory = System.getProperty("user.dir");
 
-                    String photoDirPath = currentDirectory + File.separator + "photosData";
-                    File photoDir = new File(photoDirPath);
-                    if (!photoDir.exists()) {
-                        photoDir.mkdirs();
-                    }
+                    String filePath = currentDirectory + File.separator + "photosData" + File.separator + file.getOriginalFilename();
+                    File destFile = new File(filePath);
+                    file.transferTo(destFile);
 
-                    String ownerIdDirPath = photoDirPath + File.separator + existingUser.getNom();
-                    File ownerIdDir = new File(ownerIdDirPath);
-                    if (!ownerIdDir.exists()) {
-                        ownerIdDir.mkdirs();
-                    }
+                    String imageUrl = "http://localhost:8080/api/photo/image/" + file.getOriginalFilename();
 
-                    String fileName = file.getOriginalFilename();
-                    Path filePath = Paths.get(ownerIdDirPath, fileName);
-                    file.transferTo(filePath.toFile());
-
-
-                    Photo photo = new Photo(fileName, filePath.toString(), description, date, album, existingUser);
+                    Photo photo = new Photo(file.getOriginalFilename(), imageUrl, description, date, album, existingUser);
                     photoService.savePhoto(photo);
 
                     return ResponseEntity.ok().body("Photo uploaded successfully");
