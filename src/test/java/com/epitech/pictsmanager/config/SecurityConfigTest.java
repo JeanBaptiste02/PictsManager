@@ -1,6 +1,5 @@
 package com.epitech.pictsmanager.config;
 
-//import com.epitech.pictsmanager.utils.filters.JwtRequestFilterTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,11 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * Test class for the SecurityConfig class
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @ExtendWith(MockitoExtension.class)
 public class SecurityConfigTest {
 
-//	@Mock
-//    private JwtRequestFilterTest jwtRequestFilter;
 
     @Mock
     private AuthenticationConfiguration authenticationConfiguration;
@@ -26,6 +27,9 @@ public class SecurityConfigTest {
     @InjectMocks
     private SecurityConfig securityConfig;
 
+    /**
+     * Test method for verifying the creation of the password encoder bean
+     */
     @Test
     public void testPasswordEncoderBean() {
         PasswordEncoder passwordEncoder = securityConfig.passwordEncoder();
@@ -33,6 +37,10 @@ public class SecurityConfigTest {
         assertNotNull(passwordEncoder);
     }
 
+    /**
+     * Test method for verifying the creation of the authentication manager bean
+     * @throws Exception if an error occurs
+     */
     @Test
     public void testAuthenticationManagerBean() throws Exception {
         AuthenticationManager authenticationManager = mock(AuthenticationManager.class);

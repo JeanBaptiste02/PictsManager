@@ -5,10 +5,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * Test class for User entity
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserTest {
 
+	/**
+     * Tests the constructor of User
+     */
     @Test
     public void testUserConstructor() {
         String nom = "Rohit Sharma";
@@ -22,6 +29,9 @@ public class UserTest {
         Assertions.assertEquals(password, user.getPassword());
     }
 
+    /**
+     * Tests the getters and setters of User
+     */
     @Test
     public void testUserGettersAndSetters() {
         User user = new User();

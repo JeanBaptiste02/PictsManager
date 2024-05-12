@@ -196,6 +196,11 @@ public class PhotoService {
        }
     }
 
+    /**
+     * Retrieves public photos owned by a specific user
+     * @param userId The ID of the owner user
+     * @return A list of public photos owned by the specified user
+     */
     public List<Photo> getPublicPhotosByOwnerId(Long userId) {
         return photoRepository.findByOwnerIdAndVisibility(userId, true);
     }

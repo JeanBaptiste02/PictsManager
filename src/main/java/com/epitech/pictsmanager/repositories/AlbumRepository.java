@@ -40,8 +40,18 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
      */
     void deleteAlbumById(Long albumId);
     
+    /**
+     * Retrieves all albums associated with a specific owner ID
+     * @param ownerId The ID of the owner
+     * @return A list of albums associated with the owner
+     */
     List<Album> findAlbumsByOwnerId(Long userId);
     
+    /**
+     * Retrieves the minimum album ID associated with a given owner ID
+     * @param ownerId The ID of the owner
+     * @return The minimum album ID associated with the owner
+     */
     @Query(value = "SELECT MIN(id) FROM albums WHERE owner_id = :ownerId", nativeQuery = true)
     Long getMinAlbumIdByOwnerId(@Param("ownerId") Long ownerId);
 }

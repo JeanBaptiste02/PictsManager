@@ -3,8 +3,15 @@ package com.epitech.pictsmanager.form;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for AlbumForm
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class AlbumFormTest {
 
+	/**
+     * Tests the constructor of AlbumForm
+     */
     @Test
     void testConstructor() {
         Long id = 1L;
@@ -18,6 +25,9 @@ public class AlbumFormTest {
         assertEquals(ownerId, albumForm.getOwnerId());
     }
 
+    /**
+     * Tests the getters and setters of AlbumForm
+     */
     @Test
     void testGetterAndSetter() {
         AlbumForm albumForm = new AlbumForm();
@@ -35,6 +45,9 @@ public class AlbumFormTest {
         assertEquals(ownerId, albumForm.getOwnerId());
     }
 
+    /**
+     * Tests the toString method of AlbumForm
+     */
     @Test
     void testToString() {
         Long id = 1L;

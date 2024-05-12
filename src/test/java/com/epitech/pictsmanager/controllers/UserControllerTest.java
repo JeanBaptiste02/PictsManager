@@ -23,6 +23,11 @@ import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.UserService;
 import com.epitech.pictsmanager.utils.JwtUtil;
 
+/**
+ * Unit tests for the UserController class
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
+
 @RunWith(SpringRunner.class)
 public class UserControllerTest {
 
@@ -46,6 +51,9 @@ public class UserControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test method for retrieving all users
+     */
     @Test
     public void testGetUsers() {
         List<User> userList = new ArrayList<>();
@@ -54,6 +62,9 @@ public class UserControllerTest {
         assertEquals(userList, userController.getUsers());
     }
 
+    /**
+     * Test method for retrieving a user by ID
+     */
     @Test
     public void testGetUserById() {
         String token = "dummyToken";
@@ -70,6 +81,9 @@ public class UserControllerTest {
         assertEquals(dummyUser, response.getBody());
     }
 
+    /**
+     * Test method for updating a user
+     */
     @Test
     public void testUpdateUser() {
         String token = "dummyToken";
@@ -96,8 +110,9 @@ public class UserControllerTest {
         assertEquals(dummyUser.getEmail(), updatedUser.getEmail());
     }
 
-
-
+    /**
+     * Test method for saving a new user
+     */
     @Test
     public void testSaveUser() {
         User newUser = new User();

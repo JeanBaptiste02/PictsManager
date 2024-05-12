@@ -31,6 +31,12 @@ public class AlbumService {
         return albumRepository.findAll();
     }
     
+    /**
+     * Retrieves the minimum album ID associated with a given user ID
+     * @param userId The ID of the user
+     * @return The minimum album ID associated with the user
+     * @throws RuntimeException if the user does not exist or if no albums are found for the user
+     */
     public Long getMinAlbumIdByUserId(Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new RuntimeException("User not found with ID: " + userId);
@@ -56,6 +62,11 @@ public class AlbumService {
                 .orElseThrow(() -> new RuntimeException("Album not found with ID: " + albumId));
     }
     
+    /**
+     * Retrieves all albums associated with a specific user ID
+     * @param userId The ID of the user
+     * @return A list of albums associated with the user
+     */
     public List<Album> getAlbumsByUserId(Long userId) {
         return albumRepository.findAlbumsByOwnerId(userId);
     }

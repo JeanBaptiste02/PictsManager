@@ -9,12 +9,17 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * Test class for PhotoDTO
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class PhotoDTOTest {
 	
+	/**
+     * Tests the constructor with a Photo entity
+     */
 	@Test
     public void testConstructorWithPhotoEntity() {
-        // Arrange
         Long id = 1L;
         String name = "Test Photo";
         String path = "/photos/test.jpg";
@@ -34,10 +39,8 @@ public class PhotoDTOTest {
         photo.setOwner(owner);
         photo.setVisibility(visibility);
 
-        // Act
         PhotoDTO photoDTO = new PhotoDTO(photo);
 
-        // Assert
         Assertions.assertEquals(id, photoDTO.getId());
         Assertions.assertEquals(name, photoDTO.getName());
         Assertions.assertEquals(path, photoDTO.getPath());
@@ -46,12 +49,13 @@ public class PhotoDTOTest {
         Assertions.assertEquals(album, photoDTO.getAlbum_id());
     }
 
+	/**
+     * Tests the empty constructor
+     */
     @Test
     public void testEmptyConstructor() {
-        // Arrange
         PhotoDTO photoDTO = new PhotoDTO();
 
-        // Assert
         Assertions.assertNull(photoDTO.getId());
         Assertions.assertNull(photoDTO.getName());
         Assertions.assertNull(photoDTO.getPath());

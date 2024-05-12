@@ -52,6 +52,11 @@ public class AlbumController {
         return ResponseEntity.ok(albums);
     }
 
+    /**
+     * Retrieves the minimum album ID associated with a given user ID
+     * @param userId The ID of the user
+     * @return ResponseEntity with the minimum album ID and HTTP status 200 (OK), or 404 (NOT_FOUND) if no album is found for the user
+     */
     @GetMapping("/min-id/user/{userId}")
     public ResponseEntity<Long> getMinAlbumIdByUserId(@PathVariable Long userId) {
         try {
@@ -73,6 +78,11 @@ public class AlbumController {
         return ResponseEntity.ok(album);
     }
     
+    /**
+     * Retrieves all albums associated with a specific user ID
+     * @param userId The ID of the user
+     * @return ResponseEntity with the list of albums associated with the user and HTTP status 200 (OK)
+     */
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Album>> getAlbumsByUserId(@PathVariable Long userId) {
         List<Album> albums = albumService.getAlbumsByUserId(userId);

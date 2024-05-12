@@ -20,6 +20,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for the photo service
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @SpringBootTest
 class PhotoServiceTest {
 
@@ -40,6 +44,9 @@ class PhotoServiceTest {
         photoService.userRepository = userRepository;
     }
 
+    /**
+     * Test for getting all photos
+     */
     @Test
     void getPhotos() {
         List<Photo> photos = new ArrayList<>();
@@ -48,6 +55,9 @@ class PhotoServiceTest {
         assertEquals(photos, photoService.getPhotos());
     }
 
+    /**
+     * Test for getting photos by owner ID and album ID
+     */
     @Test
     void getPhotosByOwnerIdAndAlbumId() {
         Album album = new Album();
@@ -58,6 +68,9 @@ class PhotoServiceTest {
         assertEquals(photos, photoService.getPhotosByOwnerIdAndAlbumId(1L, album));
     }
 
+    /**
+     * Test for getting photos by owner ID
+     */
     @Test
     void getPhotosByOwnerId() {
         List<Photo> photos = new ArrayList<>();
@@ -66,6 +79,9 @@ class PhotoServiceTest {
         assertEquals(photos, photoService.getPhotosByOwnerId(1L));
     }
 
+    /**
+     * Test for finding a user by ID
+     */
     @Test
     void findUserById() {
         User user = new User();
@@ -74,6 +90,9 @@ class PhotoServiceTest {
         assertEquals(user, photoService.findUserById(1L));
     }
 
+    /**
+     * Test for getting a photo by its ID
+     */
     @Test
     void getPhotoById() {
         Photo photo = new Photo();
@@ -82,6 +101,9 @@ class PhotoServiceTest {
         assertEquals(photo, photoService.getPhotoById(1L));
     }
 
+    /**
+     * Test for getting photos by album ID
+     */
     @Test
     void getPhotosByAlbumId() {
         Album album = new Album();
@@ -92,6 +114,9 @@ class PhotoServiceTest {
         assertEquals(photos, photoService.getPhotosByAlbumId(album));
     }
 
+    /**
+     * Test for saving a photo
+     */
     @Test
     void savePhoto() {
         Photo photo = new Photo();
@@ -99,6 +124,9 @@ class PhotoServiceTest {
         verify(photoRepository, times(1)).save(photo);
     }
 
+    /**
+     * Test for getting photo paths by user ID
+     */
     @Test
     void getPhotoPathsByUserId() {
         List<String> photoPaths = new ArrayList<>();
@@ -107,6 +135,9 @@ class PhotoServiceTest {
         assertEquals(photoPaths, photoService.getPhotoPathsByUserId(1L));
     }
 
+    /**
+     * Test for combining images
+     */
     @Test
     void combineImages() throws IOException {
         List<String> photoPaths = new ArrayList<>();
@@ -114,6 +145,9 @@ class PhotoServiceTest {
         assertNotNull(result);
     }
 
+    /**
+     * Test for compressing and saving an image
+     */
     @SuppressWarnings("unused")
 	@Test
     void compressAndSaveImage() throws IOException {
@@ -126,7 +160,9 @@ class PhotoServiceTest {
 		String albumIdDirPath = tempDir + File.separator + "test_album";
     }
 
-
+    /**
+     * Test for getting photos by user ID and visibility
+     */
     @Test
     void getPhotosByUserIdAndVisibility() {
         List<Photo> photos = new ArrayList<>();
@@ -135,6 +171,9 @@ class PhotoServiceTest {
         assertEquals(photos, photoService.getPhotosByUserIdAndVisibility(1L, true));
     }
 
+    /**
+     * Test for getting all public photos
+     */
     @Test
     void getAllPublicPhotos() {
         List<Photo> photos = new ArrayList<>();
@@ -143,6 +182,9 @@ class PhotoServiceTest {
         assertEquals(photos, photoService.getAllPublicPhotos());
     }
 
+    /**
+     * Test for deleting photos by their IDs
+     */
     @Test
     void deletePhotosById() {
         Photo photo = new Photo();
@@ -153,6 +195,9 @@ class PhotoServiceTest {
         verify(photoRepository, times(1)).delete(photo);
     }
 
+    /**
+     * Test for getting public photos by owner ID
+     */
     @Test
     void getPublicPhotosByOwnerId() {
         List<Photo> photos = new ArrayList<>();

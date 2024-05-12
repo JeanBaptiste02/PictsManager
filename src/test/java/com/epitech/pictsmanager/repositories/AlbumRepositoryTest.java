@@ -15,6 +15,10 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Test class for AlbumRepository
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AlbumRepositoryTest {
@@ -27,6 +31,9 @@ public class AlbumRepositoryTest {
 	    private Album album1;
 	    private Album album2;
 
+	    /**
+	     * Set up method to create test data
+	     */
 	    @BeforeEach
 	    void setUp() {
 	    	user = new User();
@@ -45,11 +52,17 @@ public class AlbumRepositoryTest {
 	    }
 
 
+	    /**
+	     * Tear down method to clean up after each test
+	     */
 	    @AfterEach
 	    void tearDown() {
 	        albumRepository.deleteAll();
 	    }
 
+	    /**
+	     * Test to find all albums
+	     */
 	    @Test
 	    void testFindAll() {
 	        albumRepository.save(album1);
@@ -59,6 +72,9 @@ public class AlbumRepositoryTest {
 	        assertThat(albums).contains(album1, album2);
 	    }
 
+	    /**
+	     * Test to find an album by its ID
+	     */
 	    @Test
 	    void testFindAlbumById() {
 	        Album savedAlbum = albumRepository.save(album1);
@@ -68,6 +84,9 @@ public class AlbumRepositoryTest {
 	        assertThat(foundAlbum.get()).isEqualTo(savedAlbum);
 	    }
 
+	    /**
+	     * Test to get an album by its ID
+	     */
 	    @Test
 	    void testGetAlbumById() {
 	        Album savedAlbum = albumRepository.save(album1);
@@ -76,6 +95,9 @@ public class AlbumRepositoryTest {
 	        assertThat(foundAlbum).isEqualTo(savedAlbum);
 	    }
 
+	    /**
+	     * Test to delete an album by its ID
+	     */
 	    @Test
 	    void testDeleteAlbumById() {
 	        Album savedAlbum = albumRepository.save(album1);
@@ -86,6 +108,9 @@ public class AlbumRepositoryTest {
 	        assertThat(foundAlbum).isEmpty();
 	    }
 
+	    /**
+	     * Test to find albums by owner ID
+	     */
 	    @Test
 	    void testFindAlbumsByOwnerId() {
 	        user = albumRepository.save(album1).getOwner();
@@ -99,6 +124,9 @@ public class AlbumRepositoryTest {
 	        assertThat(albums).contains(album1, album2);
 	    }
 
+	    /**
+	     * Test to get the minimum album ID by owner ID
+	     */
 	    @Test
 	    void testGetMinAlbumIdByOwnerId() {
 	        user = albumRepository.save(album1).getOwner();

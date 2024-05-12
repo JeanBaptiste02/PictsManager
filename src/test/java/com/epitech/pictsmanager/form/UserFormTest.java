@@ -3,12 +3,19 @@ package com.epitech.pictsmanager.form;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for UserForm
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class UserFormTest {
 
+	/**
+     * Tests the constructor of UserForm
+     */
     @Test
     void testConstructor() {
-        String nom = "Test User";
-        String email = "test@example.com";
+        String nom = "";
+        String email = "dhoni@gmail.com";
         String password = "testpassword";
 
         UserForm userForm = new UserForm(nom, email, password);
@@ -18,12 +25,15 @@ public class UserFormTest {
         assertEquals(password, userForm.getPassword());
     }
 
+    /**
+     * Tests the getters and setters of UserForm
+     */
     @Test
     void testGetterAndSetter() {
         UserForm userForm = new UserForm();
 
-        String nom = "Test User";
-        String email = "test@example.com";
+        String nom = "Ms Dhoni";
+        String email = "dhoni@gmail.com";
         String password = "testpassword";
 
         userForm.setNom(nom);
@@ -35,15 +45,18 @@ public class UserFormTest {
         assertEquals(password, userForm.getPassword());
     }
 
+    /**
+     * Tests the toString method of UserForm
+     */
     @Test
     void testToString() {
-        String nom = "Test User";
-        String email = "test@example.com";
+        String nom = "Ms Dhoni";
+        String email = "dhoni@gmail.com";
         String password = "testpassword";
 
         UserForm userForm = new UserForm(nom, email, password);
 
-        String expectedToString = "UserForm(nom=Test User, email=test@example.com, password=testpassword)";
+        String expectedToString = "UserForm(nom=Ms Dhon, email=dhoni@gmail.com, password=testpassword)";
         assertEquals(expectedToString, userForm.toString());
     }
 }

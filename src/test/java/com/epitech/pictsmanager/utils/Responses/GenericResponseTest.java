@@ -3,8 +3,15 @@ package com.epitech.pictsmanager.utils.Responses;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for GenericResponse
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class GenericResponseTest {
 
+	/**
+     * Test constructor
+     */
     @Test
     void testConstructor() {
         String message = "Test message";
@@ -16,6 +23,9 @@ public class GenericResponseTest {
         assertEquals(httpCode, response.getHttpCode());
     }
 
+    /**
+     * Test getMessage method
+     */
     @Test
     void testGetMessage() {
         String message = "Test message";
@@ -26,6 +36,9 @@ public class GenericResponseTest {
         assertEquals(message, response.getMessage());
     }
 
+    /**
+     * Test getHttpCode method
+     */
     @Test
     void testGetHttpCode() {
         String message = "Test message";

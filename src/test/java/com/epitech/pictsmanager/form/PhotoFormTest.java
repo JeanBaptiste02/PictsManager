@@ -8,11 +8,17 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for PhotoForm
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 class PhotoFormTest {
 
+	/**
+     * Tests the builder method of PhotoForm
+     */
     @Test
     void photoFormBuilder() {
-        // Arrange
         Long id = 1L;
         String name = "Test Photo";
         String path = "/photos/test.jpg";
@@ -22,7 +28,6 @@ class PhotoFormTest {
         User ownerId = new User();
         Boolean visibility = true;
 
-        // Act
         PhotoForm photoForm = PhotoForm.builder()
                 .id(id)
                 .name(name)
@@ -34,7 +39,6 @@ class PhotoFormTest {
                 .visibility(visibility)
                 .build();
 
-        // Assert
         assertEquals(id, photoForm.getId());
         assertEquals(name, photoForm.getName());
         assertEquals(path, photoForm.getPath());
@@ -45,9 +49,11 @@ class PhotoFormTest {
         assertEquals(visibility, photoForm.getVisibility());
     }
 
+    /**
+     * Tests the getters and setters of PhotoForm
+     */
     @Test
     void photoFormGetterSetter() {
-        // Arrange
         PhotoForm photoForm = new PhotoForm();
         Long id = 1L;
         String name = "Test Photo";
@@ -58,7 +64,6 @@ class PhotoFormTest {
         User ownerId = new User();
         Boolean visibility = true;
 
-        // Act
         photoForm.setId(id);
         photoForm.setName(name);
         photoForm.setPath(path);
@@ -68,7 +73,6 @@ class PhotoFormTest {
         photoForm.setOwner_id(ownerId);
         photoForm.setVisibility(visibility);
 
-        // Assert
         assertEquals(id, photoForm.getId());
         assertEquals(name, photoForm.getName());
         assertEquals(path, photoForm.getPath());

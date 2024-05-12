@@ -9,10 +9,17 @@ import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * Test class for UserDTO
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserDTOTest {
 
+	/**
+     * Tests the constructor of UserDTO
+     */
     @Test
     public void testUserDTOConstructor() {
         User user = mock(User.class);
@@ -26,7 +33,10 @@ public class UserDTOTest {
         assertEquals("viky@example.com", userDTO.getEmail());
         assertEquals("password", userDTO.getPassword());
     }
-
+    
+    /**
+     * Tests the getNom() method of UserDTO
+     */
     @Test
     public void testGetNom() {
         UserDTO userDTO = new UserDTO();
@@ -34,7 +44,10 @@ public class UserDTOTest {
 
         assertEquals("Jhansi", userDTO.getNom());
     }
-
+    
+    /**
+     * Tests the getEmail() method of UserDTO
+     */
     @Test
     public void testGetEmail() {
         UserDTO userDTO = new UserDTO();
@@ -43,6 +56,9 @@ public class UserDTOTest {
         assertEquals("dhoni@example.com", userDTO.getEmail());
     }
 
+    /**
+     * Tests the getPassword() method of UserDTO
+     */
     @Test
     public void testGetPassword() {
         // Mock data

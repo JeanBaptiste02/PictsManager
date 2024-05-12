@@ -9,11 +9,17 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for Photo entity
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class PhotoTest {
 	
-	 @Test
+		/**
+	     * Tests the constructor and getters of Photo
+	     */
+	 	@Test
 	    public void testConstructorAndGetters() {
-	        // Arrange
 	        Long id = 1L;
 	        String name = "Test Photo";
 	        String path = "/photos/test.jpg";
@@ -23,11 +29,9 @@ public class PhotoTest {
 	        User owner = new User();
 	        Boolean visibility = false;
 
-	        // Act
 	        Photo photo = new Photo(name, path, description, date, album, owner);
 	        photo.setId(id);
 
-	        // Assert
 	        Assertions.assertEquals(id, photo.getId());
 	        Assertions.assertEquals(name, photo.getName());
 	        Assertions.assertEquals(path, photo.getPath());
@@ -38,14 +42,15 @@ public class PhotoTest {
 	        Assertions.assertEquals(visibility, photo.getVisibility());
 	    }
 
+	 	/**
+	     * Tests the setters of Photo
+	     */
 	    @Test
 	    public void testSetters() {
-	        // Arrange
 	        Photo photo = new Photo();
 	        Album album = new Album();
 	        User owner = new User();
 
-	        // Act
 	        photo.setId(1L);
 	        photo.setName("Test Photo");
 	        photo.setPath("/photos/test.jpg");
@@ -55,7 +60,6 @@ public class PhotoTest {
 	        photo.setOwner(owner);
 	        photo.setVisibility(true);
 
-	        // Assert
 	        Assertions.assertEquals(1L, photo.getId());
 	        Assertions.assertEquals("Test Photo", photo.getName());
 	        Assertions.assertEquals("/photos/test.jpg", photo.getPath());

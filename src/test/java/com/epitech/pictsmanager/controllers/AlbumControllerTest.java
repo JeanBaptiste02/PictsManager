@@ -16,6 +16,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the AlbumController class
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
+
 class AlbumControllerTest {
 
     @Mock
@@ -29,6 +34,9 @@ class AlbumControllerTest {
         albumController = new AlbumController(albumService);
     }
 
+    /**
+     * Test method for creating an album
+     */
     @Test
     public void testCreateAlbum() {
         AlbumDTO albumDTO = new AlbumDTO();
@@ -38,6 +46,9 @@ class AlbumControllerTest {
         ResponseEntity<Album> response = albumController.createAlbum(albumDTO);
     }
 
+    /**
+     * Test method for retrieving all albums
+     */
     @Test
     public void testGetAllAlbums() {
         List<Album> albums = Arrays.asList(new Album(), new Album());
@@ -49,6 +60,9 @@ class AlbumControllerTest {
         assertEquals(albums, response.getBody());
     }
 
+    /**
+     * Test method for retrieving the minimum album ID by user ID
+     */
     @Test
     public void testGetMinAlbumIdByUserId() {
         Long userId = 123L;
@@ -61,6 +75,9 @@ class AlbumControllerTest {
         assertEquals(minAlbumId, response.getBody());
     }
 
+    /**
+     * Test method for retrieving an album by its ID
+     */
     @Test
     public void testGetAlbumById() {
         Long albumId = 789L;
@@ -73,6 +90,9 @@ class AlbumControllerTest {
         assertEquals(album, response.getBody());
     }
 
+    /**
+     * Test method for retrieving albums by user ID
+     */
     @Test
     public void testGetAlbumsByUserId() {
         Long userId = 123L;
@@ -85,6 +105,9 @@ class AlbumControllerTest {
         assertEquals(albums, response.getBody());
     }
 
+    /**
+     * Test method for deleting an album by its ID
+     */
     @Test
     public void testDeleteAlbumById() {
         Long albumId = 789L;

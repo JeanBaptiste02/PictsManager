@@ -20,6 +20,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for the photo repository
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @SpringBootTest
 class PhotoRepositoryTest {
 
@@ -31,6 +35,9 @@ class PhotoRepositoryTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test for the findPhotoById method
+     */
     @Test
     void findPhotoById() {
         Photo photo = new Photo();
@@ -39,6 +46,9 @@ class PhotoRepositoryTest {
         assertEquals(photo, photoRepository.findPhotoById(1L));
     }
 
+    /**
+     * Test for the findByAlbumId method
+     */
     @Test
     void findByAlbumId() {
         Album album = new Album();
@@ -49,6 +59,9 @@ class PhotoRepositoryTest {
         assertEquals(photos, photoRepository.findByAlbumId(album));
     }
 
+    /**
+     * Test for the findByOwnerId_Id method
+     */
     @Test
     void findByOwnerId_Id() {
         List<Photo> photos = new ArrayList<>();
@@ -57,6 +70,9 @@ class PhotoRepositoryTest {
         assertEquals(photos, photoRepository.findByOwnerId_Id(1L));
     }
 
+    /**
+     * Test for the findPhotoPathsByOwner_id method
+     */
     @Test
     void findPhotoPathsByOwner_id() {
         List<String> photoPaths = new ArrayList<>();
@@ -65,6 +81,9 @@ class PhotoRepositoryTest {
         assertEquals(photoPaths, photoRepository.findPhotoPathsByOwner_id(1L));
     }
 
+    /**
+     * Test for the findByOwnerIdAndAlbumId method
+     */
     @Test
     void findByOwnerIdAndAlbumId() {
         Album album = new Album();
@@ -75,6 +94,9 @@ class PhotoRepositoryTest {
         assertEquals(photos, photoRepository.findByOwnerIdAndAlbumId(1L, album));
     }
 
+    /**
+     * Test for the findByOwnerIdAndVisibility method
+     */
     @Test
     void findByOwnerIdAndVisibility() {
         List<Photo> photos = new ArrayList<>();
@@ -83,6 +105,9 @@ class PhotoRepositoryTest {
         assertEquals(photos, photoRepository.findByOwnerIdAndVisibility(1L, true));
     }
 
+    /**
+     * Test for the findAllPublicPhotos method
+     */
     @Test
     void findAllPublicPhotos() {
         List<Photo> photos = new ArrayList<>();
@@ -91,6 +116,9 @@ class PhotoRepositoryTest {
         assertEquals(photos, photoRepository.findAllPublicPhotos());
     }
 
+    /**
+     * Test for the getPublicPhotosByOwnerId method
+     */
     @Test
     void getPublicPhotosByOwnerId() {
         List<Photo> photos = new ArrayList<>();

@@ -25,6 +25,11 @@ import org.mockito.InjectMocks;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the LoginController class
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
+
 public class LoginControllerTest {
 
     @Mock
@@ -52,7 +57,9 @@ public class LoginControllerTest {
         loginController = new LoginController(authenticationManager, userServiceImp, jwtUtil, userService);
     }
 
-
+    /**
+     * Test method for simulating authentication failure during login
+     */
     @Test
     public void testLogin_AuthenticationFailure() {
         AuthenticationManager mockAuthenticationManager = mock(AuthenticationManager.class);

@@ -18,9 +18,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
+/**
+ * Test class for the album service
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class AlbumServiceTest {
-
 
     @Mock
     private AlbumRepository albumRepository;
@@ -36,6 +38,9 @@ public class AlbumServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test for getting all albums
+     */
     @Test
     public void testGetAllAlbums() {
         List<Album> albums = new ArrayList<>();
@@ -48,6 +53,9 @@ public class AlbumServiceTest {
         assertEquals(2, result.size());
     }
 
+    /**
+     * Test for getting the minimum album ID by user ID
+     */
     @Test
     public void testGetMinAlbumIdByUserId() {
         Long userId = 1L;
@@ -59,6 +67,9 @@ public class AlbumServiceTest {
         assertEquals(1L, result);
     }
 
+    /**
+     * Test for getting an album by its ID
+     */
     @Test
     public void testGetAlbumById() {
         Long albumId = 1L;
@@ -70,6 +81,9 @@ public class AlbumServiceTest {
         assertEquals(album, result);
     }
 
+    /**
+     * Test for getting albums by user ID
+     */
     @Test
     public void testGetAlbumsByUserId() {
         Long userId = 1L;
@@ -84,6 +98,9 @@ public class AlbumServiceTest {
         assertEquals(2, result.size());
     }
 
+    /**
+     * Test for creating an album
+     */
     public Album createAlbum(AlbumDTO albumDTO) {
         User owner = albumDTO.getOwner();
         if (owner == null) {
@@ -102,6 +119,9 @@ public class AlbumServiceTest {
     }
 
 
+    /**
+     * Test for deleting an album by its ID
+     */
     @Test
     public void testDeleteAlbumById() {
         Long albumId = 1L;

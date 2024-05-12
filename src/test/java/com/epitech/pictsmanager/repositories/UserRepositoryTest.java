@@ -13,6 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
+/**
+ * Test class for the user repository
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserRepositoryTest {
@@ -27,6 +31,9 @@ public class UserRepositoryTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test for finding a user by ID
+     */
     @Test
     public void testFindUserById() {
         Long userId = 1L;
@@ -40,6 +47,9 @@ public class UserRepositoryTest {
         Assertions.assertEquals(user, result);
     }
 
+    /**
+     * Test for finding a user by email
+     */
     @Test
     public void testFindUserByEmail() {
         String email = "test@example.com";
@@ -53,7 +63,9 @@ public class UserRepositoryTest {
         Assertions.assertEquals(user, result);
     }
 
-
+    /**
+     * Test for finding a user by email with Optional return type
+     */
     @Test
     public void testFindByEmail() {
         String email = "test@example.com";

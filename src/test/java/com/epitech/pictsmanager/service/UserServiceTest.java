@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Test class for UserService
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class UserServiceTest {
 
     @Mock
@@ -26,6 +30,9 @@ public class UserServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test for getting all users
+     */
     @Test
     public void testGetUsers() {
         List<User> userList = new ArrayList<>();
@@ -39,6 +46,9 @@ public class UserServiceTest {
         Assertions.assertEquals(userList.size(), result.size());
     }
 
+    /**
+     * Test for getting a user by ID
+     */
     @Test
     public void testGetUserById() {
         Long userId = 1L;
@@ -52,6 +62,9 @@ public class UserServiceTest {
         Assertions.assertEquals(user, result);
     }
 
+    /**
+     * Test for saving a user
+     */
     @Test
     public void testSaveUser() {
         User user = new User();
@@ -64,6 +77,9 @@ public class UserServiceTest {
         Assertions.assertEquals(user, result);
     }
 
+    /**
+     * Test for getting a user by email
+     */
     @Test
     public void testGetUserByEmail() {
         String email = "test@example.com";
@@ -77,6 +93,9 @@ public class UserServiceTest {
         Assertions.assertEquals(user, result);
     }
 
+    /**
+     * Test for checking if an email already exists
+     */
     @Test
     public void testIsEmailAlreadyExists() {
         String existingEmail = "existing@example.com";
@@ -91,6 +110,9 @@ public class UserServiceTest {
         Assertions.assertFalse(nonExistingResult);
     }
 
+    /**
+     * Test for updating a user
+     */
     @Test
     public void testUpdateUser() {
         Long userId = 1L;

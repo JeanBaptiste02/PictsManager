@@ -15,6 +15,10 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for JwtUtil
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class JwtUtilTest {
 
     @Mock
@@ -29,6 +33,9 @@ public class JwtUtilTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test for extracting user from token
+     */
     @Test
     void testExtractUser() {
         String token = generateToken();
@@ -40,6 +47,9 @@ public class JwtUtilTest {
         assertEquals("rao@gmail.com", user.getEmail());
     }
 
+    /**
+     * Test for extracting expiration date from token
+     */
     @Test
     void testExtractExpiration() {
         String token = generateToken();
@@ -48,6 +58,9 @@ public class JwtUtilTest {
         assertNotNull(expiration);
     }
 
+    /**
+     * Test for validating token
+     */
     @Test
     void testValidateToken() {
         String token = generateToken();
@@ -56,6 +69,9 @@ public class JwtUtilTest {
         assertTrue(jwtUtil.validateToken(token, userDetails));
     }
 
+    /**
+     * Test for generating token
+     */
     @Test
     void testGenerateToken() {
         User user = new User(1L, "Rao ji", "rao@gmail.com");
@@ -65,6 +81,9 @@ public class JwtUtilTest {
         assertTrue(token.length() > 0);
     }
 
+    /**
+     * Helper method to generate a token for testing
+     */
     private String generateToken() {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", 1L);

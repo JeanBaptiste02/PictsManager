@@ -18,6 +18,9 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Default constructor
+     */
     public UserService(){
 
     }

@@ -35,6 +35,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the PhotoController class.
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
+
 public class PhotoControllerTest {
 
     @Mock
@@ -57,6 +62,9 @@ public class PhotoControllerTest {
         request = new MockHttpServletRequest();
     }
 
+    /**
+     * Test method for retrieving photos by album ID.
+     */
     @Test
     public void testGetPhotosByAlbumId() {
         Long ownerId = 1L;
@@ -71,6 +79,9 @@ public class PhotoControllerTest {
         assertEquals(photosList, response.getBody());
     }
 
+    /**
+     * Test method for retrieving photos by user ID.
+     */
     @Test
     public void testGetPhotosByUserId() {
         Long userId = 1L;
@@ -83,6 +94,9 @@ public class PhotoControllerTest {
         assertEquals(photoListByUser, response.getBody());
     }
 
+    /**
+     * Test method for retrieving photos by user ID and visibility status.
+     */
     @Test
     public void testGetPhotosByUserIdAndVisibility() {
         Long userId = 1L;
@@ -96,6 +110,9 @@ public class PhotoControllerTest {
         assertEquals(photos, response.getBody());
     }
 
+    /**
+     * Test method for retrieving all public photos.
+     */
     @Test
     public void testGetAllPublicPhotos() {
         List<Photo> publicPhotos = new ArrayList<>();
@@ -107,6 +124,9 @@ public class PhotoControllerTest {
         assertEquals(publicPhotos, response.getBody());
     }
 
+    /**
+     * Test method for retrieving photos by album ID (album ID only).
+     */
     @Test
     public void testGetPhotosByAlbumId_AlbumIdOnly() {
         Album albumId = new Album();
@@ -120,6 +140,9 @@ public class PhotoControllerTest {
         assertEquals(photos, response.getBody());
     }
 
+    /**
+     * Test method for retrieving public photos by user ID.
+     */
     @Test
     public void testGetPublicPhotosByUserId() {
         Long userId = 1L;
@@ -132,6 +155,9 @@ public class PhotoControllerTest {
         assertEquals(publicPhotosByUser, response.getBody());
     }
 
+    /**
+     * Test method for deleting a photo successfully.
+     */
     @Test
     public void testDeletePhoto_Success() throws IOException {
         Long photoId = 1L;
@@ -155,8 +181,9 @@ public class PhotoControllerTest {
         assertEquals("Photo deleted successfully", response.getBody());
     }
 
-
-
+    /**
+     * Test method for unauthorized photo deletion attempt.
+     */
     @Test
     public void testDeletePhoto_Unauthorized() throws Exception {
         Long photoId = 1L;
@@ -176,6 +203,9 @@ public class PhotoControllerTest {
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
     }
 
+    /**
+     * Test method for successfully uploading a photo.
+     */
     @Test
     public void testUploadPhoto_Success() throws IOException {
         User existingUser = new User();
@@ -191,6 +221,9 @@ public class PhotoControllerTest {
         request.addHeader("Authorization", "Bearer validToken");
     }
 
+    /**
+     * Test method for unauthorized photo upload attempt.
+     */
     @Test
     public void testUploadPhoto_Unauthorized() throws IOException {
         User existingUser = mock(User.class);

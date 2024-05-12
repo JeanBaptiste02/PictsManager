@@ -22,6 +22,10 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for JwtRequestFilter
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
 public class JwtRequestFilterTest {
 
     @Mock
@@ -47,6 +51,9 @@ public class JwtRequestFilterTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test for filtering with a valid token
+     */
     @Test
     void testDoFilterInternal_ValidToken() throws ServletException, IOException {
         String token = "valid_jwt_token";
@@ -66,7 +73,9 @@ public class JwtRequestFilterTest {
         verify(filterChain).doFilter(request, response);
     }
 
-
+    /**
+     * Test for filtering with an invalid token
+     */
     @Test
     void testDoFilterInternal_InvalidToken() throws ServletException, IOException {
         String token = "invalid_jwt_token";
@@ -79,6 +88,9 @@ public class JwtRequestFilterTest {
         verify(response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token JWT invalide");
     }
 
+    /**
+     * Test for filtering with no Authorization header
+     */
     @Test
     void testDoFilterInternal_NoAuthorizationHeader() throws ServletException, IOException {
         when(request.getHeader("Authorization")).thenReturn(null);

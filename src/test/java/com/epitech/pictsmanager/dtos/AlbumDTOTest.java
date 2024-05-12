@@ -1,12 +1,20 @@
 package com.epitech.pictsmanager.dtos;
 
-
 import com.epitech.pictsmanager.entity.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the AlbumDTO class
+ * @author Jean-Baptiste, Kamel, Victor, Mahdi
+ */
+
 public class AlbumDTOTest {
+
+	/**
+	 * Test method for constructor with no parameters
+	 */
 	@Test
     public void testConstructor() {
         AlbumDTO albumDTO = new AlbumDTO();
@@ -21,6 +29,9 @@ public class AlbumDTOTest {
         assertEquals("vishnu@gmail.com", albumDTO.getOwner().getEmail());
     }
 
+	/**
+	 * Test method for setters and getters
+	 */
     @Test
     public void testSettersAndGetters() {
         AlbumDTO albumDTO = new AlbumDTO();
