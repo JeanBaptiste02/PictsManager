@@ -6,6 +6,7 @@ import AppNavigator from "./navigation/AppNavigator.js";
 import Login from "./screens/Login";
 import Logout from "./screens/Logout.js";
 import Signup from "./screens/Signup";
+import PhotoList from "./screens/Users.js";
 import ForgotPassword from "./screens/ForgotPassword";
 import { ImageProvider } from "./context/ImageContext.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -51,6 +52,11 @@ export default function App() {
             options={{ headerShown: false }}
           />
 
+          <Stack.Screen
+            name="PhotoList"
+            component={PhotoList}
+            options={{ headerShown: true }}
+          />
           <Stack.Screen
             name="Signup"
             component={Signup}

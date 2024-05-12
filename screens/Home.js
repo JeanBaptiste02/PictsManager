@@ -8,11 +8,14 @@ import {
   Modal,
   TextInput,
   Text,
+  Button,
 } from "react-native";
 import { useImages } from "../context/ImageContext";
 import Icon from "react-native-vector-icons/EvilIcons"; // Assurez-vous d'avoir importé correctement vos icônes
-import useFetchAlbums, { createAlbum } from "../services/Album.js";
+import FetchAllAlbums, { createAlbum } from "../services/Album.js";
+import PhotoList from "./Users";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
   const { images } = useImages();
@@ -20,6 +23,11 @@ const Home = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [token, setToken] = useState(null);
+
+  const navigation = useNavigation();
+  const navigateToPhotoList = () => {
+    navigation.navigate("PhotoList");
+  };
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -129,6 +137,10 @@ const Home = () => {
           </View>
         ))*/}
       </ScrollView>
+
+      <View style={styles.container}>
+        <Button title="View Photos" onPress={navigateToPhotoList} />
+      </View>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionHeader}>People</Text>
         <ScrollView

@@ -41,6 +41,13 @@ const createAlbum = async () => {
   }
 };
 
+/**
+ * create the first album for the user when the user is created
+ *
+ * @param {*} user
+ * @param {*} token
+ * @returns a response to know if the album has been created
+ */
 const createFirstAlbum = async (user, token) => {
   try {
     const body = {
@@ -69,6 +76,11 @@ const createFirstAlbum = async (user, token) => {
   }
 };
 
+/**
+ *
+ * @param {*} token
+ * @returns an album ID of type integer, it is the minimum (default) ID of the album
+ */
 const getAlbumById = async (token) => {
   try {
     const minId = await getIdFromUser(token);
@@ -94,13 +106,12 @@ const getAlbumById = async (token) => {
   }
 };
 
-const useFetchAlbums = (token) => {
-  /*if (!token) {
-    return { albums: [], error: null, loading: false };
-  }
+const FetchAllAlbums = async () => {
   const [albums, setAlbums] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const token = await AsyncStorage.getItem("jwtToken");
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -154,8 +165,8 @@ const useFetchAlbums = (token) => {
     return () => abortController.abort();
   }, [token]);
 
-  return { albums, error, loading };*/
+  return { albums, error, loading };
 };
 
-export default useFetchAlbums;
+export default FetchAllAlbums;
 export { createAlbum, getAlbumById, createFirstAlbum };
