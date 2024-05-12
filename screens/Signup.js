@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { toFormData } from "axios";
 import {
   Alert,
   StyleSheet,
@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { createAlbum } from "../services/Album";
+import { createFirstAlbum } from "../services/Album";
+import { getToken } from "../services/Users";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const baseUrl = "http://10.0.2.2:8080";
@@ -43,7 +44,7 @@ export default function Signup({ navigation }) {
         password: form.password,
       });
 
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         Alert.alert(
           "Success",
           `You have created: ${JSON.stringify(response.data)}`
@@ -51,16 +52,21 @@ export default function Signup({ navigation }) {
         setIsLoading(false);
         setForm({ nom: "", email: "", password: "" });
 
-        // Create an album for the user
-        const token = await AsyncStorage.getItem("jwtToken");
-        console.log("Token for the creation of an album:", token);
-        const album = await createAlbum();
-        console.log("Checking album content:", album);
-        if (album) {
-          console.log("Album created:", album);
-          navigation.navigate("Login");
+        const token1 = await getToken(form.email, form.password);
+        console.log("Token from AsyncStorage:", token1);
+
+        if (token1) {
+          console.log("Retrieved token from user:", token1);
+          const album = await createFirstAlbum(form.email, token1);
+          console.log("Checking album content:", album);
+          if (album) {
+            console.log("Album created:", album);
+            navigation.navigate("Login");
+          } else {
+            console.log("Album not created");
+          }
         } else {
-          console.log("Album not created");
+          console.log("Token not provided in response");
         }
 
         return true;

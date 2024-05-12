@@ -42,5 +42,24 @@ const getIdFromUser = async (token) => {
   }
 };
 
+const getToken = async (email, password) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/login`, {
+      email: email,
+      password: password,
+    });
+    if (response.status === 200 || response.status === 201) {
+      console.log(response.data);
+      console.log(response.data.jwtToken);
+      return response.data.jwtToken;
+    } else {
+      throw new Error("An error has occurred");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+};
+
 export default getEmailFromUser;
-export { getIdFromUser };
+export { getIdFromUser, getToken };

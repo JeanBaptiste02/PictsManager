@@ -9,6 +9,7 @@ const baseUrl = "http://10.0.2.2:8080";
 const createAlbum = async () => {
   try {
     const token = await AsyncStorage.getItem("jwtToken");
+
     const email = await getEmailFromUser(token);
 
     console.log("Email from user:", email);
@@ -19,10 +20,42 @@ const createAlbum = async () => {
         email: email,
       },
     };
+
     console.log("checking if the token is the good one", token);
+    // In the createAlbum function
+
     const response = await axios.post(`${baseUrl}/api/album/create`, body, {
       headers: { Authorization: `Bearer ${token}` },
     });
+
+    if (response.status === 200 || response.status === 201) {
+      return response.data;
+    } else {
+      console.error("Server response status:", response.status);
+      console.error("Server response body:", response.data);
+      throw new Error("An error has occurred");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+};
+
+const createFirstAlbum = async (user, token) => {
+  try {
+    const body = {
+      title: "Default",
+      owner: {
+        email: user,
+      },
+    };
+
+    console.log("checking if the token is the good one", token);
+
+    const response = await axios.post(`${baseUrl}/api/album/create`, body, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
     if (response.status === 200 || response.status === 201) {
       return response.data;
     } else {
@@ -125,4 +158,4 @@ const useFetchAlbums = (token) => {
 };
 
 export default useFetchAlbums;
-export { createAlbum, getAlbumById };
+export { createAlbum, getAlbumById, createFirstAlbum };
