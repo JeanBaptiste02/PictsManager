@@ -49,6 +49,20 @@ public class PhotoService {
     }
 
     /**
+     * Retrieves the last image of a specific album
+     * @param albumId albumId the specific albumID
+     * @return the last photo
+     */
+    public Photo getLastPhotoByAlbumId(Album album) {
+        List<Photo> photos = photoRepository.findByAlbumIdOrderByDateDesc(album);
+        if (!photos.isEmpty()) {
+            return photos.get(0);
+        } else {
+            return null;
+        }
+    }
+    
+    /**
      * Retrieves photos by owner ID and album ID
      * @param ownerId The ID of the owner
      * @param albumId The ID of the album

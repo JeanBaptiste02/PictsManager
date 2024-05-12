@@ -68,10 +68,18 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
     List<Photo> findAllPublicPhotos();
 
     /**
-     * Récupère les photos publiques pour un utilisateur donné
+     * Retieves an image by ownerId
      * @param userId L'ID de l'utilisateur
      * @return La liste des photos publiques de l'utilisateur
      */
     List<Photo> getPublicPhotosByOwnerId(Long userId);
+    
+    /**
+     * Retieves the last image of a specific album
+     * @param albumId
+     * @return
+     */
+    List<Photo> findByAlbumIdOrderByDateDesc(Album album);
+
 
 }

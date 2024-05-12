@@ -54,6 +54,28 @@ public class PhotoController {
         List<Photo> photosList = photoService.getPhotosByOwnerIdAndAlbumId(ownerId, albumId);
         return ResponseEntity.ok(photosList);
     }
+    
+    /**
+     * Retieves the last image of a specific album
+     * @param albumId the specific albumID
+     * @return the last photo
+     */
+    @GetMapping("/album/{albumId}/last")
+    public ResponseEntity<Photo> getLastPhotoByAlbumId(@PathVariable Long albumId) {
+        Album album = albumService.getAlbumById(albumId);
+        if (album != null) {
+            Photo lastPhoto = photoService.getLastPhotoByAlbumId(album);
+            if (lastPhoto != null) {
+                return ResponseEntity.ok(lastPhoto);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
     /**
      * Retrieves photos by user ID
