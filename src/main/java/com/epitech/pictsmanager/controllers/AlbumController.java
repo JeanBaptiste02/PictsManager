@@ -24,6 +24,9 @@ public class AlbumController {
     @Autowired
     private AlbumService albumService;
 
+    public AlbumController(AlbumService albumService) {
+        this.albumService = albumService;
+    }
     /**
      * Creates a new album
      * @param albumDTO The DTO (Data Transfer Object) containing album details
