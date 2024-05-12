@@ -63,9 +63,7 @@ public class JwtRequestFilter extends OncePerRequestFilter   {
                     }
                 }
             } catch (Exception e) {
-                // Gérer les exceptions lors de la validation du token (par exemple, erreur de signature, token expiré)
                 logger.error("Erreur lors de la validation du token JWT", e);
-                // Renvoyer une réponse d'erreur appropriée (par exemple, 401 Non autorisé)
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token JWT invalide");
                 return;
             }

@@ -71,7 +71,7 @@ public class AlbumService {
             throw new RuntimeException("User not found with name: " + albumDTO.getOwner().getEmail());
         }
         Album album = new Album();
-        album.setId(albumDTO.getId());
+        album.setTitle(albumDTO.getTitle()); 
         album.setOwner(user);
         return albumRepository.save(album);
     }
