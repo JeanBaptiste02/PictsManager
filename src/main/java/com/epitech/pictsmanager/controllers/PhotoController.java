@@ -5,6 +5,7 @@ import com.epitech.pictsmanager.entity.Photo;
 import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.PhotoService;
 import com.epitech.pictsmanager.service.UserService;
+import com.epitech.pictsmanager.service.AlbumService;
 import com.epitech.pictsmanager.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -37,6 +38,9 @@ public class PhotoController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private  AlbumService albumService;
 
     /**
      * Retrieves photos by album ID
@@ -142,11 +146,11 @@ public class PhotoController {
     public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file,
                                               @RequestParam("name") String name,
                                               @RequestParam("description") String description,
-                                              @RequestParam("albumId") Album albumId,
+                                              @RequestParam("albumId") Long albumId,
 
                                               HttpServletRequest request) {
 
-
+            Album album = albumService.getAlbumById(albumId);
             String token = extractTokenFromRequest(request);
 
             if (token != null) {
@@ -172,7 +176,7 @@ public class PhotoController {
                     file.transferTo(filePath.toFile());
 
 
-                    Photo photo = new Photo(fileName, filePath.toString(), description, date, albumId, existingUser);
+                    Photo photo = new Photo(fileName, filePath.toString(), description, date, album, existingUser);
                     photoService.savePhoto(photo);
 
                     return ResponseEntity.ok().body("Photo uploaded successfully");

@@ -35,4 +35,6 @@ out/
 node_modules
 android
 
-src/main/resources/application.properties
+./src/main/resources/application.properties
+
+./target
