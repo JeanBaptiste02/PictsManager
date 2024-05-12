@@ -126,6 +126,26 @@ public class PhotoController {
         List<Photo> photos = photoService.getPhotosByAlbumId(albumId);
         return ResponseEntity.ok(photos);
     }
+    
+    /**
+     * Retrieves the last photo of a specified album
+     * @param albumId The ID of the album from which to retrieve the last photo
+     * @return ResponseEntity containing the last photo of the album if it exists, otherwise returns a 404 response
+     */
+    @GetMapping("/album/{albumId}/last")
+    public ResponseEntity<Photo> getLastPhotoByAlbumId(@PathVariable Long albumId) {
+        Album album = albumService.getAlbumById(albumId);
+        if (album != null) {
+            Photo lastPhoto = photoService.getLastPhotoByAlbumId(album);
+            if (lastPhoto != null) {
+                return ResponseEntity.ok(lastPhoto);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     /**
      * Retrieves public photos by user ID
