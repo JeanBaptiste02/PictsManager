@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // for async storage
-import { token } from "App.js";
 
 const Logout = ({ navigation }) => {
   useEffect(() => {

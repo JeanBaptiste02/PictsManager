@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Alert,
@@ -11,8 +11,11 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { createAlbum } from "../services/Album";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const baseUrl = "http://10.0.2.2:8080";
+//const baseUrl = "http://192.168.1.8:8080";
 
 export default function Signup({ navigation }) {
   const [form, setForm] = useState({
@@ -26,7 +29,7 @@ export default function Signup({ navigation }) {
   const handleSignUp = async () => {
     if (!form.nom.trim() || !form.email.trim() || !form.password.trim()) {
       Alert.alert("Error", "Please provide name, email, and password");
-      return;
+      return false;
     }
 
     console.log("Form Data:", form);
@@ -47,7 +50,20 @@ export default function Signup({ navigation }) {
         );
         setIsLoading(false);
         setForm({ nom: "", email: "", password: "" });
-        //navigation.navigate("Home");
+
+        // Create an album for the user
+        const token = await AsyncStorage.getItem("jwtToken");
+        console.log("Token for the creation of an album:", token);
+        const album = await createAlbum();
+        console.log("Checking album content:", album);
+        if (album) {
+          console.log("Album created:", album);
+          navigation.navigate("Login");
+        } else {
+          console.log("Album not created");
+        }
+
+        return true;
       } else {
         throw new Error("An error has occurred");
       }
@@ -55,6 +71,7 @@ export default function Signup({ navigation }) {
       console.error("Error:", error);
       Alert.alert("Error", "An error has occurred. Please try again.");
       setIsLoading(false);
+      return false;
     }
   };
 
@@ -106,7 +123,17 @@ export default function Signup({ navigation }) {
         </View>
 
         <View style={styles.formAction}>
-          <TouchableOpacity onPress={handleSignUp}>
+          <TouchableOpacity
+            onPress={() =>
+              handleSignUp().then((success) => {
+                console.log(success);
+                if (success) {
+                  console.log(success);
+                  navigation.navigate("Login");
+                }
+              })
+            }
+          >
             <View style={styles.btn}>
               <Text style={styles.btnText}>Sign up</Text>
             </View>

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from "axios";
 import {
+  Alert,
   StyleSheet,
   SafeAreaView,
   View,
@@ -7,22 +9,64 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-} from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import Icon from 'react-native-vector-icons/EvilIcons'; // Assurez-vous d'avoir importé correctement vos icônes
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/EvilIcons"; // Assurez-vous d'avoir importé correctement vos icônes
 
+const baseUrl = "http://10.0.2.2:8080";
+//const baseUrl = "http://192.168.1.8:8080";
 
 export default function EditUser({ navigation }) {
   const [form, setForm] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
+
+  const handleUpdateuser = async () => {
+    const token = await AsyncStorage.getItem("jwtToken"); // Récupération du token
+    if (!form.nom.trim() || !form.email.trim() || !form.password.trim()) {
+      Alert.alert("Error");
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `${baseUrl}/api/users/update/user`,
+        {
+          nom: form.nom,
+          email: form.email,
+          password: form.password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Inclusion du token dans l'en-tête
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        Alert.alert(
+          "Success",
+          `You have created: ${JSON.stringify(response.data)}`
+        );
+        setForm({ nom: "", email: "", password: "" });
+      } else {
+        throw new Error("An error has occurred");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Alert.alert("Error", "An error has occurred. Please try again.");
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
       <View style={styles.container}>
-      <KeyboardAwareScrollView>
-          <View style={styles.header}>
+        <KeyboardAwareScrollView>
+          {/* <View style={styles.header}>
           <Image
               alt="App Logo"
               resizeMode="contain"
@@ -33,56 +77,53 @@ export default function EditUser({ navigation }) {
                  <Icon name="camera" size={20} color="white" style={styles.searchIcon} /> 
             <TouchableOpacity style={styles.editIcon}>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           <View style={styles.form}>
-          <View style={styles.input}>
+            <View style={styles.input}>
               <Text style={styles.inputLabel}>Username</Text>
 
               <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                onChangeText={username => setForm({ ...form, username })}
-                placeholderTextColor="#6b7280"
+                placeholder="Your Name"
+                placeholderTextColor="#ffffff"
                 style={styles.inputControl}
-                value={form.username} />
+                value={form.nom}
+                onChangeText={(nom) => setForm({ ...form, nom })}
+              />
             </View>
             <View style={styles.input}>
               <Text style={styles.inputLabel}>Email address</Text>
 
               <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-                onChangeText={email => setForm({ ...form, email })}
-                placeholderTextColor="#6b7280"
+                placeholder="Email address"
+                placeholderTextColor="#ffffff"
                 style={styles.inputControl}
-                value={form.email} />
+                keyboardType="email-address"
+                value={form.email}
+                onChangeText={(email) => setForm({ ...form, email })}
+              />
             </View>
 
             <View style={styles.input}>
               <Text style={styles.inputLabel}>Password</Text>
 
               <TextInput
-                autoCorrect={false}
-                onChangeText={password => setForm({ ...form, password })}
-                placeholderTextColor="#6b7280"
+                placeholder="Password"
+                placeholderTextColor="#ffffff"
                 style={styles.inputControl}
                 secureTextEntry={true}
-                value={form.password} />
+                value={form.password}
+                onChangeText={(password) => setForm({ ...form, password })}
+              />
             </View>
 
             <View style={styles.formAction}>
-              <TouchableOpacity
-                onPress={() => {
-                  // handle onPress
-                }}>
+              <TouchableOpacity onPress={handleUpdateuser}>
                 <View style={styles.btn}>
                   <Text style={styles.btnText}>Edit profile</Text>
                 </View>
               </TouchableOpacity>
             </View>
-
           </View>
         </KeyboardAwareScrollView>
       </View>
@@ -100,25 +141,25 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 31,
-    fontWeight: '700',
-    color: '#1D2A32',
+    fontWeight: "700",
+    color: "#1D2A32",
     marginBottom: 6,
   },
   subtitle: {
     fontSize: 15,
-    fontWeight: '500',
-    color: '#929292',
+    fontWeight: "500",
+    color: "#929292",
   },
   /** Header */
   header: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 36,
   },
   headerImg: {
     width: 80,
     height: 80,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 36,
   },
   /** Form */
@@ -135,16 +176,16 @@ const styles = StyleSheet.create({
   },
   formLink: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#075eec',
-    textAlign: 'center',
+    fontWeight: "600",
+    color: "#075eec",
+    textAlign: "center",
   },
   formFooter: {
     marginBottom: 70,
     fontSize: 15,
-    fontWeight: '600',
-    color: '#222',
-    textAlign: 'center',
+    fontWeight: "600",
+    color: "#222",
+    textAlign: "center",
     letterSpacing: 0.15,
   },
   /** Input */
@@ -153,8 +194,8 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 17,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: "600",
+    color: "white",
     marginBottom: 8,
   },
   inputControl: {
@@ -162,40 +203,38 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 12,
     fontSize: 15,
-    fontWeight: '500',
-    color: 'white',
-    backgroundColor: 'black',
-    borderColor: 'grey',
+    fontWeight: "500",
+    color: "white",
+    backgroundColor: "black",
+    borderColor: "grey",
     borderWidth: 1,
   },
   /** Button */
   btn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 30,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderWidth: 1,
-    backgroundColor: 'orange',
-    borderColor: '#075eec',
+    backgroundColor: "orange",
+    borderColor: "#075eec",
   },
   btnText: {
     fontSize: 18,
     lineHeight: 26,
-    fontWeight: '600',
-    color: 'black',
+    fontWeight: "600",
+    color: "black",
   },
 
- searchIcon: {
-    position: 'absolute',
-    color: 'blue',
+  searchIcon: {
+    position: "absolute",
+    color: "blue",
     top: 65,
     left: 230,
-    backgroundColor: 'orange',
+    backgroundColor: "orange",
     borderRadius: 30,
     padding: 2,
-
   },
-
 });

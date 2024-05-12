@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Logout } from "./Logout.js";
 
 const baseUrl = "http://10.0.2.2:8080";
+//const baseUrl = "http://192.168.1.8:8080";
 
 export default function Login({ navigation }) {
   const [form, setForm] = useState({
