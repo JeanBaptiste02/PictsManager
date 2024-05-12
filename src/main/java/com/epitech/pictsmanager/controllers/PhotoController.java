@@ -194,11 +194,11 @@ public class PhotoController {
     public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file,
                                               @RequestParam("name") String name,
                                               @RequestParam("description") String description,
-                                              @RequestParam("albumId") Long albumId,
+                                              @RequestParam("albumId") Album albumId,
 
                                               HttpServletRequest request) {
 
-            Album album = albumService.getAlbumById(albumId);
+
             String token = extractTokenFromRequest(request);
 
             if (token != null) {
@@ -207,13 +207,24 @@ public class PhotoController {
                     LocalDateTime date = LocalDateTime.now();
                     String currentDirectory = System.getProperty("user.dir");
 
-                    String filePath = currentDirectory + File.separator + "photosData" + File.separator + file.getOriginalFilename();
-                    File destFile = new File(filePath);
-                    file.transferTo(destFile);
+                    String photoDirPath = currentDirectory + File.separator + "photosData";
+                    File photoDir = new File(photoDirPath);
+                    if (!photoDir.exists()) {
+                        photoDir.mkdirs();
+                    }
 
-                    String imageUrl = "http://localhost:8080/api/photo/image/" + file.getOriginalFilename();
+                    String ownerIdDirPath = photoDirPath + File.separator + existingUser.getNom();
+                    File ownerIdDir = new File(ownerIdDirPath);
+                    if (!ownerIdDir.exists()) {
+                        ownerIdDir.mkdirs();
+                    }
 
-                    Photo photo = new Photo(file.getOriginalFilename(), imageUrl, description, date, album, existingUser);
+                    String fileName = file.getOriginalFilename();
+                    Path filePath = Paths.get(ownerIdDirPath, fileName);
+                    file.transferTo(filePath.toFile());
+
+
+                    Photo photo = new Photo(fileName, filePath.toString(), description, date, albumId, existingUser);
                     photoService.savePhoto(photo);
 
                     return ResponseEntity.ok().body("Photo uploaded successfully");
