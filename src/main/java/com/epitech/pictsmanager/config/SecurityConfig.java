@@ -34,17 +34,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/login","/api/users/adduser","/api/photo/user/{userId}", "/api/users/getusers", "/api/users/{id}", "/api/users/update/user/{id}","/", "/api/photo/album/{id}", "/api/photo/delete/album/{id}").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/api/hello","update/user","/api/users/getuser","/api/photo/upload","/api/photo/delete")
-                .authenticated()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+        http.csrf(csrf -> csrf.disable())
+                .authorizeRequests(requests -> requests
+                        .antMatchers("/api/login", "/api/users/adduser", "/api/photo/user/{userId}", "/api/users/getusers", "/api/users/{id}", "/api/users/update/user/{id}", "/", "/api/photo/album/{id}", "/api/photo/delete/album/{id}", "/api/photo/image").permitAll())
+                .authorizeRequests(requests -> requests.antMatchers("/api/hello", "update/user", "/api/users/getuser", "/api/photo/upload", "/api/photo/delete")
+                        .authenticated()
+                        .anyRequest().authenticated())
+                .sessionManagement(management -> management
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
