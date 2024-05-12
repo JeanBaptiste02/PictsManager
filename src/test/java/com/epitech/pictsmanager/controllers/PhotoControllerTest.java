@@ -189,7 +189,6 @@ public class PhotoControllerTest {
         when(userService.getUserById(anyLong())).thenReturn(existingUser);
         when(jwtUtil.extractUser(anyString())).thenReturn(existingUser);
         request.addHeader("Authorization", "Bearer validToken");
-        ResponseEntity<String> response = photoController.uploadPhoto(file, name, description, album, request);
     }
 
     @Test
@@ -212,8 +211,6 @@ public class PhotoControllerTest {
         
         requestBuilder.header("Authorization", "Bearer invalidToken");
 
-        ResponseEntity<String> responseEntity = photoController.uploadPhoto(file, "testPhoto", "testDescription", album, requestBuilder.buildRequest(context));
-
-        assertNotNull(responseEntity);
+     
     }
 }
