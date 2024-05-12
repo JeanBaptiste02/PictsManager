@@ -1,5 +1,6 @@
 package com.epitech.pictsmanager.controllers;
 
+import com.epitech.pictsmanager.dtos.PhotoDTO;
 import com.epitech.pictsmanager.entity.Album;
 import com.epitech.pictsmanager.entity.Photo;
 import com.epitech.pictsmanager.entity.User;
@@ -73,7 +74,7 @@ public class PhotoControllerTest {
         List<Photo> photosList = new ArrayList<>();
         when(photoService.getPhotosByOwnerIdAndAlbumId(ownerId, albumId)).thenReturn(photosList);
 
-        ResponseEntity<List<Photo>> response = photoController.getPhotosByAlbumId(ownerId, albumId);
+        ResponseEntity<List<PhotoDTO>> response = photoController.getPhotosByAlbumId(ownerId, albumId);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(photosList, response.getBody());
