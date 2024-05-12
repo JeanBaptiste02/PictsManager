@@ -1,6 +1,6 @@
 package com.epitech.pictsmanager.config;
 
-import com.epitech.pictsmanager.filters.JwtRequestFilter;
+import com.epitech.pictsmanager.utils.filters.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

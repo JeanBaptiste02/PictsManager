@@ -1,4 +1,4 @@
-package com.epitech.pictsmanager.filters;
+package com.epitech.pictsmanager.utils.filters;
 
 import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.jwt.UserServiceImp;

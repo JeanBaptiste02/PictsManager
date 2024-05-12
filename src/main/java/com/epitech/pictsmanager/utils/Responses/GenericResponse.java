@@ -1,4 +1,4 @@
-package com.epitech.pictsmanager.Responses;
+package com.epitech.pictsmanager.utils.Responses;
 
 /**
  * A generic response class representing an HTTP response message and status code

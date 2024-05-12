@@ -1,5 +1,3 @@
-
-
 package com.epitech.pictsmanager.utils;
 
 import com.epitech.pictsmanager.entity.User;
@@ -24,11 +22,9 @@ public class JwtUtil {
 
     public User extractUser(String token) {
         Claims claims = extractAllClaims(token);
-        // Convertir l'ID en Long au lieu de String
         Long id = claims.get("id", Long.class);
         String nom = claims.get("nom", String.class);
         String email = claims.get("email", String.class);
-        // Retourner un nouvel objet User avec les informations récupérées
         return new User(id, nom, email);
     }
 
@@ -63,7 +59,7 @@ public class JwtUtil {
         return createToken(claims);
     }
 
-    private String createToken(Map<String, Object> claims) {
+    public String createToken(Map<String, Object> claims) {
         return Jwts
                 .builder()
                 .setClaims(claims)

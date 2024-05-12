@@ -27,6 +27,7 @@ public class AlbumController {
     public AlbumController(AlbumService albumService) {
         this.albumService = albumService;
     }
+    
     /**
      * Creates a new album
      * @param albumDTO The DTO (Data Transfer Object) containing album details
@@ -34,6 +35,9 @@ public class AlbumController {
      */
     @PostMapping("/create")
     public ResponseEntity<Album> createAlbum(@RequestBody AlbumDTO albumDTO) {
+        if (albumDTO.getTitle() == null || albumDTO.getTitle().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         Album createdAlbum = albumService.createAlbum(albumDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAlbum);
     }
