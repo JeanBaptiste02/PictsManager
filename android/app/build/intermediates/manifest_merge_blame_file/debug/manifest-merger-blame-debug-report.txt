@@ -9,129 +9,129 @@
 9        android:targetSdkVersion="34" />
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
-11-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:3:5-67
-11-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:3:22-64
+11-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:3:5-67
+11-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:3:22-64
 12    <!--
 13    This manifest file is used only by Gradle to configure debug-only capabilities
 14    for React Native Apps.
 15    -->
 16    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-16-->[com.facebook.react:react-android:0.73.6] C:\Users\vikne\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:16:5-78
-16-->[com.facebook.react:react-android:0.73.6] C:\Users\vikne\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:16:22-75
+16-->[com.facebook.react:react-android:0.73.6] C:\Users\Vzhan\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:16:5-78
+16-->[com.facebook.react:react-android:0.73.6] C:\Users\Vzhan\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:16:22-75
 17    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-17-->[com.facebook.flipper:flipper:0.201.0] C:\Users\vikne\.gradle\caches\transforms-3\9b2c28bd5719adb7e465469e2ca76c12\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:14:5-76
-17-->[com.facebook.flipper:flipper:0.201.0] C:\Users\vikne\.gradle\caches\transforms-3\9b2c28bd5719adb7e465469e2ca76c12\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:14:22-73
+17-->[com.facebook.flipper:flipper:0.201.0] C:\Users\Vzhan\.gradle\caches\transforms-3\9b2c28bd5719adb7e465469e2ca76c12\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:14:5-76
+17-->[com.facebook.flipper:flipper:0.201.0] C:\Users\Vzhan\.gradle\caches\transforms-3\9b2c28bd5719adb7e465469e2ca76c12\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:14:22-73
 18
 19    <permission
-19-->[androidx.core:core:1.9.0] C:\Users\vikne\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+19-->[androidx.core:core:1.9.0] C:\Users\Vzhan\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
 20        android:name="com.myapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-20-->[androidx.core:core:1.9.0] C:\Users\vikne\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+20-->[androidx.core:core:1.9.0] C:\Users\Vzhan\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
 21        android:protectionLevel="signature" />
-21-->[androidx.core:core:1.9.0] C:\Users\vikne\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+21-->[androidx.core:core:1.9.0] C:\Users\Vzhan\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 22
 23    <uses-permission android:name="com.myapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-23-->[androidx.core:core:1.9.0] C:\Users\vikne\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
-23-->[androidx.core:core:1.9.0] C:\Users\vikne\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+23-->[androidx.core:core:1.9.0] C:\Users\Vzhan\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+23-->[androidx.core:core:1.9.0] C:\Users\Vzhan\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 24
 25    <application
-25-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:5:5-25:19
+25-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:5:5-25:19
 26        android:name="com.myapp.MainApplication"
-26-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:6:7-38
+26-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:6:7-38
 27        android:allowBackup="false"
-27-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:10:7-34
+27-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:10:7-34
 28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-28-->[androidx.core:core:1.9.0] C:\Users\vikne\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+28-->[androidx.core:core:1.9.0] C:\Users\Vzhan\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 29        android:debuggable="true"
 30        android:extractNativeLibs="true"
 31        android:icon="@mipmap/ic_launcher"
-31-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:8:7-41
+31-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:8:7-41
 32        android:label="@string/app_name"
-32-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:7:7-39
+32-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:7:7-39
 33        android:roundIcon="@mipmap/ic_launcher_round"
-33-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:9:7-52
+33-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:9:7-52
 34        android:theme="@style/AppTheme"
-34-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:12:7-38
+34-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:12:7-38
 35        android:usesCleartextTraffic="true" >
-35-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:11:7-42
+35-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:11:7-42
 36        <activity
-36-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:13:7-24:18
+36-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:13:7-24:18
 37            android:name="com.myapp.MainActivity"
-37-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:14:9-37
+37-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:14:9-37
 38            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
-38-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:16:9-118
+38-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:16:9-118
 39            android:exported="true"
-39-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:19:9-32
+39-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:19:9-32
 40            android:label="@string/app_name"
-40-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:15:9-41
+40-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:15:9-41
 41            android:launchMode="singleTask"
-41-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:17:9-40
+41-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:17:9-40
 42            android:windowSoftInputMode="adjustResize" >
-42-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:18:9-51
+42-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:18:9-51
 43            <intent-filter>
-43-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:20:9-23:25
+43-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:20:9-23:25
 44                <action android:name="android.intent.action.MAIN" />
-44-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:21:13-65
-44-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:21:21-62
+44-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:21:13-65
+44-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:21:21-62
 45
 46                <category android:name="android.intent.category.LAUNCHER" />
-46-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:22:13-73
-46-->C:\Users\vikne\Desktop\PictsManager\android\app\src\main\AndroidManifest.xml:22:23-70
+46-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:22:13-73
+46-->C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\android\app\src\main\AndroidManifest.xml:22:23-70
 47            </intent-filter>
 48        </activity>
 49
 50        <provider
-50-->[:react-native-image-picker] C:\Users\vikne\Desktop\PictsManager\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-16:20
+50-->[:react-native-image-picker] C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-16:20
 51            android:name="com.imagepicker.ImagePickerProvider"
-51-->[:react-native-image-picker] C:\Users\vikne\Desktop\PictsManager\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-63
+51-->[:react-native-image-picker] C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-63
 52            android:authorities="com.myapp.imagepickerprovider"
-52-->[:react-native-image-picker] C:\Users\vikne\Desktop\PictsManager\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-71
+52-->[:react-native-image-picker] C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-71
 53            android:exported="false"
-53-->[:react-native-image-picker] C:\Users\vikne\Desktop\PictsManager\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-37
+53-->[:react-native-image-picker] C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-37
 54            android:grantUriPermissions="true" >
-54-->[:react-native-image-picker] C:\Users\vikne\Desktop\PictsManager\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-47
+54-->[:react-native-image-picker] C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-47
 55            <meta-data
-55-->[:react-native-image-picker] C:\Users\vikne\Desktop\PictsManager\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-15:70
+55-->[:react-native-image-picker] C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-15:70
 56                android:name="android.support.FILE_PROVIDER_PATHS"
-56-->[:react-native-image-picker] C:\Users\vikne\Desktop\PictsManager\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
+56-->[:react-native-image-picker] C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
 57                android:resource="@xml/imagepicker_provider_paths" />
-57-->[:react-native-image-picker] C:\Users\vikne\Desktop\PictsManager\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-67
+57-->[:react-native-image-picker] C:\Users\Vzhan\Downloads\PictsManager-front\PictsManager-front\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-67
 58        </provider>
 59
 60        <activity
-60-->[com.facebook.react:react-android:0.73.6] C:\Users\vikne\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:19:9-21:40
+60-->[com.facebook.react:react-android:0.73.6] C:\Users\Vzhan\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:19:9-21:40
 61            android:name="com.facebook.react.devsupport.DevSettingsActivity"
-61-->[com.facebook.react:react-android:0.73.6] C:\Users\vikne\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:20:13-77
+61-->[com.facebook.react:react-android:0.73.6] C:\Users\Vzhan\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:20:13-77
 62            android:exported="false" />
-62-->[com.facebook.react:react-android:0.73.6] C:\Users\vikne\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:21:13-37
+62-->[com.facebook.react:react-android:0.73.6] C:\Users\Vzhan\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:21:13-37
 63
 64        <provider
-64-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vikne\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+64-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vzhan\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
 65            android:name="androidx.startup.InitializationProvider"
-65-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vikne\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+65-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vzhan\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
 66            android:authorities="com.myapp.androidx-startup"
-66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vikne\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vzhan\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
 67            android:exported="false" >
-67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vikne\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vzhan\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
 68            <meta-data
-68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vikne\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vzhan\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
 69                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vikne\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vzhan\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
 70                android:value="androidx.startup" />
-70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vikne\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vzhan\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
 71            <meta-data
-71-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\vikne\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+71-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Vzhan\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
 72                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-72-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\vikne\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+72-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Vzhan\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
 73                android:value="androidx.startup" />
-73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\vikne\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Vzhan\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
 74        </provider>
 75
 76        <meta-data
-76-->[com.facebook.soloader:soloader:0.10.5] C:\Users\vikne\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:12:9-14:37
+76-->[com.facebook.soloader:soloader:0.10.5] C:\Users\Vzhan\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:12:9-14:37
 77            android:name="com.facebook.soloader.enabled"
-77-->[com.facebook.soloader:soloader:0.10.5] C:\Users\vikne\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:13:13-57
+77-->[com.facebook.soloader:soloader:0.10.5] C:\Users\Vzhan\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:13:13-57
 78            android:value="false" />
-78-->[com.facebook.soloader:soloader:0.10.5] C:\Users\vikne\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:14:13-34
+78-->[com.facebook.soloader:soloader:0.10.5] C:\Users\Vzhan\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:14:13-34
 79    </application>
 80
 81</manifest>

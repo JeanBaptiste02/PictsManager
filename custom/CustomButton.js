@@ -40,6 +40,18 @@ const CustomTabButton = ({ isCamera }) => {
       const user = await getAlbumById(token);
       console.log("User:", user); // Log the user object to ensure it's correct
 
+      const date = new Date();
+      const timestamp =
+        date.getFullYear() +
+        ("0" + (date.getMonth() + 1)).slice(-2) +
+        ("0" + date.getDate()).slice(-2) +
+        ("0" + date.getHours()).slice(-2) +
+        ("0" + date.getMinutes()).slice(-2) +
+        ("0" + date.getSeconds()).slice(-2) +
+        ("00" + date.getMilliseconds()).slice(-3);
+
+      const fileName = `upload_${timestamp}.jpg`;
+
       const formData = new FormData();
       formData.append("name", "");
       formData.append("description", "");
@@ -47,7 +59,7 @@ const CustomTabButton = ({ isCamera }) => {
       formData.append("file", {
         uri: photoUri,
         type: "image/jpeg", // or whichever type your image is
-        name: "upload.jpg", // you can choose any name
+        name: fileName, // you can choose any name
       });
 
       const response = await axios.post(
