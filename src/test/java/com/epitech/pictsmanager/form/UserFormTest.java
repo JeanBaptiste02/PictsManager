@@ -56,7 +56,7 @@ public class UserFormTest {
 
         UserForm userForm = new UserForm(nom, email, password);
 
-        String expectedToString = "UserForm(nom=Ms Dhon, email=dhoni@gmail.com, password=testpassword)";
+        String expectedToString = "UserForm(nom=Ms Dhoni, email=dhoni@gmail.com, password=testpassword)";
         assertEquals(expectedToString, userForm.toString());
     }
 }
