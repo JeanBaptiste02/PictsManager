@@ -123,7 +123,7 @@ export default function Login({ navigation }) {
                 }}
               >
                 <View style={styles.btn}>
-                  <Text style={styles.btnText}>Sign up</Text>
+                  <Text style={styles.btnText}>Sign in</Text>
                 </View>
               </TouchableOpacity>
             </View>

@@ -63,7 +63,7 @@ const Home = () => {
   useEffect(() => {
     console.log("Albums:");
     albums.forEach((album, index) => {
-      console.log(`Album ${index + 1}:`);
+      console.log(`Album ${album.name + 1}:`);
       console.log(`ID: ${album.id}`);
       console.log(`Last Photo URL: ${album.lastPhotoUrl}`);
       console.log(`Title: ${album.title}`);
@@ -91,6 +91,10 @@ const Home = () => {
 
   const navigateToPhotoList = (person) => {
     navigation.navigate("PhotoList", (root = person));
+  };
+
+  const navigateToAlbumPhoto = (album) => {
+    navigation.navigate("AlbumPhotos", (root = album));
   };
 
   const handleOpenImage = (uri) => {
@@ -122,7 +126,7 @@ const Home = () => {
           onChangeText={setSearchText}
           value={searchText}
           placeholder="Search"
-          placeholderTextColor="grey" // Définir la couleur du placeholder ici
+          placeholderTextColor="grey" 
         />
       </View>
       <View style={styles.headerContainer}>
@@ -132,21 +136,25 @@ const Home = () => {
         </TouchableOpacity>
       </View>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContainer}
-      >
-        {loading ? (
-          <Text>Loading...</Text>
-        ) : (
-          albums.map((album, index) => (
-            <View key={index}>
-              <Text>{album.name}</Text>
-            </View>
-          ))
-        )}
-      </ScrollView>
+<ScrollView
+  horizontal
+  showsHorizontalScrollIndicator={false}
+  contentContainerStyle={styles.scrollViewContainer}
+>
+  {loading ? (
+    <Text>Loading...</Text>
+  ) : (
+    albums.map((album, index) => (
+      <TouchableOpacity onPress={() => navigateToAlbumPhoto(album)} key={index} style={styles.touchableContainer}>
+        <View style={styles.albumContainer}>
+          <Text>{album.title}</Text>
+         
+        </View>
+      </TouchableOpacity>
+    ))
+  )}
+</ScrollView>
+
 
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionHeader}>People</Text>
@@ -196,6 +204,19 @@ const styles = StyleSheet.create({
   column: {
     flexDirection: "column",
     marginLeft: 10,
+    marginRight: 10,
+  },
+  scrollViewContainer: {
+    paddingHorizontal: 10,
+  },
+  albumContainer: {
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+  },
+  touchableContainer: {
     marginRight: 10,
   },
   image: {

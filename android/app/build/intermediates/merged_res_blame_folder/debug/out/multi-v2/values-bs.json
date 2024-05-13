@@ -4,7 +4,7 @@
             "outputFile": "com.myapp-mergeDebugResources-34:/values-bs/values-bs.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Vzhan\\.gradle\\caches\\transforms-3\\b3627ca143232ec2ceb6e319eb18971d\\transformed\\appcompat-1.6.1\\res\\values-bs\\values-bs.xml",
+                    "source": "C:\\Users\\talat\\.gradle\\caches\\transforms-3\\b3627ca143232ec2ceb6e319eb18971d\\transformed\\appcompat-1.6.1\\res\\values-bs\\values-bs.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,24 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Vzhan\\.gradle\\caches\\transforms-3\\13659b94c66de92d98d7f8af61234b95\\transformed\\core-1.9.0\\res\\values-bs\\values-bs.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "119",
-                        "startColumns": "4",
-                        "startOffsets": "9901",
-                        "endColumns": "100",
-                        "endOffsets": "9997"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Vzhan\\.gradle\\caches\\transforms-3\\d3a8a24834f295d8078f18b8298041f7\\transformed\\material-1.9.0\\res\\values-bs\\values-bs.xml",
+                    "source": "C:\\Users\\talat\\.gradle\\caches\\transforms-3\\d3a8a24834f295d8078f18b8298041f7\\transformed\\material-1.9.0\\res\\values-bs\\values-bs.xml",
                     "from": {
                         "startLines": "2,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -57,7 +40,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Vzhan\\.gradle\\caches\\transforms-3\\e1231b5b187cb579b629117f9511a862\\transformed\\jetified-react-android-0.73.6-debug\\res\\values-bs\\values-bs.xml",
+                    "source": "C:\\Users\\talat\\.gradle\\caches\\transforms-3\\e1231b5b187cb579b629117f9511a862\\transformed\\jetified-react-android-0.73.6-debug\\res\\values-bs\\values-bs.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -71,6 +54,23 @@
                         "startOffsets": "3102,3613,4005,4248,4399,4468,4613,5646,5713,5791,8845,8929,9012,9084,9252,9339,9415,9498,9580,9659,9737,9813,10002,10075,10154,10224",
                         "endColumns": "73,88,84,73,68,81,66,66,77,79,83,82,71,80,86,75,82,81,78,77,75,87,72,78,69,76",
                         "endOffsets": "3171,3697,4085,4317,4463,4545,4675,5708,5786,5866,8924,9007,9079,9160,9334,9410,9493,9575,9654,9732,9808,9896,10070,10149,10219,10296"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\talat\\.gradle\\caches\\transforms-3\\13659b94c66de92d98d7f8af61234b95\\transformed\\core-1.9.0\\res\\values-bs\\values-bs.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "119",
+                        "startColumns": "4",
+                        "startOffsets": "9901",
+                        "endColumns": "100",
+                        "endOffsets": "9997"
                     }
                 }
             ]

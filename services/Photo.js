@@ -8,7 +8,7 @@ const getPhotosFromAlbum = async (albumId) => {
     const token = await AsyncStorage.getItem("jwtToken");
 
     const response = await axios.get(
-      `${baseUrl}/api/photo/getphotos/${albumId}`,
+      `${baseUrl}/api/photo/album/${albumId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

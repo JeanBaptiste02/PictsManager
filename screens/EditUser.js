@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import axios from "axios";
 import {
   Alert,
@@ -18,8 +18,9 @@ const baseUrl = "http://10.0.2.2:8080";
 //const baseUrl = "http://192.168.1.8:8080";
 
 export default function EditUser({ navigation }) {
+  const [user, setuser] = useState([]);
   const [form, setForm] = useState({
-    username: "",
+    nom: "",
     email: "",
     password: "",
   });
@@ -62,6 +63,30 @@ export default function EditUser({ navigation }) {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://10.0.2.2:8080/api/users/getuser"
+        );
+        setuser(response.data);
+
+        console.log(response.data);
+      // Mettre à jour l'état form avec toutes les propriétés en une seule fois
+      setForm(prevForm => ({
+        ...prevForm,
+        nom: response.data.nom,
+        email: response.data.email,
+        
+      }));
+
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
       <View style={styles.container}>
@@ -82,9 +107,8 @@ export default function EditUser({ navigation }) {
           <View style={styles.form}>
             <View style={styles.input}>
               <Text style={styles.inputLabel}>Username</Text>
-
               <TextInput
-                placeholder="Your Name"
+                placeholder="your name"
                 placeholderTextColor="#ffffff"
                 style={styles.inputControl}
                 value={form.nom}
@@ -133,11 +157,11 @@ export default function EditUser({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 24,
     paddingHorizontal: 0,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
+    marginTop: 50,
   },
   title: {
     fontSize: 31,
