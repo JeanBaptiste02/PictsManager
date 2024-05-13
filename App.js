@@ -6,7 +6,7 @@ import AppNavigator from "./navigation/AppNavigator.js";
 import Login from "./screens/Login";
 import Logout from "./screens/Logout.js";
 import Signup from "./screens/Signup";
-import PhotoList from "./screens/Users.js";
+import PhotoList from "./screens/PublicPhotos.js";
 import ForgotPassword from "./screens/ForgotPassword";
 import { ImageProvider } from "./context/ImageContext.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -55,7 +55,13 @@ export default function App() {
           <Stack.Screen
             name="PhotoList"
             component={PhotoList}
-            options={{ headerShown: true }}
+            options={{
+              headerShown: true,
+              headerTitle: "",
+              headerBackVisible: true,
+              headerStyle: { backgroundColor: "black" },
+              headerTintColor: "white",
+            }}
           />
           <Stack.Screen
             name="Signup"

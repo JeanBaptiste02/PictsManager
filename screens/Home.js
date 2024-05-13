@@ -13,9 +13,9 @@ import {
 import { useImages } from "../context/ImageContext";
 import Icon from "react-native-vector-icons/EvilIcons"; // Assurez-vous d'avoir importé correctement vos icônes
 import FetchAllAlbums, { createAlbum } from "../services/Album.js";
-import PhotoList from "./Users";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const Home = () => {
   const { images } = useImages();
@@ -28,10 +28,9 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const [people, setPeople] = useState([]);
+
   const navigation = useNavigation();
-  const navigateToPhotoList = () => {
-    navigation.navigate("PhotoList");
-  };
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -73,38 +72,27 @@ const Home = () => {
     });
   }, [albums]);
 
-  const people = [
-    {
-      name: "Mehdi",
-      imageUri:
-        "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
-    },
-    {
-      name: "Kamel",
-      imageUri:
-        "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
-    },
-    {
-      name: "Jb",
-      imageUri:
-        "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
-    },
-    {
-      name: "Victor",
-      imageUri:
-        "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
-    },
-    {
-      name: "Anna",
-      imageUri:
-        "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
-    },
-    {
-      name: "Luis",
-      imageUri:
-        "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://10.0.2.2:8080/api/users/getusers"
+        );
+        setPeople(response.data);
+
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const navigateToPhotoList = (person) => {
+    navigation.navigate("PhotoList", (root = person));
+  };
+
   const handleOpenImage = (uri) => {
     setSelectedImage(uri);
     setModalVisible(true);
@@ -160,9 +148,6 @@ const Home = () => {
         )}
       </ScrollView>
 
-      <View style={styles.container}>
-        <Button title="View Photos" onPress={navigateToPhotoList} />
-      </View>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionHeader}>People</Text>
         <ScrollView
@@ -171,13 +156,17 @@ const Home = () => {
           contentContainerStyle={styles.peopleScrollView}
         >
           {people.map((person, index) => (
-            <View key={index} style={styles.personContainer}>
-              <Image
-                source={{ uri: person.imageUri }}
-                style={styles.personImage}
-              />
-              <Text style={styles.personName}>{person.name}</Text>
-            </View>
+            <TouchableOpacity onPress={() => navigateToPhotoList(person)}>
+              <View key={index} style={styles.personContainer}>
+                <Image
+                  source={{
+                    uri: "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+                  }}
+                  style={styles.personImage}
+                />
+                <Text style={styles.personName}>{person.nom}</Text>
+              </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       </View>
