@@ -2,6 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import getEmailFromUser from "./Users";
 import { getIdFromUser } from "./Users";
+import getLastPhotoFromAlbum, { getPhotosFromAlbum } from "./Photo.js";
 
 const baseUrl = "http://10.0.2.2:8080";
 //const baseUrl = "http://192.168.1.8:8080";
@@ -107,65 +108,34 @@ const getAlbumById = async (token) => {
 };
 
 const FetchAllAlbums = async () => {
-  const [albums, setAlbums] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  try {
+    const jwtToken = await AsyncStorage.getItem("jwtToken");
+    if (!jwtToken) {
+      throw new Error("JWT token not found.");
+    }
 
-  const token = await AsyncStorage.getItem("jwtToken");
-
-  useEffect(() => {
-    const abortController = new AbortController();
     const url = `${baseUrl}/api/album/all`;
+    const response = await axios.get(url, {
+      headers: { Authorization: `Bearer ${jwtToken}` },
+    });
 
-    const fetchAlbums = async (token) => {
-      try {
-        const response = await axios.get(url, {
-          signal: abortController.signal,
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (response.status === 200) {
-          const albums = response.data;
-          for (let album of albums) {
-            const photoResponse = await axios.get(
-              `${baseUrl}/api/photo/album/${album.id}`,
-              {
-                signal: abortController.signal,
-                headers: { Authorization: `Bearer ${token}` },
-              }
-            );
-            if (photoResponse.status === 200 && photoResponse.data.length > 0) {
-              album.firstImage = photoResponse.data[0].path;
-            }
-          }
-          setAlbums(albums);
+    if (response.status === 200 || response.status === 201) {
+      const albums = response.data;
+      for (let album of albums) {
+        const photoData = await getLastPhotoFromAlbum(album.id);
+        if (photoData) {
+          album.lastPhotoUrl = `${baseUrl}/photosData/${photoData.owner.nom}/${photoData.path}`;
         } else {
-          throw new Error("Error fetching albums");
+          album.lastPhotoUrl = `${baseUrl}/photosData/empty/empty.jpg`;
         }
-      } catch (error) {
-        if (!abortController.signal.aborted) {
-          if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error", error.message);
-          }
-          setError(error.message);
-        }
-      } finally {
-        setLoading(false);
       }
-    };
-
-    fetchAlbums(token);
-
-    return () => abortController.abort();
-  }, [token]);
-
-  return { albums, error, loading };
+      return { albums, error: null };
+    } else {
+      throw new Error("Failed to fetch albums.");
+    }
+  } catch (error) {
+    return { albums: [], error: error.message };
+  }
 };
 
 export default FetchAllAlbums;

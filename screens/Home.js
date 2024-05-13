@@ -24,6 +24,10 @@ const Home = () => {
   const [searchText, setSearchText] = useState("");
   const [token, setToken] = useState(null);
 
+  const [albums, setAlbums] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
   const navigateToPhotoList = () => {
     navigation.navigate("PhotoList");
@@ -38,15 +42,37 @@ const Home = () => {
 
     fetchToken();
   }, []);
-  /*
-  const { albums, error, loading } = useFetchAlbums(token);
-  if (error) {
-    return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorMessage}>Error: {error}</Text>
-      </View>
-    );
-  }*/
+
+  useEffect(() => {
+    fetchAlbumsData(); // Call the function to fetch albums data
+  }, []);
+
+  const fetchAlbumsData = async () => {
+    setLoading(true);
+    const { albums, error } = await FetchAllAlbums(); // Call FetchAllAlbums function
+    setAlbums(albums);
+    setError(error);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (error) {
+      console.log("Fetch error:", error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    console.log("Albums:");
+    albums.forEach((album, index) => {
+      console.log(`Album ${index + 1}:`);
+      console.log(`ID: ${album.id}`);
+      console.log(`Last Photo URL: ${album.lastPhotoUrl}`);
+      console.log(`Title: ${album.title}`);
+      console.log(`Owner: ${album.owner.email}`);
+      console.log("-------------------");
+    });
+  }, [albums]);
+
   const people = [
     {
       name: "Mehdi",
@@ -101,11 +127,6 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      {/*{loading ? ( // If loading is true, display ActivityIndicator
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : error ? ( // If error is not null or undefined, display error message
-        <Text style={styles.errorContainer}>Error: {error}</Text>
-      ) : null}*/}
       <View style={styles.searchContainer}>
         <Icon name="search" size={20} color="grey" style={styles.searchIcon} />
         <TextInput
@@ -122,20 +143,21 @@ const Home = () => {
           <Text style={styles.addButtonText}>+ Add New</Text>
         </TouchableOpacity>
       </View>
+
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContainer}
       >
-        {imagePairs.map(renderColumn)}
-        {/*albums.map((album) => (
-          <View key={album.id}>
-            <Text>{album.title}</Text>
-            {album.firstImage && (
-              <Image source={{ uri: album.firstImage }} style={styles.image} />
-            )}
-          </View>
-        ))*/}
+        {loading ? (
+          <Text>Loading...</Text>
+        ) : (
+          albums.map((album, index) => (
+            <View key={index}>
+              <Text>{album.name}</Text>
+            </View>
+          ))
+        )}
       </ScrollView>
 
       <View style={styles.container}>

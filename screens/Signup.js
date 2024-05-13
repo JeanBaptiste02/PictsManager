@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios, { toFormData } from "axios";
+import axios from "axios";
 import {
   Alert,
   StyleSheet,
@@ -44,6 +44,8 @@ export default function Signup({ navigation }) {
         password: form.password,
       });
 
+      console.log("Response from response:", response);
+
       if (response.status === 200 || response.status === 201) {
         Alert.alert(
           "Success",
@@ -75,6 +77,7 @@ export default function Signup({ navigation }) {
       }
     } catch (error) {
       console.error("Error:", error);
+      console.log("Error Details:", error.response.data);
       Alert.alert("Error", "An error has occurred. Please try again.");
       setIsLoading(false);
       return false;

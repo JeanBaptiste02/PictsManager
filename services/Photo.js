@@ -25,18 +25,18 @@ const getPhotosFromAlbum = async (albumId) => {
   }
 };
 
-const getFirstPhotoFromAlbum = async (albumId) => {
+const getLastPhotoFromAlbum = async (albumId) => {
   try {
     const token = await AsyncStorage.getItem("jwtToken");
 
     const response = await axios.get(
-      `${baseUrl}/api/photo/getfirstphoto/${albumId}`,
+      `${baseUrl}/api/photo/album/${albumId}/last`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
 
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 201) {
       return response.data;
     } else {
       throw new Error("An error has occurred");
@@ -46,3 +46,6 @@ const getFirstPhotoFromAlbum = async (albumId) => {
     return null;
   }
 };
+
+export default getLastPhotoFromAlbum;
+export { getPhotosFromAlbum };
