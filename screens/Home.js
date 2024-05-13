@@ -29,6 +29,8 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   const [people, setPeople] = useState([]);
+  const [modalAlbumVisible, setModalAlbumVisible] = useState(false);
+  const [albumName, setAlbumName] = useState("");
 
   const navigation = useNavigation();
 
@@ -131,10 +133,34 @@ const Home = () => {
       </View>
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>Albums</Text>
-        <TouchableOpacity style={styles.addButton} onPress={createAlbum}>
+        <TouchableOpacity style={styles.addButton} onPress={() => setModalAlbumVisible(true)}>
           <Text style={styles.addButtonText}>+ Add New</Text>
         </TouchableOpacity>
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalAlbumVisible}
+        onRequestClose={() => setModalAlbumVisible(false)}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalViewAlbum}>
+            <Text style={styles.TitlecreateAlbum}>Create Album</Text>
+            <TextInput
+              style={styles.modalTextInput}
+              placeholder="Enter album name"
+              placeholderTextColor={"white"}
+              value={albumName}
+              onChangeText={setAlbumName}
+            />
+            <View style={styles.buttonContainer}>
+              <Button title="Cancel" color="red" onPress={() => setModalAlbumVisible(false)} />
+              <Button title="Create Album" color="orange" onPress={() => createAlbum(albumName)} />
+            </View>
+          </View>
+        </View>
+      </Modal>
 
 <ScrollView
   horizontal
@@ -196,6 +222,47 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+ TitlecreateAlbum: {
+    color: "white",
+    fontSize: 15,
+    margin: 10,
+  },
+ centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalViewAlbum: {
+    margin: 20,
+    backgroundColor: "grey",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+
+  },
+  modalTextInput: {
+    height: 40,
+    marginBottom: 12,
+    width: 300,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+    borderColor: "white",
+  },
   container: {
     flex: 1,
     backgroundColor: "#000",

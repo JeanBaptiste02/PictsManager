@@ -7,29 +7,24 @@ import getLastPhotoFromAlbum, { getPhotosFromAlbum } from "./Photo.js";
 const baseUrl = "http://10.0.2.2:8080";
 //const baseUrl = "http://192.168.1.8:8080";
 
-const createAlbum = async () => {
+const createAlbum = async (albumTitle) => {
   try {
     const token = await AsyncStorage.getItem("jwtToken");
-
-    const email = await getEmailFromUser(token);
-
-    console.log("Email from user:", email);
+    const email = await getEmailFromUser(token);  // Assurez-vous que cette fonction est bien définie ailleurs dans votre code
 
     const body = {
-      title: "Default",
+      title: albumTitle,
       owner: {
         email: email,
       },
     };
-
-    console.log("checking if the token is the good one", token);
-    // In the createAlbum function
 
     const response = await axios.post(`${baseUrl}/api/album/create`, body, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
     if (response.status === 200 || response.status === 201) {
+      console.log("Album created successfully", response.data);
       return response.data;
     } else {
       console.error("Server response status:", response.status);
@@ -93,10 +88,10 @@ const getAlbumById = async (token) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("Response data:", response.data); // Log the response data to ensure it's correct
+    console.log("Response data:", response.data); 
 
     if (response.status === 200) {
-      console.log("Album ID:", response.data); // Log the album ID to ensure it's correct
+      console.log("Album ID:", response.data);
       return response.data;
     } else {
       throw new Error("An error has occurred");
@@ -114,7 +109,7 @@ const FetchAllAlbums = async () => {
       throw new Error("JWT token not found.");
     }
 
-    const url = `${baseUrl}/api/album/all`;
+    const url = `${baseUrl}/api/album/user`;
     const response = await axios.get(url, {
       headers: { Authorization: `Bearer ${jwtToken}` },
     });
