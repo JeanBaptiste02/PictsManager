@@ -123,4 +123,22 @@ public class AlbumController {
         albumService.deleteAlbumById(albumId);
         return ResponseEntity.ok("Album deleted successfully");
     }
+    
+    /**
+     * Updates an album's id
+     * @param albumId the album's in question
+     * @param newTitle The new title of the album
+     * @return
+     */
+    @PutMapping("/update-album/{albumId}")
+    public ResponseEntity<Album> updateAlbumTitle(@PathVariable Long albumId, @RequestBody AlbumDTO albumDTO) {
+        if (albumDTO.getTitle() == null || albumDTO.getTitle().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        Album updatedAlbum = albumService.updateAlbumTitle(albumId, albumDTO.getTitle());
+        return ResponseEntity.ok(updatedAlbum);
+    }
+
+
 }

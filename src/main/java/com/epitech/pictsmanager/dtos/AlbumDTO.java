@@ -18,6 +18,15 @@ public class AlbumDTO {
     private Long id;
     private String title;
     private User owner;
+    
+    /**
+     * Special constructor for the title attribute
+     * @param title
+     */
+    public AlbumDTO(String title) {
+        this.title = title;
+    }
+
 
     /**
      * Constructs an AlbumDTO object

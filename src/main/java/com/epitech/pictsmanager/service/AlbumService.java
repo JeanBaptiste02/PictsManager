@@ -103,4 +103,18 @@ public class AlbumService {
 
     }
 
+    /**
+     * Updates an album's title
+     * @param albumId the id of the album
+     * @param newTitle The new title of the album
+     * @return
+     */
+    public Album updateAlbumTitle(Long albumId, String newTitle) {
+        Album album = albumRepository.findById(albumId)
+                .orElseThrow(() -> new RuntimeException("Album not found with ID: " + albumId));
+
+        album.setTitle(newTitle);
+        return albumRepository.save(album);
+    }
+
 }
