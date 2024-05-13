@@ -7,6 +7,7 @@ import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.repositories.PhotoRepository;
 import com.epitech.pictsmanager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,7 +51,7 @@ public class PhotoService {
 
     /**
      * Retrieves the last image of a specific album
-     * @param albumId albumId the specific albumID
+     * @param album albumId the specific albumID
      * @return the last photo
      */
     public Photo getLastPhotoByAlbumId(Album album) {
@@ -218,4 +219,24 @@ public class PhotoService {
     public List<Photo> getPublicPhotosByOwnerId(Long userId) {
         return photoRepository.findByOwnerIdAndVisibility(userId, true);
     }
+
+    /**
+     * Updates the visibility/access to the photo
+     * @param photoId the ID the photo
+     * @param visibility the access to the photo
+     * @return
+     */
+    @Transactional
+    public ResponseEntity<String> updatePhotoVisibility(Long photoId, boolean visibility) {
+        Photo photo = photoRepository.findPhotoById(photoId);
+        if (photo != null) {
+            photo.setVisibility(visibility);
+            photoRepository.save(photo);
+            return ResponseEntity.ok().body("Visibility updated successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }

@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests(requests -> requests
-                        .antMatchers("/api/login", "/api/users/adduser", "/api/photo/user/{userId}", "/api/users/getusers", "/api/users/{id}", "/api/users/update/user/{id}", "/", "/api/photo/album/{id}", "/api/photo/delete/album/{id}", "/api/photo/image", "/photosData/**").permitAll())
+                        .antMatchers("/api/login", "/api/users/adduser", "/api/photo/user/{userId}", "/api/users/getusers", "/api/users/{id}", "/api/users/update/user/{id}", "/", "/api/photo/album/{id}", "/api/photo/delete/album/{id}", "/api/photo/image", "/photosData/**","/api/photo/visibility").permitAll())
                 .authorizeRequests(requests -> requests.antMatchers("/api/hello", "update/user", "/api/users/getuser", "/api/photo/upload", "/api/photo/delete")
                         .authenticated()
                         .anyRequest().authenticated())

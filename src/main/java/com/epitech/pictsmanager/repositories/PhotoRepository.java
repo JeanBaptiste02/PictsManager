@@ -23,6 +23,8 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
      */
     Photo findPhotoById(Long id);
 
+    Photo findPhotoByPath(String path);
+
     /**
      * Retrieves a list of photos belonging to a specific album
      * @param albumId The ID of the album
@@ -73,10 +75,10 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
      * @return La liste des photos publiques de l'utilisateur
      */
     List<Photo> getPublicPhotosByOwnerId(Long userId);
-    
+
     /**
      * Retieves the last image of a specific album
-     * @param albumId
+     * @param album
      * @return
      */
     List<Photo> findByAlbumIdOrderByDateDesc(Album album);

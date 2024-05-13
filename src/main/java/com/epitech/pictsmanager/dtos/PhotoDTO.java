@@ -38,6 +38,6 @@ public class PhotoDTO {
         date = photo.getDate();
         album_id = photo.getAlbum_id();
         owner_id = getOwner_id();
-        visibility = getVisibility();
+        visibility = photo.getVisibility();
     }
 }

@@ -157,6 +157,23 @@ public class PhotoController {
         List<Photo> publicPhotosByUser = photoService.getPublicPhotosByOwnerId(userId);
         return ResponseEntity.ok(publicPhotosByUser);
     }
+    
+    /**
+     * Updates the visibility/access of a specific photo
+     * @param photoId the ID of the photo
+     * @param photoDTO the photoDTO object
+     * @return
+     */
+    @PutMapping("/visibility/{photoId}")
+    public ResponseEntity<String> updatePhotoVisibility(@PathVariable Long photoId, @RequestBody PhotoDTO photoDTO) {
+        boolean visibility = photoDTO.getVisibility();
+        try {
+            return photoService.updatePhotoVisibility(photoId, visibility);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update visibility");
+        }
+    }
 
     /**
      * Deletes a photo by its ID
