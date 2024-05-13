@@ -3,12 +3,16 @@ package com.epitech.pictsmanager.controllers;
 import com.epitech.pictsmanager.dtos.AlbumDTO;
 import com.epitech.pictsmanager.entity.Album;
 import com.epitech.pictsmanager.service.AlbumService;
+import com.epitech.pictsmanager.utils.JwtUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Controller class for handling album-related operations
@@ -18,9 +22,9 @@ import java.util.List;
 @RequestMapping("/api/album")
 public class AlbumController {
 
-    /**
-     * Service for album-related operations
-     */
+	@Autowired
+    private JwtUtil jwtUtil;
+	
     @Autowired
     private AlbumService albumService;
 
@@ -83,10 +87,30 @@ public class AlbumController {
      * @param userId The ID of the user
      * @return ResponseEntity with the list of albums associated with the user and HTTP status 200 (OK)
      */
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Album>> getAlbumsByUserId(@PathVariable Long userId) {
-        List<Album> albums = albumService.getAlbumsByUserId(userId);
-        return ResponseEntity.ok(albums);
+    @GetMapping("/user")
+    public ResponseEntity<List<Album>> getAlbumsByUserId(HttpServletRequest request) {
+        String token = extractTokenFromRequest(request);
+
+        if (token != null) {
+            Long userId = jwtUtil.extractUser(token).getId();
+            List<Album> albums = albumService.getAlbumsByUserId(userId);
+            return ResponseEntity.ok(albums);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+
+    /**
+     * Extracts the JWT token from the HTTP servlet request
+     * @param request The HTTP servlet request
+     * @return The extracted JWT token, or null if not found
+     */
+    private String extractTokenFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
     /**
