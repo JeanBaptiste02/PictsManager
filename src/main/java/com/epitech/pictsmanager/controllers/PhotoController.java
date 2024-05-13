@@ -222,9 +222,10 @@ public class PhotoController {
                     String fileName = file.getOriginalFilename();
                     Path filePath = Paths.get(ownerIdDirPath, fileName);
                     file.transferTo(filePath.toFile());
+                    
+                    String myFilePath = File.separator + "photosData" + File.separator + existingUser.getNom() + File.separator + fileName;
 
-
-                    Photo photo = new Photo(fileName, filePath.toString(), description, date, albumId, existingUser);
+                    Photo photo = new Photo(fileName, myFilePath, description, date, albumId, existingUser);
                     photoService.savePhoto(photo);
 
                     return ResponseEntity.ok().body("Photo uploaded successfully");
