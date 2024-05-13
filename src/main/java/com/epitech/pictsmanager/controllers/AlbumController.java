@@ -105,7 +105,7 @@ public class AlbumController {
      * @param request The HTTP servlet request
      * @return The extracted JWT token, or null if not found
      */
-    private String extractTokenFromRequest(HttpServletRequest request) {
+    public String extractTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);

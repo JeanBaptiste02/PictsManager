@@ -2,16 +2,23 @@ package com.epitech.pictsmanager.controllers;
 
 import com.epitech.pictsmanager.dtos.AlbumDTO;
 import com.epitech.pictsmanager.entity.Album;
+import com.epitech.pictsmanager.entity.User;
 import com.epitech.pictsmanager.service.AlbumService;
+import com.epitech.pictsmanager.utils.JwtUtil;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -99,11 +106,23 @@ class AlbumControllerTest {
         List<Album> albums = Arrays.asList(new Album(), new Album());
         when(albumService.getAlbumsByUserId(userId)).thenReturn(albums);
 
-        ResponseEntity<List<Album>> response = albumController.getAlbumsByUserId(userId);
+        JwtUtil jwtUtil = Mockito.mock(JwtUtil.class);
+        User user = new User();
+        user.setId(userId);
+        when(jwtUtil.extractUser(Mockito.anyString())).thenReturn(user);
+
+        ReflectionTestUtils.setField(albumController, "jwtUtil", jwtUtil);
+
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        String token = "your_valid_token";
+        when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
+
+        ResponseEntity<List<Album>> response = albumController.getAlbumsByUserId(request);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(albums, response.getBody());
     }
+
 
     /**
      * Test method for deleting an album by its ID
@@ -115,4 +134,45 @@ class AlbumControllerTest {
 
         verify(albumService, times(1)).deleteAlbumById(albumId);
     }
+    
+    /**
+     * Test method for token extraction - valid token
+     */
+    @Test
+    public void testExtractTokenFromRequest_ValidToken() {
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        String token = "valid_token";
+        when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
+
+        String extractedToken = albumController.extractTokenFromRequest(request);
+
+        assertEquals(token, extractedToken);
+    }
+
+    /**
+     * Test method for token extraction - without authentification header
+     */
+    @Test
+    public void testExtractTokenFromRequest_NoAuthorizationHeader() {
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        when(request.getHeader("Authorization")).thenReturn(null);
+
+        String extractedToken = albumController.extractTokenFromRequest(request);
+
+        assertNull(extractedToken);
+    }
+
+    /**
+     * Test method for token extraction - invalid authentification header
+     */
+    @Test
+    public void testExtractTokenFromRequest_InvalidAuthorizationHeader() {
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        when(request.getHeader("Authorization")).thenReturn("Invalid Header");
+
+        String extractedToken = albumController.extractTokenFromRequest(request);
+
+        assertNull(extractedToken);
+    }
+
 }
