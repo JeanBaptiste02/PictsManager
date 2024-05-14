@@ -238,5 +238,25 @@ public class PhotoService {
         }
     }
 
+    /**
+     * Updates the visibility of every photos of an album
+     * @param albumId the id of the album
+     * @param visibility The visibility of an image
+     * @return
+     */
+    @Transactional
+    public ResponseEntity<String> updatePhotosVisibilityByAlbumId(Album albumId, boolean visibility) {
+        List<Photo> photos = photoRepository.findByAlbumId(albumId);
+        if (!photos.isEmpty()) {
+            for (Photo photo : photos) {
+                photo.setVisibility(visibility);
+                photoRepository.save(photo);
+            }
+            return ResponseEntity.ok().body("Visibility updated successfully for all photos in the album");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

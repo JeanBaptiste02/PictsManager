@@ -291,5 +291,21 @@ public class PhotoController {
         }
         return null;
     }
-
+    
+    /**
+     * Updates the visibility of evert photos of an album
+     * @param albumId the id of the album
+     * @param photoDTO the Photo DTO
+     * @return
+     */
+    @PutMapping("/album/{albumId}/visibility")
+    public ResponseEntity<String> updatePhotosVisibilityByAlbumId(@PathVariable Album albumId, @RequestBody PhotoDTO photoDTO) {
+        boolean visibility = photoDTO.getVisibility();
+        try {
+            return photoService.updatePhotosVisibilityByAlbumId(albumId, visibility);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update visibility");
+        }
+    }
 }
