@@ -10,19 +10,28 @@ The PictsManager backend is built using Java Spring Boot framework. It provides 
 
 To set up the backend locally, follow these steps:
 
-1. Clone this repository to your local machine.
+1. Clone this repository to your local machine :
+```
+git@github.com:JeanBaptiste02/PictsManager.git
+```
 2. Ensure you have Java JDK and Maven installed on your system.
 3. Install Docker and Docker Compose for containerization and orchestration.
-4. Build the Docker container for the backend using the provided Dockerfile.
-5. Run the Docker container using Docker Compose.
+4. Build the Docker container for the backend using the provided Dockerfile :
+```
+docker build -t pictsmanagerapp .
+```
+5. Run the Docker container using Docker.
+```
+docker run -p 8080:8080 pictsmanagerapp:latest
+```
 
 ## Usage
 
-Once the backend is set up and running, you can interact with it using the provided RESTful APIs. These APIs are documented in the [API Endpoints](#api-endpoints) section below. You can use tools like Postman or curl to make requests to these endpoints.
+Once the backend is set up and running, you can interact with it using the provided RESTful APIs. You can use tools like Postman or curl to make requests to these endpoints.
 
 ## API Endpoints
 
-Detailed documentation of the available API endpoints can be found [here](#). Make sure to authenticate appropriately before accessing protected endpoints.
+Detailed documentation of the available API endpoints can be found in the file `Documentation_Technique_T-DEV-PAR8.pdf`.
 
 ## Authentication
 
@@ -34,4 +43,4 @@ Security measures are implemented at various levels including authentication, au
 
 ## Contributing
 
-Contributions to the PictsManager backend are welcome! Please follow the guidelines outlined in [CONTRIBUTING.md](CONTRIBUTING.md) for making contributions.
+Contributions to the PictsManager backend are welcome!
